@@ -1,0 +1,281 @@
+{
+    functionDef
+    {
+        name                        "FUNC_0"
+        value                       (tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 14) * (player("teamname") == "TEAM_ALLIES")) + (tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 14) * (player("teamname") == "TEAM_AXIS"));
+    }
+    functionDef
+    {
+        name                        "FUNC_1"
+        value                       (tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 15) * (player("teamname") == "TEAM_ALLIES")) + (tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 15) * (player("teamname") == "TEAM_AXIS"));
+    }
+    functionDef
+    {
+        name                        "FUNC_2"
+        value                       (tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 16) * (player("teamname") == "TEAM_ALLIES")) + (tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 16) * (player("teamname") == "TEAM_AXIS"));
+    }
+    functionDef
+    {
+        name                        "FUNC_3"
+        value                       (tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 14) * (player("teamname") == "TEAM_AXIS")) + (tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 14) * (player("teamname") == "TEAM_ALLIES"));
+    }
+    functionDef
+    {
+        name                        "FUNC_4"
+        value                       (tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 15) * (player("teamname") == "TEAM_AXIS")) + (tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 15) * (player("teamname") == "TEAM_ALLIES"));
+    }
+    functionDef
+    {
+        name                        "FUNC_5"
+        value                       (tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 16) * (player("teamname") == "TEAM_AXIS")) + (tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 16) * (player("teamname") == "TEAM_ALLIES"));
+    }
+    functionDef
+    {
+        name                        "FUNC_6"
+        value                       team("name") == "TEAM_ALLIES";
+    }
+    functionDef
+    {
+        name                        "FUNC_7"
+        value                       team("name") == "TEAM_AXIS";
+    }
+    functionDef
+    {
+        name                        "FUNC_8"
+        value                       ((team("name") == "TEAM_AXIS") * 1) + ((team("name") == "TEAM_ALLIES") * 2);
+    }
+    functionDef
+    {
+        name                        "FUNC_9"
+        value                       tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 14);
+    }
+    functionDef
+    {
+        name                        "FUNC_10"
+        value                       tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 15);
+    }
+    functionDef
+    {
+        name                        "FUNC_11"
+        value                       tablelookup("mp/factionTable.csv", 0, getmapcustom("allieschar"), 16);
+    }
+    functionDef
+    {
+        name                        "FUNC_12"
+        value                       tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 14);
+    }
+    functionDef
+    {
+        name                        "FUNC_13"
+        value                       tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 15);
+    }
+    functionDef
+    {
+        name                        "FUNC_14"
+        value                       tablelookup("mp/factionTable.csv", 0, getmapcustom("axischar"), 16);
+    }
+    functionDef
+    {
+        name                        "FUNC_15"
+        value                       (FUNC_12() * FUNC_7()) + (FUNC_9() * FUNC_6());
+    }
+    functionDef
+    {
+        name                        "FUNC_16"
+        value                       (FUNC_13() * FUNC_7()) + (FUNC_10() * FUNC_6());
+    }
+    functionDef
+    {
+        name                        "FUNC_17"
+        value                       (FUNC_14() * FUNC_7()) + (FUNC_11() * FUNC_6());
+    }
+    functionDef
+    {
+        name                        "FUNC_18"
+        value                       (FUNC_12() * !(FUNC_7())) + (FUNC_9() * (!FUNC_6()));
+    }
+    functionDef
+    {
+        name                        "FUNC_19"
+        value                       (FUNC_13() * !(FUNC_7())) + (FUNC_10() * (!FUNC_6()));
+    }
+    functionDef
+    {
+        name                        "FUNC_20"
+        value                       (FUNC_14() * !(FUNC_7())) + (FUNC_11() * (!FUNC_6()));
+    }
+    functionDef
+    {
+        name                        "FUNC_21"
+        value                       max(0, (localvarint("ui_ac130timer") - milliseconds()) / 1000);
+    }
+    functionDef
+    {
+        name                        "FUNC_22"
+        value                       (getplayercardinfo(0, 0, 7) != 0) && (getplayercardinfo(6, 0, 7) && getplayercardinfo(6, 0, 7) == FUNC_8());
+    }
+    functionDef
+    {
+        name                        "FUNC_23"
+        value                       (getplayercardinfo(0, 0, 8) != 0) && (getplayercardinfo(6, 0, 8) && getplayercardinfo(6, 0, 8) == FUNC_8());
+    }
+    functionDef
+    {
+        name                        "FUNC_24"
+        value                       (getplayercardinfo(0, 0, 5) != 0) && (getplayercardinfo(6, 0, 5) && getplayercardinfo(6, 0, 5) == FUNC_8());
+    }
+    functionDef
+    {
+        name                        "FUNC_25"
+        value                       (getplayercardinfo(0, 0, 7) != 0) && (!getplayercardinfo(6, 0, 7) || getplayercardinfo(6, 0, 7) != FUNC_8());
+    }
+    functionDef
+    {
+        name                        "FUNC_26"
+        value                       (getplayercardinfo(0, 0, 8) != 0) && (!getplayercardinfo(6, 0, 8) || getplayercardinfo(6, 0, 8) != FUNC_8());
+    }
+    functionDef
+    {
+        name                        "FUNC_27"
+        value                       (getplayercardinfo(0, 0, 5) != 0) && (!getplayercardinfo(6, 0, 5) || getplayercardinfo(6, 0, 5) != FUNC_8());
+    }
+    functionDef
+    {
+        name                        "FUNC_28"
+        value                       getplayerdata("customClasses", 0, "inUse") || getplayerdata("customClasses", 1, "inUse") || getplayerdata("customClasses", 2, "inUse") || getplayerdata("customClasses", 3, "inUse") || getplayerdata("customClasses", 4, "inUse") || getplayerdata("customClasses", 5, "inUse") || getplayerdata("customClasses", 6, "inUse") || getplayerdata("customClasses", 7, "inUse") || getplayerdata("customClasses", 8, "inUse") || getplayerdata("customClasses", 9, "inUse");
+    }
+    functionDef
+    {
+        name                        "FUNC_29"
+        value                       dvarbool(cl_ingame) || dvarbool(sv_running);
+    }
+    functionDef
+    {
+        name                        "FUNC_30"
+        value                       dvarbool(cl_ingame) || dvarbool(sv_running) || inlobby();
+    }
+    functionDef
+    {
+        name                        "FUNC_31"
+        value                       (dvarstring(gameMode) == "so" && FUNC_30()) || (dvarstring(gameMode) == "mp" && FUNC_30());
+    }
+    functionDef
+    {
+        name                        "FUNC_32"
+        value                       (localvarstring("ui_attachment1Name") == "silencer") || (localvarstring("ui_attachment2Name") == "silencer") || (localvarstring("ui_attachment3Name") == "silencer") || (localvarstring("ui_attachment4Name") == "silencer") || (localvarstring("ui_attachment5Name") == "silencer") || (localvarstring("ui_attachment6Name") == "silencer") || (localvarstring("ui_attachment8Name") == "silencer") || (localvarstring("ui_attachment9Name") == "silencer") || (localvarstring("ui_attachment10Name") == "silencer") || (localvarstring("ui_attachment11Name") == "silencer") || (localvarstring("ui_attachment12Name") == "silencer") || (localvarstring("ui_attachment13Name") == "silencer") || (localvarstring("ui_attachment14Name") == "silencer") || (localvarstring("ui_attachment15Name") == "silencer");
+    }
+    functionDef
+    {
+        name                        "FUNC_33"
+        value                       getplayerdata("customClasses", localvarint("classIndex"), "perks", 1) == "specialty_bling";
+    }
+    functionDef
+    {
+        name                        "FUNC_34"
+        value                       getplayerdata("customClasses", localvarint("classIndex"), "perks", 1) == "specialty_bling" && isitemunlocked("specialty_secondarybling");
+    }
+    functionDef
+    {
+        name                        "FUNC_35"
+        value                       (FUNC_33() && menuisopen("popup_primary_attachments_bling")) || (FUNC_34() && menuisopen("popup_secondary_attachments_bling"));
+    }
+    functionDef
+    {
+        name                        "FUNC_36"
+        value                       int(tablelookup("mp/killstreakTable.csv", 1, localvarstring("ui_streak1Name"), 4)) == int(tablelookup("mp/killstreakTable.csv", 1, localvarstring("ui_selected_ref"), 4));
+    }
+    functionDef
+    {
+        name                        "FUNC_37"
+        value                       int(tablelookup("mp/killstreakTable.csv", 1, localvarstring("ui_streak2Name"), 4)) == int(tablelookup("mp/killstreakTable.csv", 1, localvarstring("ui_selected_ref"), 4));
+    }
+    functionDef
+    {
+        name                        "FUNC_38"
+        value                       int(tablelookup("mp/killstreakTable.csv", 1, localvarstring("ui_streak3Name"), 4)) == int(tablelookup("mp/killstreakTable.csv", 1, localvarstring("ui_selected_ref"), 4));
+    }
+    functionDef
+    {
+        name                        "FUNC_39"
+        value                       int(tablelookup("mp/unlockTable.csv", 0, localvarstring("ui_nextToken"), 2) - levelforexperience(getplayerdata("experience")));
+    }
+    functionDef
+    {
+        name                        "FUNC_40"
+        value                       getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "masada", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "m16", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "tavor", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "fn2000", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "m4", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "scar", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "ak47", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "fal", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "famas", 0)));
+    }
+    functionDef
+    {
+        name                        "FUNC_41"
+        value                       getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "mp5k", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "uzi", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "kriss", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "ump45", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "p90", 0)));
+    }
+    functionDef
+    {
+        name                        "FUNC_42"
+        value                       getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "m240", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "sa80", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "rpd", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "aug", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "mg4", 0)));
+    }
+    functionDef
+    {
+        name                        "FUNC_43"
+        value                       getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "cheytac", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "m21", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "barrett", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "wa2000", 0)));
+    }
+    functionDef
+    {
+        name                        "FUNC_44"
+        value                       getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "glock", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "tmp", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "beretta393", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "pp2000", 0)));
+    }
+    functionDef
+    {
+        name                        "FUNC_45"
+        value                       getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "striker", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "aa12", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "ranger", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "m1014", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "model1887", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "spas12", 0)));
+    }
+    functionDef
+    {
+        name                        "FUNC_46"
+        value                       getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "usp", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "coltanaconda", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "deserteagle", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "beretta", 0)));
+    }
+    functionDef
+    {
+        name                        "FUNC_47"
+        value                       getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "at4", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "rpg", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "javelin", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "stinger", 0))) || getplayerdata("challengeTierNew", int(tablelookup("mp/challengeTable.csv", 6, "m79", 0)));
+    }
+    functionDef
+    {
+        name                        "FUNC_48"
+        value                       FUNC_40() || FUNC_41() || FUNC_42() || FUNC_43();
+    }
+    functionDef
+    {
+        name                        "FUNC_49"
+        value                       FUNC_44() || FUNC_45() || FUNC_46() || FUNC_47();
+    }
+    functionDef
+    {
+        name                        "FUNC_50"
+        value                       tablelookup("mp/rankTable.csv", 0, levelforexperience(getplayerdata("experience")), 2);
+    }
+    functionDef
+    {
+        name                        "FUNC_51"
+        value                       tablelookup("mp/rankTable.csv", 0, levelforexperience(getplayerdata("experience")), 7);
+    }
+    functionDef
+    {
+        name                        "FUNC_52"
+        value                       min((getplayerdata("experience") - FUNC_50()) / (FUNC_51() - FUNC_50()), 0.9999);
+    }
+    functionDef
+    {
+        name                        "FUNC_54"
+        value                       (sin(milliseconds() / 100) * 0.5 + 0.5) * 0.25 + 0.75;
+    }
+    loadMenu { "ui_mp/player_popup_party.menu" }
+    loadMenu { "ui_mp/player_popup_publiclobby.menu" }
+    loadMenu { "ui_mp/player_popup_privatematch.menu" }
+    loadMenu { "ui_mp/hostchangewarning.menu" }
+    loadMenu { "ui_mp/youarehost.menu" }
+    loadMenu { "ui_mp/popup_serverpassword.menu" }
+    loadMenu { "ui_mp/popup_joinpassword.menu" }
+    loadMenu { "ui_mp/settings_map.menu" }
+    loadMenu { "ui_mp/settings_bonus_map.menu" }
+}

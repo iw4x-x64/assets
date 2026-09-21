@@ -105,10 +105,11 @@ Now this means the `english/` component under `lang/french/` is
 deliberate. We are reproducing the path the Linker asks for inside an
 overlay whose outer directory identifies which build we are performing.
 
-A language in the build system is represented by a group. The group name
-is the directory name that will eventually be searched by the game, so
-building the `french` group means producing the complete set of
-fastfiles for that group with the French overlay active.
+A language in the build system is represented by a group. Building the
+`french` group means producing the complete set of localized fastfiles
+with the French overlay active. They are installed under
+`zone/iw4x/x64/patch/french/`, which keeps them apart from the stock
+fastfiles in the retail language directories.
 
 There is a useful property to doing this with an asset search path
 instead of special-casing localized strings. The overlay is an ordinary

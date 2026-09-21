@@ -23,7 +23,11 @@ config [path, null] config.assets.linker ?= [null]
 # english/. That little trick is what the lang/ overlay is for. See
 # doc/localization.md for the full arrangement.
 #
-config [strings] config.assets.languages ?= english
+# By default we build every language the retail game ships, so that an
+# installation is complete for whichever language the player runs. Name
+# fewer to build less, for example while working on a single language.
+#
+config [strings] config.assets.languages ?= english french italian spanish
 
 # These two are passed straight through to the Linker.
 #

@@ -185,7 +185,7 @@ installation targets.
 | ------------------------------------ | ----------------------- | ------------------------------------------------- |
 | `config.assets.linker`               | found on `PATH`         | Linker used to build fastfiles                    |
 | `config.assets.unlinker`             | found beside the Linker | Unlinker used by `b test`                         |
-| `config.assets.languages`            | `english`               | language groups selected for building             |
+| `config.assets.languages`            | all four shipped       | language groups selected for building             |
 | `config.assets.menu_permissive`      | `false`                 | permit unrecognised menu script commands          |
 | `config.assets.menu_no_optimization` | `false`                 | preserve parsed menus closer to their source form |
 
@@ -275,7 +275,8 @@ zone/iw4x/x64/patch/
 The `localized` group is the interesting case.
 
 A localized fastfile is produced once for every selected language from
-`config.assets.languages`. With:
+`config.assets.languages`. By default that is every language the retail game
+ships: English, French, Italian and Spanish. Naming fewer builds less. With:
 
 ```build2
 config.assets.languages=english french
@@ -284,13 +285,13 @@ config.assets.languages=english french
 a localized zone has an English instance under:
 
 ```text
-zone/iw4x/x64/english/
+zone/iw4x/x64/patch/english/
 ```
 
 and a French instance under:
 
 ```text
-zone/iw4x/x64/french/
+zone/iw4x/x64/patch/french/
 ```
 
 Each instance is still the same logical fastfile target from the project's

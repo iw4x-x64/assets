@@ -11,10 +11,14 @@
 # of zones they contain, so those are built once under the group named
 # here.
 #
-localized   = example
-patch       =
+localized   = example iw4x_localized_ui_mp
+patch       = iw4x_code_post_gfx_mp iw4x_patch_mp
 dlc         =
 zonebuilder =
+
+# Zones built with permissive menu parsing.
+#
+permissive_menus = iw4x_code_post_gfx_mp iw4x_localized_ui_mp iw4x_patch_mp
 
 # Keep the complete set of language groups in the build graph.
 #
@@ -56,11 +60,13 @@ for g: $languages patch dlc zonebuilder
   {
     names   = $localized
     enabled = $find($config.assets.languages, $g)
+    subdir  = patch/$g/
   }
   else
   {
     names   = $($g)
     enabled = true
+    subdir  = $g/
   }
 
   for n: $names
@@ -112,11 +118,9 @@ for g: $languages patch dlc zonebuilder
       group     = $g
       zone_name = $n
 
-      # The installation root is the game directory. Fastfiles live
-      # directly under its zone/iw4x/x64/<group>/ tree, so record the
-      # group here as part of the target's installation path.
-      #
-      install = root/zone/iw4x/x64/$g/
+      menu_permissive = ($config.assets.menu_permissive || $find($permissive_menus, $n))
+
+      install = root/zone/iw4x/x64/$subdir
     }
     {{
       out = $directory($path($>))
@@ -144,7 +148,7 @@ for g: $languages patch dlc zonebuilder
       #
       args += --add-asset-search-path "$src_root/lang/$group"
 
-      if $config.assets.menu_permissive
+      if ($menu_permissive)
       {
         args += --menu-permissive
       }

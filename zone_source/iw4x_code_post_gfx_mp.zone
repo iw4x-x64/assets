@@ -1,0 +1,56 @@
+>game,IW4MS
+
+// Order matters here.
+//
+// The menu lists come first, and among them those carrying functionDef
+// blocks. The dump writes the zone's shared function table into the lists it
+// wrote, and the Linker makes a function available to every later menu once
+// the list defining it has been parsed, but not before. A menu calling FUNC_29
+// ahead of that definition fails with "Unknown function".
+
+material,,$levelbriefing
+material,,cinematic
+material,,drop_shadow_b
+material,,drop_shadow_bl
+material,,drop_shadow_br
+material,,drop_shadow_l
+material,,drop_shadow_r
+material,,drop_shadow_t
+material,,drop_shadow_tl
+material,,drop_shadow_tr
+material,,gradient_bottom
+material,,gradient_fadein
+material,,logo_iw
+material,,menu_button_selection_bar
+material,,mockup_popup_bg_stencilfill
+material,,mw2_popup_bg_fogscroll
+material,,mw2_popup_bg_fogstencil
+material,,popmenu_bg
+material,,popup_button_selection_bar
+material,,small_box_lightfx
+material,,white
+material,,xpbar_stencilbase
+
+menulist,ui_mp/code.txt
+
+menu,error_popmenu
+menu,error_popmenu_submenu
+menu,save_corrupted
+menu,popup_connecting
+menu,popup_connecting_gdk
+menu,popup_drm_menu_gdk
+menu,popup_drm_menu_gdk_invalid_license
+menu,popup_drm_menu_gdk_license_error
+menu,popup_cloudsync_gdk
+menu,popup_store_mismatch_gdk
+menu,popup_friends_list_empty_gdk
+menu,popup_acceptinginvite
+menu,popup_gettingdata
+menu,error_popmenu_party
+menu,error_popmenu_lobby
+menu,popup_reconnectingtoparty
+menu,acceptinvite_warning
+menu,pregame_loaderror
+menu,pregame_loaderror_mp
+menu,menu_resetstats_warning
+menu,connect
