@@ -1,0 +1,135 @@
+# Project configuration.
+#
+# Keep this in build/config/ since bpkg may need to evaluate it without
+# the rest of the source tree around. See Package Build System Skeleton
+# in the package manager manual for the details.
+#
+
+# The Linker from open-asset-tools is what turns a zone definition into
+# a fastfile. It is an external program, so there is no package
+# configuration to import here. If the user gave us a path, then that is
+# the program to use, otherwise we will try to find one below.
+#
+config [path, null] config.assets.linker ?= [null]
+
+# The languages to build. A language here really means a complete zone
+# group and, in turn, a directory below zone/iw4x/x64/ that the engine
+# knows how to search.
+#
+# Note that the Linker itself has no notion of selecting a language. It
+# always reads english/localizedstrings/ and always uses the
+# LANG_ENGLISH value from a reference. So to build, say, french, we have
+# to present the Linker with a different tree that still looks like
+# english/. That little trick is what the lang/ overlay is for. See
+# doc/localization.md for the full arrangement.
+#
+config [strings] config.assets.languages ?= english
+
+# These two are passed straight through to the Linker.
+#
+# Permissive mode is useful for menus that contain commands added by the
+# client. The stock menu parser does not know about such commands and
+# would reject them otherwise.
+#
+# Disabling optimization is mostly useful when inspecting generated
+# menus. The result stays closer to what was written in the source, with
+# the expected increase in fastfile size and load work.
+#
+config [bool] config.assets.menu_permissive      ?= false
+config [bool] config.assets.menu_no_optimization ?= false
+
+# Find the Linker now.
+#
+# A configured path wins. Otherwise try the names under which
+# open-asset-tools normally installs it. We keep the resolved path
+# around instead of just the configured value since that is the
+# interesting bit when a fastfile later refuses to load: which exact
+# Linker did we end up running?
+#
+if ($config.assets.linker != [null])
+{
+  linker_path = $config.assets.linker
+
+  assert ($file_exists($linker_path)) \
+    "config.assets.linker does not name an existing file: $linker_path"
+}
+else
+{
+  linker_path = [path] $process.search(Linker)
+
+  if ($linker_path == [null])
+    linker_path = [path] $process.search(oat-linker)
+
+  assert ($linker_path != [null]) \
+    "unable to find the open-asset-tools Linker on PATH; set config.assets.linker to its path"
+}
+
+# Ask the Linker for its version as well. Together with linker_path this
+# gives us enough information to identify the tool that produced the
+# fastfiles, which tends to be one of the first useful facts when
+# something written by one Linker cannot later be loaded.
+#
+# There is one related requirement that we deliberately leave to the
+# Linker. IW4MS fastfiles serialize eight-byte pointers and so writing
+# them requires a 64-bit build. A 32-bit Linker already diagnoses this
+# case with:
+#
+#   Writing IW4MS zones needs a 64 bit build: its pointers are 8 bytes
+#   wide.
+#
+# We could perhaps verify the executable ourselves, though there is no
+# useful word-size information in --version. Doing it here would mean
+# teaching this buildfile enough about executable formats to inspect the
+# binary, or relying on some host utility such as file(1). Let the
+# program that actually knows the constraint diagnose it instead.
+#
+# One small wart is that --version is processed before --no-color, so
+# its output contains SGR escapes regardless of the command-line
+# setting. Strip those here as they otherwise become part of the value
+# stored in the depdb and printed in the configuration report.
+#
+linker_version = $regex.replace($process.run($linker_path --version), '\x1b\\[[0-9;]*m', '')
+
+# The Unlinker does the reverse job and reads a fastfile back. We only
+# need it for `b test`, where we use it to check that a fastfile just
+# written by the Linker can in fact be read again.
+#
+# It is intentionally optional. Building the actual fastfiles does not
+# need it, and a missing test helper should not prevent an otherwise
+# usable source tree from being configured. The round-trip test can
+# report the missing tool as a skipped test.
+#
+# open-asset-tools normally places the two programs together, so first
+# look next to the Linker we resolved above. If that does not find it,
+# fall back to PATH.
+#
+config [path, null] config.assets.unlinker ?= [null]
+
+if ($config.assets.unlinker != [null])
+{
+  unlinker_path = $config.assets.unlinker
+
+  assert ($file_exists($unlinker_path)) \
+    "config.assets.unlinker does not name an existing file: $unlinker_path"
+}
+else
+{
+  # Note that converting a dir_path to a string drops the trailing
+  # directory separator. Write it explicitly here so that appending
+  # Unlinker cannot turn the directory name and executable name into one
+  # path component.
+  #
+  unlinker_path = [path] "$directory($linker_path)/Unlinker"
+
+  if! $file_exists($unlinker_path)
+    unlinker_path = [path] $process.search(Unlinker)
+}
+
+# The config directive already reports config.assets.*. What we want
+# here are the values that the build actually settled on. Those can
+# differ whenever a tool was discovered instead of named explicitly, so
+# report the resolved values separately.
+#
+config [config.report] linker_path
+config [config.report] unlinker_path
+config [config.report] linker_version

@@ -1,0 +1,170 @@
+# Directory manifest for an IW4 x64 (IW4MS) fastfile project.
+#
+# Each line is a class and a path, separated by a tab. The tree under
+# templates/fastfile/ is generated from this file, and
+# templates/buildfile asserts that every directory in it carries a
+# README.md.
+#
+# The set of directories was taken from a complete Unlinker dump of the
+# retail IW4x x64 zone tree, being 116 zones in each of four languages,
+# and was then checked against the OAT loader and dumper sources.
+# Directories that exist in retail but hold content rather than
+# structure, such as the per weapon subdirectories of sound/weapons/,
+# are deliberately omitted.
+#
+# The class determines whether the directory name belongs in a zone
+# definition:
+#
+#   asset   The directory name is supplied by the tooling. The zone
+#           definition names the asset on its own, or gives a path below
+#           the directory, but does not repeat the directory itself. For
+#           example, "fx,muzzleflashes/pistolflash" is built from
+#           fx/muzzleflashes/pistolflash.efx.
+#
+#   raw     The asset name is the path itself. The entry repeats this
+#           directory and includes the extension, as in
+#           "rawfile,animscripts/dog/dog_combat.gsc".
+#
+#   sub     The directory does not appear in a zone definition. Its
+#           files are written by the dumper of another asset and are
+#           referred to by name from within that asset.
+#
+# Keep the entries sorted within each class.
+#
+asset	zone_source
+asset	english
+asset	english/localizedstrings
+asset	images
+asset	materials
+asset	materials/fonts
+asset	materials/gfx
+asset	materials/gfx/icons
+asset	materials/gfx/reticle
+asset	materials/m
+asset	materials/mc
+asset	materials/w
+asset	materials/wc
+asset	techsets
+asset	techniques
+asset	shader_bin
+asset	vertexdecl
+asset	xmodel
+asset	model_export
+asset	xanim
+asset	fx
+asset	fx/ambient_runners
+asset	fx/animals
+asset	fx/breakables
+asset	fx/code
+asset	fx/distortion
+asset	fx/dust
+asset	fx/explosions
+asset	fx/fire
+asset	fx/impacts
+asset	fx/misc
+asset	fx/muzzleflashes
+asset	fx/props
+asset	fx/shellejects
+asset	fx/smoke
+asset	fx/snow
+asset	fx/test
+asset	fx/treadfx
+asset	fx/water
+asset	fx/weather
+asset	sound
+asset	sound/ac130
+asset	sound/airplane
+asset	sound/amb_elements
+asset	sound/amb_emitters
+asset	sound/animal
+asset	sound/bodyfalls
+asset	sound/cobra
+asset	sound/doors
+asset	sound/events
+asset	sound/explosions
+asset	sound/fire
+asset	sound/foley
+asset	sound/footsteps
+asset	sound/items
+asset	sound/level
+asset	sound/misc
+asset	sound/mp
+asset	sound/music
+asset	sound/physics
+asset	sound/seaknight
+asset	sound/user_interface
+asset	sound/vehicles
+asset	sound/voiceovers
+asset	sound/weapons
+asset	sound/whizbys
+asset	soundaliases
+asset	weapons
+asset	physic
+asset	phys_collmaps
+asset	lights
+asset	tracer
+asset	vehicles
+asset	fonts
+asset	impactfx
+asset	leaderboards
+asset	clipmap_mp
+asset	clipmap_mp/maps
+asset	clipmap_mp/maps/mp
+asset	comworld
+asset	comworld/maps
+asset	comworld/maps/mp
+asset	fxworld
+asset	fxworld/maps
+asset	fxworld/maps/mp
+asset	gameworld_mp
+asset	gameworld_mp/maps
+asset	gameworld_mp/maps/mp
+asset	gameworld_sp
+asset	gameworld_sp/maps
+asset	gfxworld
+asset	gfxworld/maps
+asset	gfxworld/maps/mp
+asset	ui
+asset	ui/scriptmenus
+asset	ui_mp
+asset	ui_mp/scriptmenus
+raw	aim_assist
+raw	aitype
+raw	animscripts
+raw	animscripts/civilian
+raw	animscripts/dog
+raw	animscripts/hummer_turret
+raw	animscripts/riotshield
+raw	animscripts/saw
+raw	animscripts/scripted
+raw	animscripts/technical
+raw	animscripts/traverse
+raw	animtrees
+raw	character
+raw	codescripts
+raw	common_scripts
+raw	info
+raw	maps
+raw	maps/animated_models
+raw	maps/createart
+raw	maps/createfx
+raw	maps/mp
+raw	maps/mp/gametypes
+raw	maps/mp/killstreaks
+raw	maps/mp/perks
+raw	mp
+raw	mp/challenges
+raw	mp/configstrings
+raw	mptype
+raw	radiant
+raw	rumble
+raw	scriptdebugger
+raw	shock
+raw	sp
+raw	vehicle
+raw	video
+raw	vision
+raw	xmodelalias
+sub	accuracy
+sub	accuracy/aivsai
+sub	accuracy/aivsplayer

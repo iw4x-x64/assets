@@ -1,0 +1,21 @@
+# Assets in this tree are shared by every zone we build.
+#
+# The Linker searches it as one of its default asset roots, so a zone
+# can refer to a file here without the build having to add another
+# search path for each target. This is where an asset belongs when its
+# contents are independent of the particular zone that happens to use
+# it.
+#
+# Note that this is separate from zone_raw/, where the source tree is
+# arranged around individual zone inputs. Keeping the common files here
+# means two zones that use the same asset really do consume the same
+# source file instead of carrying private copies that can quietly drift
+# apart.
+#
+./: file{** -buildfile}
+
+# These files are inputs to the Linker. Their contents are folded into
+# the fastfiles that consume them, so there is nothing useful to install
+# from this tree alongside the finished game data.
+#
+file{** -buildfile}: install = false

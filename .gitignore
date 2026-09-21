@@ -1,0 +1,46 @@
+.bdep/
+
+# Local default options files.
+#
+.build2/local/
+
+# Compiler/linker output.
+#
+# Note that *.exe.dlls directories can be symlinks thus
+# no trailing /.
+#
+*.d
+*.t
+*.i
+*.i.*
+*.ii
+*.ii.*
+*.o
+*.obj
+*.gcm
+*.pcm
+*.ifc
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.exe
+*.exe.dlls
+*.exe.manifest
+*.pc
+
+# Compilation database.
+#
+compile_commands.json
+
+# Built fastfiles.
+#
+# For an in-source build these end up under zone/<group>/ next to the
+# buildfile that declares them, and so need to be ignored here. With an
+# out-of-source build they live in the output tree and never appear here.
+#
+*.ff

@@ -1,0 +1,19 @@
+# GDT files live in this tree.
+#
+# A zone definition brings one in with a >gdt directive, at which point
+# the Linker looks for the named file in its GDT search path. This
+# directory is the default root for that lookup, so the path written in
+# the zone definition is interpreted relative to here.
+#
+# Keeping the files in the location the Linker already searches means
+# the zone definitions can name the GDT they need without the build
+# having to construct another search path for each target.
+#
+./: file{** -buildfile}
+
+# These files are source inputs consumed by the Linker when it
+# constructs a fastfile. The resulting fastfile carries the assets
+# described by them, so the GDT files themselves do not belong in the
+# installed game tree.
+#
+file{** -buildfile}: install = false

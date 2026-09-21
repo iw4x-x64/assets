@@ -1,0 +1,35 @@
+# These are templates, not build inputs. They are meant to be copied
+# when starting a new fastfile project and then edited there. Still,
+# let's make all the files targets so that they make it into the
+# distribution and a source distribution remains sufficient for creating
+# a project from scratch.
+#
+# There is no corresponding install=false here. file{} is already not
+# installed by default, which gives us exactly the semantics we want.
+#
+# Now, there is a small wrinkle with empty directories. Git does not
+# track them, so normally we could put a .gitkeep into each one. That
+# does not quite work here: build2 wildcard matching ignores a name
+# starting with '.' if the pattern itself does not start with one. In
+# other words, file{**} would not see such a placeholder and the
+# directory would still disappear from the distribution.
+#
+# We could invent another placeholder convention, but every template
+# directory needs an explanation anyway. So put a README.md into each
+# directory and let that be the file which keeps it around. This has the
+# nice property that after copying the template there is something in
+# each directory explaining what is expected to go there.
+#
+./: file{** -buildfile}
+
+# And let's check this convention here. Counting directories against
+# README.md files is sufficient since each README lives directly in the
+# directory it documents. So adding a directory without its README, or
+# removing one later, makes the build fail as soon as this buildfile is
+# loaded instead of silently dropping that part of the template from the
+# distribution.
+#
+template_dirs    = $path_search('fastfile/**/', $src_base)
+template_readmes = $path_search('fastfile/**/README.md', $src_base)
+
+assert ($size($template_dirs) == $size($template_readmes)) "every directory under templates/fastfile/ must carry a README.md; see templates/fastfile.dirs for the directory manifest"

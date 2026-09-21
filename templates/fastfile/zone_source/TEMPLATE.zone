@@ -1,0 +1,77 @@
+// Template for an IW4 x64 zone definition.
+//
+// Rename this file to <project>.zone before adding it to the build. The
+// Linker selects a definition from the target name and looks for
+// <target>.zone on its source search path. There is no name inside the
+// definition that establishes that relationship, so the filename is
+// part of the build interface.
+//
+// IW4MS names the retail Microsoft Store/GDK x64 variant of Modern
+// Warfare 2. Its asset data is IW4 data, but its fastfiles contain
+// 8-byte serialized pointers. This is why the Linker treats it as a
+// separate game and why an x64 Linker build is required.
+//
+// Note that >game,IW4 is not interchangeable with >game,IW4MS here. It
+// selects the 32-bit IW4 fastfile format and the x64 game will reject
+// the result.
+//
+>game,IW4MS
+
+// By default the output fastfile takes its name from this definition.
+// Use
+// >name when the build target and the name written to disk need to
+// differ. A common case is a project that deliberately produces the
+// name of a stock zone so that the installed fastfile replaces it.
+//
+// >name,TEMPLATE
+
+// Assets are written one per line as <type>,<name>. The type tells the
+// Linker which asset loader to use and the name is interpreted
+// according to that loader.
+//
+// There is one small syntax detail worth calling out here. An empty
+// field between the type and name marks the asset as a reference. The
+// asset is then expected to come from a zone already loaded by the game
+// and is not serialized into this fastfile.
+//
+// For example:
+//
+//   material,mc/mtl_example     writes mc/mtl_example into this fastfile
+//   material,,mc/mtl_example    records a reference to the loaded material
+//
+// Note that the spelling of an asset name is type-specific. Some asset
+// types include a directory component in the name and some do not. See
+// ../README.md for the naming rule and the source directory used by
+// each type.
+//
+// localize,TEMPLATE
+// techniqueset,,2d
+// image,example_image
+// material,example_material
+// xmodel,example_model
+// rawfile,common_scripts/example.gsc
+// menu,example_menu
+// menulist,ui/example_menus.txt
+
+// A definition can contain directives in addition to asset entries.
+//
+// include expands another zone definition at this point and brings its
+// assets into this zone.
+//
+// include,other_project
+
+// ignore tells the Linker that another zone already provides those
+// assets. They are left out of this fastfile, which is how a zone can
+// depend on content that the game is expected to have loaded already.
+//
+// ignore,common_mp
+
+// build names another zone target that belongs to the same project. The
+// Linker builds that target as part of processing this definition.
+//
+// build,TEMPLATE_extra
+
+// >gdt loads a GDT by name. The lookup uses the Linker's GDT search
+// path. source_data/ is the default tree in this project.
+//
+// >gdt,example

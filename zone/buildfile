@@ -1,0 +1,214 @@
+# The fastfiles we build, grouped the same way the engine will see them.
+#
+# A group is a directory under zone/iw4x/x64/. This is more than an
+# installation detail: the engine searches these directories in a
+# particular order, so putting a fastfile into a group decides when that
+# fastfile can be found.
+#
+# Localized zones are a little special here. There is one source zone
+# and we build it once for each selected language, with the result going
+# into that language's group. The other groups already describe the set
+# of zones they contain, so those are built once under the group named
+# here.
+#
+localized   = example
+patch       =
+dlc         =
+zonebuilder =
+
+# Keep the complete set of language groups in the build graph.
+#
+# It may be tempting to use config.assets.languages here and simply omit
+# the groups that are not configured. That would make the graph depend
+# on the configuration, which is a problem for operations such as dist
+# that inspect the graph. A source distribution prepared with only
+# English configured would then differ from one prepared with all
+# languages configured.
+#
+# So enumerate the groups independently of configuration and decide
+# below, through the include prerequisite variable, which of their
+# targets take part in a normal build. See "How do I keep the build
+# graph configuration-independent?" in the build2 HOWTO for the general
+# form of this arrangement.
+#
+languages = english french italian spanish
+
+for g: $languages patch dlc zonebuilder
+{
+  # fsdir{} creates the directory represented by the target but expects
+  # its parent to exist as a target already. Declare both levels here so
+  # that, say, french/ can be created in an otherwise empty output tree.
+  #
+  fsdir{$g/}: fsdir{./}
+
+  # Work out what this group means.
+  #
+  # A language group always contains the localized set. Whether we
+  # actually build that set for this language is left to
+  # config.assets.languages.
+  #
+  # For the remaining groups the variable has the same name as the
+  # group. This lets $($g) do the lookup directly. An undefined variable
+  # expands to an empty list, which is just what we want for an empty
+  # group.
+  #
+  if $find($languages, $g)
+  {
+    names   = $localized
+    enabled = $find($config.assets.languages, $g)
+  }
+  else
+  {
+    names   = $($g)
+    enabled = true
+  }
+
+  for n: $names
+  {
+    # Note that the target is present in the graph in either case.
+    # include only controls whether it participates in the build. This
+    # is the other half of keeping the graph independent of
+    # config.assets.languages above.
+    #
+    ./: $g/ff{$n}: include = $enabled
+
+    # We have to spell out the asset inputs here since the Linker gives
+    # us no dependency information after reading a zone.
+    #
+    # A compiler normally tells the build system which headers it opened
+    # and those can become exact dependencies of the object file. There
+    # is no corresponding facility in the Linker. Once it has followed
+    # the zone definition through its asset search paths, all we get
+    # back is the fastfile.
+    #
+    # So depend on the trees from which the Linker can obtain input.
+    # This is intentionally conservative. Changing one file in raw/ may
+    # rebuild a fastfile that never reads that file. The cost is an
+    # unnecessary Linker invocation as missing a real input would leave
+    # an old fastfile looking up-to-date.
+    #
+    # We could try to reproduce the Linker's asset discovery here by
+    # parsing the zone definition and everything it can pull in. That
+    # would give us a second implementation of the same rules, with
+    # stale output as the failure mode when the two implementations
+    # disagree. Depending on the search trees keeps the rule simple and,
+    # more importantly, keeps the failure mode on the safe side.
+    #
+    $g/ff{$n}: $src_root/zone_source/zone{$n}              \
+               $src_root/zone_raw/$n/file{** -buildfile}   \
+               $src_root/raw/file{** -buildfile}           \
+               $src_root/lang/$g/file{** -buildfile}       \
+               $src_root/source_data/file{** -buildfile}   \
+               fsdir{$g/}
+    {
+      # Save the loop values on the target.
+      #
+      # This may look redundant with $g and $n immediately above, but
+      # the recipe is evaluated later, after these loops have run.
+      # Referring to the loop variables from there would give us their
+      # later values. Target variables capture the values that belong to
+      # this particular ff{} target.
+      #
+      group     = $g
+      zone_name = $n
+
+      # The installation root is the game directory. Fastfiles live
+      # directly under its zone/iw4x/x64/<group>/ tree, so record the
+      # group here as part of the target's installation path.
+      #
+      install = root/zone/iw4x/x64/$g/
+    }
+    {{
+      out = $directory($path($>))
+
+      # Start with the arguments common to every invocation. $> is the
+      # output fastfile, so its directory is where we ask the Linker to
+      # write the result.
+      #
+      args = $linker_path --no-color --base-folder $src_root --output-folder $out
+
+      # Now add the group overlay to the front of the Linker's asset
+      # search.
+      #
+      # This is how localization is selected. The Linker has no language
+      # option in that its localize loader asks for
+      # english/localizedstrings/ and its parser takes LANG_ENGLISH. A
+      # French build works by making the French overlay provide French
+      # data at exactly that path.
+      #
+      # Note that we do this for every group. Groups such as patch
+      # normally have no lang/patch/ tree at all, and the Linker accepts
+      # a missing search directory. Keeping the argument unconditional
+      # means adding an overlay later needs no corresponding change to
+      # this recipe.
+      #
+      args += --add-asset-search-path "$src_root/lang/$group"
+
+      if $config.assets.menu_permissive
+      {
+        args += --menu-permissive
+      }
+
+      if $config.assets.menu_no_optimization
+      {
+        args += --menu-no-optimization
+      }
+
+      # The Linker is configured as a path and is not a prerequisite
+      # target in this graph. build2 consequently has no file target
+      # whose identity can stand for the tool invocation.
+      #
+      # Record the Linker version in the depdb and hash the command
+      # arguments. This makes a change in the configured tool version or
+      # in anything we pass to it invalidate the previous recipe result.
+      #
+      # Include the zone name in the hash as well. It is the final
+      # positional argument below and is kept separate from args for
+      # convenience.
+      #
+      depdb string "$linker_version"
+      depdb hash $args $zone_name
+
+      diag link ($>)
+
+      $args $zone_name
+    }}
+
+    # If we have an Unlinker, use it to read the result back.
+    #
+    # This is a useful check at the boundary between the two tools:
+    # producing a file does not by itself tell us that the file can
+    # subsequently be parsed as an IW4MS fastfile. Asking the Unlinker
+    # for its asset list gives us that check without having to extract
+    # anything.
+    #
+    # Keep this as a test operation. The Unlinker is optional
+    # configuration, so a machine without one can still build the
+    # fastfile and reports this check as skipped.
+    #
+    $g/ff{$n}:
+    % test
+    {{
+      # diag has to be the first command in a recipe. So emit it before
+      # checking whether there is an Unlinker to run.
+      #
+      diag test ($>)
+
+      if ("$unlinker_path" == "[null]")
+      {
+        echo "no Unlinker configured, round trip not checked" >&2
+        exit
+      }
+
+      # --list starts successful output with a header naming the zone.
+      # Require the header for the zone we just built and let grep's
+      # exit status become the result of the test.
+      #
+      # In particular, an unreadable fastfile never produces this line,
+      # so a failed parse cannot accidentally pass the check.
+      #
+      $unlinker_path --game IW4MS --no-color --list $path($>) | \
+        grep "Zone '$zone_name' " >-
+    }}
+  }
+}

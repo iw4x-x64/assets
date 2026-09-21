@@ -1,0 +1,48 @@
+# We don't have any C or C++ sources in this project, so there is no
+# language module to load. What we do have are zone descriptions that
+# are turned into fastfiles and the common bits for doing that live in
+# assets.build.
+#
+source $src_root/build/config/assets.build
+
+# Give the two files involved in this process proper target types.
+# zone{} is what we start with and ff{} is what we produce from it.
+#
+# There is perhaps not much difference from file{} as far as build2
+# itself is concerned, though having separate types is useful below
+# since a fastfile has installation semantics that an arbitrary file
+# does not. These types are private to this project, so there is no need
+# to arrange for either of them to be exported.
+#
+define zone: file
+zone{*}: extension = zone
+
+define ff: file
+ff{*}: extension = ff
+
+# Now, an ff{} is eventually installed, but we cannot say where here.
+# Its location in the game directory depends on the zone group and that
+# is known by zone/buildfile when the actual target is declared.
+#
+# So leave installation disabled by default and let those targets enable
+# it with the right directory. Apart from keeping this rule here
+# reasonably generic, this means that a newly-added ff{} won't
+# accidentally end up in some default install location before its
+# destination has been specified.
+#
+ff{*}: install = false
+
+# There is another small wrinkle with installation. The install root for
+# this project is the game directory rather than the usual software
+# installation prefix. That is, only things that the game is expected to
+# consume should end up there.
+#
+# The documentation and package metadata are source-tree material and so
+# keep them out explicitly. This is perhaps more obvious in an
+# out-of-source build, though in an in-source build they can sit right
+# next to generated fastfiles and it is rather easy to forget that
+# proximity does not make them part of the installed game data.
+#
+doc{*}:      install = false
+legal{*}:    install = false
+manifest{*}: install = false

@@ -1,0 +1,26 @@
+# Project-specific assets live here, under a directory named after the
+# project that uses them.
+#
+# So, for example, assets for the example project live below
+# zone_raw/example/. The remainder of the path is the ordinary asset
+# tree expected by the Linker. Since zone_raw/ is one of its default
+# search roots, building example causes those files to be found without
+# us having to add another search path in the recipe.
+#
+# Note that the project directory is significant here. It keeps assets
+# that belong to one fastfile out of the shared raw/ tree and, perhaps
+# more importantly, makes it clear which project owns a file when
+# looking at the source tree.
+#
+# There is nothing to build in this directory. The Linker opens these
+# files directly while processing the zone definition, so listing them
+# as file{} targets is enough to make build2 aware of them and to carry
+# them in a source distribution.
+#
+./: file{** -buildfile}
+
+# The resulting fastfile contains the data consumed from this tree. The source
+# files themselves are build inputs and do not belong in the installed game
+# directory.
+#
+file{** -buildfile}: install = false

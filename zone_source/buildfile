@@ -1,0 +1,19 @@
+# Zone definitions live in this tree.
+#
+# They are source files from the build system's point of view.
+# zone/buildfile names the definition for each fastfile as a
+# prerequisite and then passes its name to the Linker, which reads the
+# file when constructing the zone.
+#
+# List the whole tree here instead of adding a target each time a new
+# definition appears. This keeps the directory self-describing and means
+# a new .zone file is picked up by operations such as dist without
+# needing a second edit just to make build2 aware of it.
+#
+./: zone{**}
+
+# The definitions are inputs to the Linker. Once the fastfile has been
+# built there is no reason to copy its .zone source into the game
+# directory.
+#
+zone{**}: install = false

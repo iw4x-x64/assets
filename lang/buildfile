@@ -1,0 +1,33 @@
+# Language-specific assets live here as ordinary asset trees.
+#
+# The directory immediately below lang/ is the group name, and
+# everything below that directory has the same layout it would have in
+# the shared asset tree. So, for example, the French version of a
+# localized string lives under:
+#
+#   lang/french/english/localizedstrings/
+#
+# The english/ component can look a little odd here. It is intentional.
+# The Linker has no language switch of its own. Its localize loader
+# always asks for english/localizedstrings/ and the parser always keeps
+# the LANG_ENGLISH value of a reference. Selecting French therefore
+# means putting French text where that lookup will find it.
+#
+# The build does this by prepending lang/<language>/ to the Linker's
+# asset search path when it builds the group of that name. A file
+# present in the overlay shadows the shared one and an absent file
+# simply falls through to the shared asset tree. Note that this applies
+# to any asset type, which is useful for the few retail zones where the
+# language-specific difference is an image rather than a string.
+#
+# See doc/localization.md for the details of the Linker's language
+# handling and why the source tree is arranged this way.
+#
+./: file{** -buildfile}
+
+# These files are Linker inputs and have no useful installed form of
+# their own. The resulting fastfiles carry the selected assets, so
+# installing the overlay beside them would just copy build-time source
+# data into the game directory.
+#
+file{** -buildfile}: install = false

@@ -1,0 +1,15 @@
+// A small zone for checking that the complete fastfile build path
+// works.
+//
+// There is deliberately very little in it. One rawfile is enough to
+// make the Linker produce something we can then install and read back
+// with the Unlinker, so this gives a new checkout a real target without
+// introducing any content that looks like part of the project itself.
+//
+// Note that zone/buildfile names this definition explicitly through the
+// localized zone list. Once the project has a real zone, remove this
+// file and replace that entry at the same time.
+//
+>game,IW4MS
+
+rawfile,common_scripts/example.gsc
