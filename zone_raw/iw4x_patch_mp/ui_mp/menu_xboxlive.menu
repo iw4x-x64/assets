@@ -33,6 +33,10 @@
         focusFirst;
       }
       focusFirst;
+      if (!dvarbool(ui_playername_asked) && !dvarbool(cl_ingame) && menuisopen("menu_xboxlive") && !menuisopen("popup_connecting_gdk") && !menuisopen("popup_connecting") && !menuisopen("popup_gettingdata") && !menuisopen("popup_cloudsync_gdk"))
+      {
+        open popup_playername;
+      }
     }
     onClose
     {
@@ -526,7 +530,7 @@
     itemDef
     {
       name                        "last_in_list"
-      text                        "@MENU_INVITE_CAPS"
+      text                        "FRIENDS"
       group                       "mw2_button"
       rect                        -64 128 336 20 1 1
       style                       1
@@ -548,7 +552,7 @@
         setItemColor self backcolor 0 0 0 1;
         setLocalVarBool ui_menuAButton 1;
         setLocalVarFloat ui_popupYPos getfocuseditemy();
-        setLocalVarString ui_hint_text "@MPUI_DESC_PARTY_INVITE";
+        setLocalVarString ui_hint_text "See which friends are online, join them, and answer invites.";
       }
       leaveFocus
       {
@@ -559,7 +563,7 @@
       action
       {
         play mouse_click;
-        exec xshowfriendslist;
+        open popup_friends;
       }
       execKeyInt 29
       {
@@ -569,6 +573,15 @@
       {
         focusFirst;
       }
+    }
+    itemDef
+    {
+      rect                        232 128 40 20 1 1
+      style                       3
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) > 0);
+      textscale                   0.55
+      background                  "specialty_new"
     }
     itemDef
     {
@@ -1051,12 +1064,24 @@
       rect                        0 152 212 18 1 1
       decoration
       autowrapped
-      visible                     when(!localvarbool("ui_centerPopup") && !localvarbool("ui_leftPopup"));
+      visible                     when(!localvarbool("ui_centerPopup") && !localvarbool("ui_leftPopup") && dvarstring(ui_friends_toast) == "");
       textalign                   6
       textscale                   0.375
       textfont                    3
       forecolor                   1 1 1 0.65
       exp text                    localvarstring("ui_hint_text");
+    }
+    itemDef
+    {
+      rect                        0 152 212 18 1 1
+      decoration
+      autowrapped
+      visible                     when(!localvarbool("ui_centerPopup") && !localvarbool("ui_leftPopup") && dvarstring(ui_friends_toast) != "");
+      textalign                   6
+      textscale                   0.375
+      textfont                    3
+      forecolor                   1 0.8 0.35 1
+      exp text                    dvarstring(ui_friends_toast);
     }
     itemDef
     {

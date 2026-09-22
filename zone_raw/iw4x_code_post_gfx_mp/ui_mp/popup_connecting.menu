@@ -19,6 +19,10 @@
     onClose
     {
       setLocalVarInt ui_centerPopup 0;
+      if (!dvarbool(ui_playername_asked) && !dvarbool(cl_ingame) && menuisopen("menu_xboxlive") && !menuisopen("popup_connecting_gdk") && !menuisopen("popup_gettingdata") && !menuisopen("popup_cloudsync_gdk"))
+      {
+        open popup_playername;
+      }
     }
     onESC
     {

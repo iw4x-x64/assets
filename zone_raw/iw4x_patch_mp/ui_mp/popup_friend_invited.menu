@@ -1,8 +1,8 @@
 {
   menuDef
   {
-    name                        "popup_playername"
-    rect                        -150 -84 300 84 2 2
+    name                        "popup_friend_invited"
+    rect                        -150 -62 300 124 2 2
     style                       1
     backcolor                   1 1 1 1
     focuscolor                  1 1 1 1
@@ -13,8 +13,7 @@
     onOpen
     {
       setLocalVarInt ui_centerPopup 1;
-      exec "setfromdvar ui_name name";
-      setfocus nameEntry;
+      setFocus invited_join;
     }
     onClose
     {
@@ -22,7 +21,6 @@
     }
     onESC
     {
-      exec "seta ui_playername_asked 1";
       close self;
     }
     itemDef
@@ -47,7 +45,7 @@
     }
     itemDef
     {
-      rect                        0 0 300 84 0 0
+      rect                        0 0 300 124 0 0
       style                       1
       decoration
       visible                     1
@@ -79,13 +77,12 @@
     }
     itemDef
     {
-      rect                        0 0 300 0 0 0
+      rect                        0 0 300 124 0 0
       style                       3
       decoration
       visible                     1
       textscale                   0.55
       background                  "mockup_popup_bg_stencilfill"
-      exp rect h                  (24 + 3 * 20);
     }
     itemDef
     {
@@ -111,14 +108,13 @@
     }
     itemDef
     {
-      rect                        0 0 300 0 1 1
+      rect                        0 0 300 124 1 1
       style                       3
       decoration
       visible                     1
       textscale                   0.55
       forecolor                   1 1 1 0
       background                  "small_box_lightfx"
-      exp rect h                  (24 + 3 * 20);
     }
     itemDef
     {
@@ -152,62 +148,57 @@
     }
     itemDef
     {
-      rect                        300 0 64 0 0 0
+      rect                        300 0 64 124 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_r"
-      exp rect h                  (24 + 3 * 20);
     }
     itemDef
     {
-      rect                        300 0 64 64 0 0
+      rect                        300 124 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_br"
-      exp rect y                  (0 - 0) + ((24 + 3 * 20));
     }
     itemDef
     {
-      rect                        0 0 300 64 0 0
+      rect                        0 124 300 64 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_b"
-      exp rect y                  (0 - 0) + ((24 + 3 * 20));
     }
     itemDef
     {
-      rect                        -64 0 64 64 0 0
+      rect                        -64 124 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_bl"
-      exp rect y                  (0 - 0) + ((24 + 3 * 20));
     }
     itemDef
     {
-      rect                        -64 0 64 0 0 0
+      rect                        -64 0 64 124 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_l"
-      exp rect h                  (24 + 3 * 20);
     }
     itemDef
     {
-      text                        "@MENU_PLAYER_NAME"
+      text                        "Game Invite"
       rect                        0 0 300 24 0 0
       style                       1
       decoration
@@ -220,39 +211,27 @@
     }
     itemDef
     {
-      name                        "nameEntry"
-      text                        " "
-      rect                        10 32 280 20 0 0
+      rect                        4 26 292 36 0 0
       style                       1
-      type                        4
-      visible                     when(1);
-      textalign                   8
-      textscale                   0.375
+      decoration
+      autowrapped
+      visible                     1
+      textalign                   1
+      textalignx                  0
+      textscale                   0.3
       textfont                    3
-      backcolor                   0 0 0 0.3
-      accept
-      {
-        if (dvarstring(ui_name) != "")
-        {
-          exec "setfromdvar name ui_name";
-          exec "seta ui_playername_asked 1";
-          close self;
-        }
-      }
-      dvar                        "ui_name"
-      maxChars                    15
-      maxPaintChars               15
+      forecolor                   1 1 1 0.9
+      exp text                    dvarstring(ui_friend_invited) + " invited you to their game.";
     }
     itemDef
     {
-      name                        "close"
-      text                        "@MENU_OK"
+      name                        "invited_join"
+      text                        "Join Game"
       group                       "mw2_popup_button"
       rect                        4 64 292 20 0 0
       style                       1
       type                        1
-      visible                     when(1);
-      disabled                    when(dvarstring(ui_name) == "");
+      visible                     1
       textalign                   6
       textalignx                  -24
       textscale                   0.375
@@ -277,8 +256,80 @@
       action
       {
         play mouse_click;
-        exec "setfromdvar name ui_name";
-        exec "seta ui_playername_asked 1";
+        exec "friend_invited_join";
+        close self;
+      }
+    }
+    itemDef
+    {
+      name                        "invited_later"
+      text                        "Not Now"
+      group                       "mw2_popup_button"
+      rect                        4 84 292 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        close self;
+      }
+    }
+    itemDef
+    {
+      name                        "invited_dismiss"
+      text                        "Dismiss"
+      group                       "mw2_popup_button"
+      rect                        4 104 292 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "friend_invited_dismiss";
         close self;
       }
     }

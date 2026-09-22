@@ -18,6 +18,10 @@
     onClose
     {
       setLocalVarInt ui_centerPopup 0;
+      if (!dvarbool(ui_playername_asked) && !dvarbool(cl_ingame) && menuisopen("menu_xboxlive") && !menuisopen("popup_connecting_gdk") && !menuisopen("popup_connecting") && !menuisopen("popup_gettingdata"))
+      {
+        open popup_playername;
+      }
     }
     onESC
     {

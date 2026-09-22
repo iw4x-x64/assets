@@ -1,5 +1,7 @@
 >game,IW4MS
 
+localize,iw4x_localized_ui_mp
+
 // Order matters here.
 //
 // The menu lists come first, and among them those carrying functionDef

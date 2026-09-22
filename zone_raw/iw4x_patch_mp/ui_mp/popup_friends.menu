@@ -1,0 +1,642 @@
+{
+  menuDef
+  {
+    name                        "popup_friends"
+    rect                        -230 -207 460 414 2 2
+    style                       1
+    backcolor                   1 1 1 1
+    focuscolor                  1 1 1 1
+    background                  "white"
+    popup
+    legacySplitScreenScale
+    visible                     1
+    onOpen
+    {
+      setLocalVarInt ui_centerPopup 1;
+      exec "friends_open";
+      setFocus friendslist;
+      if (dvarint(ui_friends_waiting) > 0)
+      {
+        setFocus pendinglist;
+      }
+    }
+    onClose
+    {
+      setLocalVarInt ui_centerPopup 0;
+    }
+    onESC
+    {
+      close self;
+    }
+    itemDef
+    {
+      rect                        -854 -480 1708 960 0 0
+      style                       1
+      decoration
+      visible                     1
+      textscale                   0.55
+      backcolor                   0 0 0 0.35
+      background                  "white"
+    }
+    itemDef
+    {
+      rect                        -854 -480 1708 960 0 0
+      style                       1
+      decoration
+      visible                     1
+      textscale                   0.55
+      backcolor                   1 1 1 1
+      background                  "xpbar_stencilbase"
+    }
+    itemDef
+    {
+      rect                        0 0 460 414 0 0
+      style                       1
+      decoration
+      visible                     1
+      textscale                   0.55
+      backcolor                   0.5 0.5 0.5 1
+      background                  "white"
+    }
+    itemDef
+    {
+      rect                        0 0 1708 480 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0.75
+      background                  "mw2_popup_bg_fogstencil"
+      exp rect x                  0 - ((float(milliseconds() % 60000) / 60000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 -1708 -480 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   0.85 0.85 0.85 1
+      background                  "mw2_popup_bg_fogscroll"
+      exp rect x                  0 - ((float(milliseconds() % 60000) / 60000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 460 414 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      background                  "mockup_popup_bg_stencilfill"
+    }
+    itemDef
+    {
+      rect                        0 0 -1708 -480 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0.75
+      background                  "mw2_popup_bg_fogstencil"
+      exp rect x                  (- 854) + ((float(milliseconds() % 50000) / 50000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 -1708 -480 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   0.85 0.85 0.85 1
+      background                  "mw2_popup_bg_fogscroll"
+      exp rect x                  (- 854) + ((float(milliseconds() % 50000) / 50000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 460 414 1 1
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0
+      background                  "small_box_lightfx"
+    }
+    itemDef
+    {
+      rect                        -64 -64 64 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_tl"
+    }
+    itemDef
+    {
+      rect                        0 -64 460 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_t"
+    }
+    itemDef
+    {
+      rect                        460 -64 64 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_tr"
+    }
+    itemDef
+    {
+      rect                        460 0 64 414 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_r"
+    }
+    itemDef
+    {
+      rect                        460 414 64 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_br"
+    }
+    itemDef
+    {
+      rect                        0 414 460 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_b"
+    }
+    itemDef
+    {
+      rect                        -64 414 64 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_bl"
+    }
+    itemDef
+    {
+      rect                        -64 0 64 414 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_l"
+    }
+    itemDef
+    {
+      text                        "Friends"
+      rect                        0 0 460 24 0 0
+      style                       1
+      decoration
+      visible                     1
+      textalign                   5
+      textalignx                  -4
+      textscale                   0.375
+      textfont                    9
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      rect                        4 26 226 16 0 0
+      style                       1
+      decoration
+      visible                     1
+      textalign                   0
+      textalignx                  4
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.85
+      exp text                    dvarstring(ui_friends_me);
+    }
+    itemDef
+    {
+      rect                        230 26 226 16 0 0
+      style                       1
+      decoration
+      visible                     1
+      textalign                   2
+      textalignx                  -4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.5
+      exp text                    dvarstring(ui_friends_id);
+    }
+    itemDef
+    {
+      text                        "FRIENDS"
+      rect                        4 46 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) == 0);
+      textalign                   2
+      textalignx                  -4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.65
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      name                        "friendslist"
+      rect                        4 64 452 240 0 0
+      type                        6
+      visible                     when(dvarint(ui_friends_waiting) == 0);
+      textaligny                  -2
+      textscale                   0.375
+      textfont                    3
+      forecolor                   1 1 1 1
+      outlinecolor                0.9 0.9 0.95 0.175
+      elementwidth                452
+      elementheight               20
+      feeder                      100
+      columns                     2
+                                  8 250 24 0
+                                  270 176 24 0
+      doubleclick
+      {
+        play mouse_click;
+        open popup_friend_options;
+      }
+    }
+    itemDef
+    {
+      rect                        4 46 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) > 0);
+      textalign                   2
+      textalignx                  -4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.65
+      background                  "gradient_fadein"
+      exp text                    "WAITING ON YOU (" + dvarint(ui_friends_waiting) + ")";
+    }
+    itemDef
+    {
+      name                        "pendinglist"
+      rect                        4 64 452 80 0 0
+      type                        6
+      visible                     when(dvarint(ui_friends_waiting) > 0);
+      textaligny                  -2
+      textscale                   0.375
+      textfont                    3
+      forecolor                   1 1 1 1
+      outlinecolor                0.9 0.9 0.95 0.175
+      elementwidth                452
+      elementheight               20
+      feeder                      102
+      columns                     2
+                                  8 250 24 0
+                                  270 176 24 0
+      doubleclick
+      {
+        play mouse_click;
+        open popup_friend_options;
+      }
+    }
+    itemDef
+    {
+      text                        "FRIENDS"
+      rect                        4 148 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) > 0);
+      textalign                   2
+      textalignx                  -4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.65
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      name                        "friendslist_split"
+      rect                        4 166 452 138 0 0
+      type                        6
+      visible                     when(dvarint(ui_friends_waiting) > 0);
+      textaligny                  -2
+      textscale                   0.375
+      textfont                    3
+      forecolor                   1 1 1 1
+      outlinecolor                0.9 0.9 0.95 0.175
+      elementwidth                452
+      elementheight               20
+      feeder                      100
+      columns                     2
+                                  8 250 24 0
+                                  270 176 24 0
+      doubleclick
+      {
+        play mouse_click;
+        open popup_friend_options;
+      }
+    }
+    itemDef
+    {
+      rect                        4 46 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) == 0 && dvarint(ui_friends_state) == 1 && dvarint(ui_friends_count) > 0);
+      textalign                   0
+      textalignx                  4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   0.5 1 0.5 0.85
+      exp text                    dvarint(ui_friends_online) + " ONLINE";
+    }
+    itemDef
+    {
+      rect                        4 148 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_state) == 1 && dvarint(ui_friends_count) > 0);
+      textalign                   0
+      textalignx                  4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   0.5 1 0.5 0.85
+      exp text                    dvarint(ui_friends_online) + " ONLINE";
+    }
+    itemDef
+    {
+      text                        "RECONNECTING..."
+      rect                        4 46 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) == 0 && dvarint(ui_friends_state) == 2);
+      textalign                   0
+      textalignx                  4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 0.7 0.3 1
+    }
+    itemDef
+    {
+      text                        "RECONNECTING..."
+      rect                        4 148 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_state) == 2);
+      textalign                   0
+      textalignx                  4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 0.7 0.3 1
+    }
+    itemDef
+    {
+      text                        "Connecting to the IW4x platform..."
+      rect                        4 164 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_state) == 0);
+      textalign                   1
+      textalignx                  0
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "Couldn't reach the IW4x platform."
+      rect                        4 156 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_state) == 3);
+      textalign                   1
+      textalignx                  0
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 0.7 0.3 1
+    }
+    itemDef
+    {
+      text                        "Retrying in the background."
+      rect                        4 174 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_state) == 3);
+      textalign                   1
+      textalignx                  0
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.4
+    }
+    itemDef
+    {
+      text                        "No friends yet."
+      rect                        4 156 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) == 0 && dvarbool(ui_friends_empty) && (dvarint(ui_friends_state) == 1 || dvarint(ui_friends_state) == 2));
+      textalign                   1
+      textalignx                  0
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "Add someone by name, or send them your ID."
+      rect                        4 174 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) == 0 && dvarbool(ui_friends_empty) && (dvarint(ui_friends_state) == 1 || dvarint(ui_friends_state) == 2));
+      textalign                   1
+      textalignx                  0
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.4
+    }
+    itemDef
+    {
+      text                        "No friends yet."
+      rect                        4 222 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_count) == 0);
+      textalign                   1
+      textalignx                  0
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.4
+    }
+    itemDef
+    {
+      rect                        4 308 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarstring(ui_friends_note) != "");
+      textalign                   1
+      textalignx                  0
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 0.8 0.35 1
+      exp text                    dvarstring(ui_friends_note);
+    }
+    itemDef
+    {
+      name                        "friends_add"
+      text                        "Add A Friend"
+      group                       "mw2_popup_button"
+      rect                        4 330 452 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        open popup_friend_add;
+      }
+    }
+    itemDef
+    {
+      name                        "friends_invite"
+      text                        "Invite To Game"
+      group                       "mw2_popup_button"
+      rect                        4 350 452 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "xshowfriendslist";
+      }
+    }
+    itemDef
+    {
+      name                        "friends_copy_id"
+      text                        "Copy My ID"
+      group                       "mw2_popup_button"
+      rect                        4 370 452 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "friend_copy_id";
+      }
+    }
+    itemDef
+    {
+      name                        "friends_back"
+      text                        "@MENU_BACK"
+      group                       "mw2_popup_button"
+      rect                        4 390 452 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        close self;
+      }
+    }
+  }
+}

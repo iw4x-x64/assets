@@ -1,0 +1,20 @@
+VERSION             "1"
+CONFIG              "C:/trees/cod3/cod3/bin/StringEd.cfg"
+FILENOTES           ""
+
+REFERENCE           PATCH_DOWNLOAD_CONTENT
+LANG_ENGLISH        "Mettre à jour"
+
+REFERENCE           PATCH_DOWNLOAD_CONTENT_CAPS
+LANG_ENGLISH        "METTRE À JOUR"
+
+REFERENCE           XBOXLIVE_SERVICENAME
+LANG_ENGLISH        "IW4x"
+
+REFERENCE           PLATFORM_POPUP_CONNECTION
+LANG_ENGLISH        "Connexion au réseau IW4x"
+
+REFERENCE           PLATFORM_POPUP_CONNECTION_GDK
+LANG_ENGLISH        "Connexion au réseau IW4x"
+
+ENDMARKER

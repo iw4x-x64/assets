@@ -1,0 +1,514 @@
+{
+  menuDef
+  {
+    name                        "popup_friend_add"
+    rect                        -230 -176 460 352 2 2
+    style                       1
+    backcolor                   1 1 1 1
+    focuscolor                  1 1 1 1
+    background                  "white"
+    popup
+    legacySplitScreenScale
+    visible                     1
+    onOpen
+    {
+      setLocalVarInt ui_centerPopup 1;
+      setFocus friend_name_entry;
+    }
+    onClose
+    {
+      setLocalVarInt ui_centerPopup 0;
+      exec "friend_search_clear";
+    }
+    onESC
+    {
+      close self;
+    }
+    itemDef
+    {
+      rect                        -854 -480 1708 960 0 0
+      style                       1
+      decoration
+      visible                     1
+      textscale                   0.55
+      backcolor                   0 0 0 0.35
+      background                  "white"
+    }
+    itemDef
+    {
+      rect                        -854 -480 1708 960 0 0
+      style                       1
+      decoration
+      visible                     1
+      textscale                   0.55
+      backcolor                   1 1 1 1
+      background                  "xpbar_stencilbase"
+    }
+    itemDef
+    {
+      rect                        0 0 460 352 0 0
+      style                       1
+      decoration
+      visible                     1
+      textscale                   0.55
+      backcolor                   0.5 0.5 0.5 1
+      background                  "white"
+    }
+    itemDef
+    {
+      rect                        0 0 1708 480 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0.75
+      background                  "mw2_popup_bg_fogstencil"
+      exp rect x                  0 - ((float(milliseconds() % 60000) / 60000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 -1708 -480 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   0.85 0.85 0.85 1
+      background                  "mw2_popup_bg_fogscroll"
+      exp rect x                  0 - ((float(milliseconds() % 60000) / 60000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 460 352 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      background                  "mockup_popup_bg_stencilfill"
+    }
+    itemDef
+    {
+      rect                        0 0 -1708 -480 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0.75
+      background                  "mw2_popup_bg_fogstencil"
+      exp rect x                  (- 854) + ((float(milliseconds() % 50000) / 50000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 -1708 -480 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   0.85 0.85 0.85 1
+      background                  "mw2_popup_bg_fogscroll"
+      exp rect x                  (- 854) + ((float(milliseconds() % 50000) / 50000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 460 352 1 1
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0
+      background                  "small_box_lightfx"
+    }
+    itemDef
+    {
+      rect                        -64 -64 64 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_tl"
+    }
+    itemDef
+    {
+      rect                        0 -64 460 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_t"
+    }
+    itemDef
+    {
+      rect                        460 -64 64 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_tr"
+    }
+    itemDef
+    {
+      rect                        460 0 64 352 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_r"
+    }
+    itemDef
+    {
+      rect                        460 352 64 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_br"
+    }
+    itemDef
+    {
+      rect                        0 352 460 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_b"
+    }
+    itemDef
+    {
+      rect                        -64 352 64 64 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_bl"
+    }
+    itemDef
+    {
+      rect                        -64 0 64 352 0 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_l"
+    }
+    itemDef
+    {
+      text                        "Add A Friend"
+      rect                        0 0 460 24 0 0
+      style                       1
+      decoration
+      visible                     1
+      textalign                   5
+      textalignx                  -4
+      textscale                   0.375
+      textfont                    9
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      text                        "Type a name to search for, or paste the ID a friend sent you."
+      rect                        4 24 452 16 0 0
+      style                       1
+      decoration
+      visible                     1
+      textalign                   2
+      textalignx                  -4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      name                        "friend_name_entry"
+      text                        " "
+      rect                        4 44 340 20 0 0
+      style                       1
+      type                        4
+      visible                     when(1);
+      textalign                   8
+      textscale                   0.375
+      textfont                    3
+      backcolor                   0 0 0 0.3
+      forecolor                   0.9 0.9 0.9 1
+      accept
+      {
+        exec "friend_add";
+      }
+      dvar                        "ui_friend_add"
+      maxChars                    31
+      maxPaintChars               31
+    }
+    itemDef
+    {
+      name                        "friend_look"
+      text                        "Search"
+      group                       "mw2_popup_button"
+      rect                        348 44 108 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      disabled                    when(dvarstring(ui_friend_add) == "");
+      textalign                   6
+      textalignx                  -12
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "friend_add";
+      }
+    }
+    itemDef
+    {
+      text                        "FILTER"
+      rect                        4 68 48 18 0 0
+      style                       1
+      decoration
+      textaligny                  -3
+      visible                     when(dvarbool(ui_friend_asked));
+      textalign                   2
+      textalignx                  0
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.65
+    }
+    itemDef
+    {
+      name                        "friend_filter_entry"
+      text                        " "
+      rect                        52 68 404 18 0 0
+      style                       1
+      type                        4
+      visible                     when(dvarbool(ui_friend_asked));
+      textalign                   8
+      textscale                   0.3
+      textfont                    3
+      backcolor                   0 0 0 0.3
+      forecolor                   0.9 0.9 0.9 1
+      dvar                        "ui_friend_filter"
+      maxChars                    31
+      maxPaintChars               31
+    }
+    itemDef
+    {
+      name                        "resultlist"
+      rect                        4 90 452 190 0 0
+      type                        6
+      visible                     when(dvarbool(ui_friend_asked));
+      textaligny                  -2
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 1
+      outlinecolor                0.9 0.9 0.95 0.175
+      elementwidth                452
+      elementheight               18
+      feeder                      103
+      columns                     3
+                                  8 170 28 0
+                                  186 110 20 0
+                                  304 144 20 0
+      doubleclick
+      {
+        play mouse_click;
+        exec "friend_send";
+      }
+    }
+    itemDef
+    {
+      text                        "Searching..."
+      rect                        4 170 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarbool(ui_friend_searching));
+      textalign                   1
+      textalignx                  0
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "Nobody by that name has played on IW4x."
+      rect                        4 170 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarbool(ui_friend_asked) && !dvarbool(ui_friend_searching) && (dvarint(ui_friend_found) == 0) && (dvarstring(ui_friend_filter) == ""));
+      textalign                   1
+      textalignx                  0
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "Nothing here matches that filter."
+      rect                        4 170 452 20 0 0
+      style                       1
+      decoration
+      visible                     when(dvarbool(ui_friend_asked) && !dvarbool(ui_friend_searching) && (dvarint(ui_friend_found) == 0) && (dvarstring(ui_friend_filter) != ""));
+      textalign                   1
+      textalignx                  0
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "Double-click someone to send them a request."
+      rect                        4 284 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarbool(ui_friend_asked) && !dvarbool(ui_friend_searching) && dvarint(ui_friend_found) > 0 && dvarstring(ui_friends_note) == "");
+      textalign                   1
+      textalignx                  0
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.4
+    }
+    itemDef
+    {
+      rect                        4 284 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarstring(ui_friends_note) != "");
+      textalign                   1
+      textalignx                  0
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 0.8 0.35 1
+      exp text                    dvarstring(ui_friends_note);
+    }
+    itemDef
+    {
+      name                        "friend_send"
+      group                       "mw2_popup_button"
+      rect                        4 304 452 20 0 0
+      style                       1
+      type                        1
+      visible                     when(dvarbool(ui_friend_asked) && !dvarbool(ui_friend_searching) && dvarint(ui_friend_found) > 0);
+      disabled                    when(!dvarbool(ui_friend_cansend));
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "friend_send";
+      }
+      exp text                    "Send Request To " + dvarstring(ui_friend_pick);
+    }
+    itemDef
+    {
+      name                        "friend_send_none"
+      text                        "Send Request"
+      group                       "mw2_popup_button"
+      rect                        4 304 452 20 0 0
+      style                       1
+      type                        1
+      visible                     when(!(dvarbool(ui_friend_asked) && !dvarbool(ui_friend_searching) && dvarint(ui_friend_found) > 0));
+      disabled                    when(1);
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+      }
+    }
+    itemDef
+    {
+      name                        "friend_add_back"
+      text                        "@MENU_BACK"
+      group                       "mw2_popup_button"
+      rect                        4 326 452 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        close self;
+      }
+    }
+  }
+}

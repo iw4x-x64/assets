@@ -1,8 +1,8 @@
 {
   menuDef
   {
-    name                        "popup_playername"
-    rect                        -150 -84 300 84 2 2
+    name                        "popup_friend_picker"
+    rect                        -230 -176 460 352 2 2
     style                       1
     backcolor                   1 1 1 1
     focuscolor                  1 1 1 1
@@ -13,16 +13,16 @@
     onOpen
     {
       setLocalVarInt ui_centerPopup 1;
-      exec "setfromdvar ui_name name";
-      setfocus nameEntry;
+      setFocus pickerlist;
     }
     onClose
     {
       setLocalVarInt ui_centerPopup 0;
+      exec "friend_pick_cancel";
     }
     onESC
     {
-      exec "seta ui_playername_asked 1";
+      exec "friend_pick_cancel";
       close self;
     }
     itemDef
@@ -47,7 +47,7 @@
     }
     itemDef
     {
-      rect                        0 0 300 84 0 0
+      rect                        0 0 460 352 0 0
       style                       1
       decoration
       visible                     1
@@ -79,13 +79,12 @@
     }
     itemDef
     {
-      rect                        0 0 300 0 0 0
+      rect                        0 0 460 352 0 0
       style                       3
       decoration
       visible                     1
       textscale                   0.55
       background                  "mockup_popup_bg_stencilfill"
-      exp rect h                  (24 + 3 * 20);
     }
     itemDef
     {
@@ -111,14 +110,13 @@
     }
     itemDef
     {
-      rect                        0 0 300 0 1 1
+      rect                        0 0 460 352 1 1
       style                       3
       decoration
       visible                     1
       textscale                   0.55
       forecolor                   1 1 1 0
       background                  "small_box_lightfx"
-      exp rect h                  (24 + 3 * 20);
     }
     itemDef
     {
@@ -132,7 +130,7 @@
     }
     itemDef
     {
-      rect                        0 -64 300 64 0 0
+      rect                        0 -64 460 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -142,7 +140,7 @@
     }
     itemDef
     {
-      rect                        300 -64 64 64 0 0
+      rect                        460 -64 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -152,63 +150,57 @@
     }
     itemDef
     {
-      rect                        300 0 64 0 0 0
+      rect                        460 0 64 352 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_r"
-      exp rect h                  (24 + 3 * 20);
     }
     itemDef
     {
-      rect                        300 0 64 64 0 0
+      rect                        460 352 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_br"
-      exp rect y                  (0 - 0) + ((24 + 3 * 20));
     }
     itemDef
     {
-      rect                        0 0 300 64 0 0
+      rect                        0 352 460 64 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_b"
-      exp rect y                  (0 - 0) + ((24 + 3 * 20));
     }
     itemDef
     {
-      rect                        -64 0 64 64 0 0
+      rect                        -64 352 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_bl"
-      exp rect y                  (0 - 0) + ((24 + 3 * 20));
     }
     itemDef
     {
-      rect                        -64 0 64 0 0 0
+      rect                        -64 0 64 352 0 0
       style                       3
       decoration
       visible                     when(1);
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_l"
-      exp rect h                  (24 + 3 * 20);
     }
     itemDef
     {
-      text                        "@MENU_PLAYER_NAME"
-      rect                        0 0 300 24 0 0
+      rect                        0 0 460 24 0 0
       style                       1
       decoration
       visible                     1
@@ -217,42 +209,53 @@
       textscale                   0.375
       textfont                    9
       background                  "gradient_fadein"
+      exp text                    dvarstring(ui_friend_prompt);
     }
     itemDef
     {
-      name                        "nameEntry"
-      text                        " "
-      rect                        10 32 280 20 0 0
+      text                        "Double-click a friend to tick them, then choose Invite."
+      rect                        4 24 452 16 0 0
       style                       1
-      type                        4
-      visible                     when(1);
-      textalign                   8
+      decoration
+      visible                     1
+      textalign                   2
+      textalignx                  -4
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      name                        "pickerlist"
+      rect                        4 44 452 260 0 0
+      type                        6
+      visible                     1
+      textaligny                  -2
       textscale                   0.375
       textfont                    3
-      backcolor                   0 0 0 0.3
-      accept
+      forecolor                   1 1 1 1
+      outlinecolor                0.9 0.9 0.95 0.175
+      elementwidth                452
+      elementheight               20
+      feeder                      101
+      columns                     2
+                                  8 300 32 0
+                                  316 130 24 0
+      doubleclick
       {
-        if (dvarstring(ui_name) != "")
-        {
-          exec "setfromdvar name ui_name";
-          exec "seta ui_playername_asked 1";
-          close self;
-        }
+        play mouse_click;
+        exec "friend_pick_toggle";
       }
-      dvar                        "ui_name"
-      maxChars                    15
-      maxPaintChars               15
     }
     itemDef
     {
-      name                        "close"
-      text                        "@MENU_OK"
+      name                        "picker_confirm"
       group                       "mw2_popup_button"
-      rect                        4 64 292 20 0 0
+      rect                        4 308 452 20 0 0
       style                       1
       type                        1
-      visible                     when(1);
-      disabled                    when(dvarstring(ui_name) == "");
+      visible                     1
+      disabled                    when(dvarint(ui_friend_ticked) == 0);
       textalign                   6
       textalignx                  -24
       textscale                   0.375
@@ -277,8 +280,45 @@
       action
       {
         play mouse_click;
-        exec "setfromdvar name ui_name";
-        exec "seta ui_playername_asked 1";
+        exec "friend_pick_confirm";
+        close self;
+      }
+      exp text                    "Invite (" + dvarint(ui_friend_ticked) + ")";
+    }
+    itemDef
+    {
+      name                        "picker_cancel"
+      text                        "@MENU_CANCEL"
+      group                       "mw2_popup_button"
+      rect                        4 328 452 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "friend_pick_cancel";
         close self;
       }
     }
