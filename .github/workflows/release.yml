@@ -119,22 +119,34 @@ jobs:
           path: ${{ runner.temp }}/oat
           key: oat-${{ env.OAT_COMMIT }}-ubuntu24.04-gcc${{ env.OAT_GCC }}-x64-v1
 
+      # Fetch oat outside the workspace. Anything below the workspace is
+      # part of our source tree as far as git is concerned, and the version
+      # module only gives a clean tree its commit id: an untracked oat-src/
+      # there would turn the release into an uncommitted snapshot (which
+      # package.sh then refuses to package).
+      #
+      # So this is plain git into the runner's temporary directory rather
+      # than actions/checkout, whose path has to be inside the workspace.
+      #
       - name: Check out open-asset-tools
         if: steps.oat-cache.outputs.cache-hit != 'true'
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: ${{ env.OAT_REPOSITORY }}
-          ref: ${{ env.OAT_COMMIT }}
-          path: oat-src
-          submodules: recursive
-          persist-credentials: false
+        run: |
+          src="$RUNNER_TEMP/oat-src"
+
+          git init --quiet "$src"
+          git -C "$src" remote add origin "$GITHUB_SERVER_URL/$OAT_REPOSITORY.git"
+          git -C "$src" fetch --quiet --depth 1 origin "$OAT_COMMIT"
+          git -C "$src" checkout --quiet --detach FETCH_HEAD
+          git -C "$src" submodule update --quiet --init --recursive
+
+          test "$(git -C "$src" rev-parse HEAD)" = "$OAT_COMMIT"
 
       # Only the two command line tools are built. Leaving out ModMan (no
       # --modman) means no GTK/WebKit dependencies and no UI build.
       #
       - name: Build Linker
         if: steps.oat-cache.outputs.cache-hit != 'true'
-        working-directory: oat-src
+        working-directory: ${{ runner.temp }}/oat-src
         env:
           PREMAKE_NO_PROMPT: "1"
           CC: gcc-${{ env.OAT_GCC }}
