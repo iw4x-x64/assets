@@ -1,0 +1,292 @@
+# Build the fastfiles and publish them as a GitHub release.
+#
+# A release is triggered by pushing its tag. The tag is v<version>, where
+# <version> is the version in the manifest, which is what `bdep release`
+# creates:
+#
+#   bdep release --push        # 0.1.0-a.1.z -> 0.1.0-a.1, tag v0.1.0-a.1
+#
+# The workflow refuses a tag that does not match the manifest, or that
+# points at a snapshot (.z) version.
+#
+# Running the workflow by hand (workflow_dispatch) never publishes. On a
+# branch it builds a snapshot, for example:
+#
+#   assets-0.1.0-a.1.20260825183016.0123456789ab.zip
+#
+# and only keeps it as a workflow artifact. That is the way to see what a
+# release would contain before tagging it.
+#
+# All of the actual work is done by .github/scripts/package.sh, which can
+# be run locally in the same way.
+#
+name: release
+
+on:
+  push:
+    tags:
+      - "v[0-9]*"
+  workflow_dispatch:
+
+# Everything is denied by default. Each job asks for what it needs below.
+#
+permissions: {}
+
+# Never run two releases of the same ref at once, and never cancel one that
+# is in progress.
+#
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  # The build2 toolchain, as the binary package published by build2.org for
+  # the runner's distribution. The checksum is from packages.sha256 next to
+  # the package. Bump all three together.
+  #
+  BUILD2_URL: https://download.build2.org/0.18.1/bindist/ubuntu/ubuntu24.04/x86_64
+  BUILD2_DEB: build2-toolchain_0.18.1-0~ubuntu24.04_amd64.deb
+  BUILD2_SHA256: fe9300de9afb21d6c8c032955979ab85389597b621e3170c70cd3c1a0e89a2aa
+
+  # The open-asset-tools commit whose Linker builds the release.
+  #
+  # This is a full commit id so that a release tag always builds with
+  # the same Linker, however much oat has moved on since. Changing it is
+  # a change to how every fastfile is produced and so should be its own
+  # commit.
+  #
+  # oat does not publish an x64 Linker (its releases are x86, which
+  # cannot write IW4MS zones) so we build one here and cache it by this
+  # commit.
+  #
+  OAT_REPOSITORY: iw4x-x64/oat
+  OAT_COMMIT: 7cb985823b6989a844e45373b7c1679a527abf0e
+  OAT_GCC: "14"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+
+    permissions:
+      contents: read
+      id-token: write     # Build provenance attestation.
+      attestations: write
+
+    outputs:
+      version: ${{ steps.package.outputs.version }}
+      prerelease: ${{ steps.package.outputs.prerelease }}
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Do this first so that a mistyped tag fails in seconds.
+      #
+      - name: Check tag against manifest
+        id: tag
+        if: github.ref_type == 'tag'
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="$(sed -n 's/^version:[[:space:]]*//p' manifest)"
+
+          case "$version" in
+            "")
+              echo "::error file=manifest::no version in manifest"
+              exit 1
+              ;;
+            *.z)
+              echo "::error file=manifest::tag $TAG points at snapshot version $version; release with 'bdep release' so that the manifest has the released version"
+              exit 1
+              ;;
+          esac
+
+          if [ "$TAG" != "v$version" ]; then
+            echo "::error file=manifest::tag $TAG does not match manifest version $version (expected v$version)"
+            exit 1
+          fi
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Restore Linker
+        id: oat-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/oat
+          key: oat-${{ env.OAT_COMMIT }}-ubuntu24.04-gcc${{ env.OAT_GCC }}-x64-v1
+
+      - name: Check out open-asset-tools
+        if: steps.oat-cache.outputs.cache-hit != 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ env.OAT_REPOSITORY }}
+          ref: ${{ env.OAT_COMMIT }}
+          path: oat-src
+          submodules: recursive
+          persist-credentials: false
+
+      # Only the two command line tools are built. Leaving out ModMan (no
+      # --modman) means no GTK/WebKit dependencies and no UI build.
+      #
+      - name: Build Linker
+        if: steps.oat-cache.outputs.cache-hit != 'true'
+        working-directory: oat-src
+        env:
+          PREMAKE_NO_PROMPT: "1"
+          CC: gcc-${{ env.OAT_GCC }}
+          CXX: g++-${{ env.OAT_GCC }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends "g++-$OAT_GCC"
+
+          ./generate.sh --cc=gcc
+          make -C build -j"$(nproc)" config=release_x64 LinkerCli UnlinkerCli
+
+          # The tools look for their raw/ data beside the executables, so
+          # keep the output directory as a whole.
+          #
+          mkdir -p "$RUNNER_TEMP/oat"
+          cp -a build/bin/Release_x64/. "$RUNNER_TEMP/oat/"
+
+      - name: Save Linker
+        if: steps.oat-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/oat
+          key: ${{ steps.oat-cache.outputs.cache-primary-key }}
+
+      - name: Install build2
+        run: |
+          curl --fail --silent --show-error --location --retry 3 \
+            --output "$RUNNER_TEMP/$BUILD2_DEB" "$BUILD2_URL/$BUILD2_DEB"
+
+          echo "$BUILD2_SHA256  $RUNNER_TEMP/$BUILD2_DEB" | sha256sum --check --strict
+
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends "$RUNNER_TEMP/$BUILD2_DEB"
+
+          b --version
+
+      - name: Build, test and package
+        id: package
+        env:
+          EXPECT_VERSION: ${{ steps.tag.outputs.version }}
+        run: |
+          args=(--linker "$RUNNER_TEMP/oat/Linker"
+                --output "$RUNNER_TEMP/release"
+                --oat-commit "$OAT_COMMIT")
+
+          if [ -n "$EXPECT_VERSION" ]; then
+            args+=(--expect-version "$EXPECT_VERSION")
+          fi
+
+          .github/scripts/package.sh "${args[@]}"
+
+          version="$(cat "$RUNNER_TEMP/release/version")"
+
+          # A build2 pre-release (a.N or b.N) is the only place a '-' can
+          # follow the version proper. Drop an epoch (+N-) first since it
+          # has one too.
+          #
+          case "${version#+*-}" in
+            *-*) prerelease=true  ;;
+            *)   prerelease=false ;;
+          esac
+
+          {
+            echo "version=$version"
+            echo "prerelease=$prerelease"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            cat "$RUNNER_TEMP/release/release-notes.md"
+            echo
+            echo '```'
+            (cd "$RUNNER_TEMP/release/assets" && cat *.sha256)
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Attest build provenance
+        if: github.event_name == 'push'
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: |
+            ${{ runner.temp }}/release/assets/*.zip
+            ${{ runner.temp }}/release/assets/*.tar.gz
+
+      - name: Upload
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: assets-${{ steps.package.outputs.version }}
+          path: ${{ runner.temp }}/release/
+          if-no-files-found: error
+          retention-days: ${{ github.event_name == 'push' && 90 || 14 }}
+
+  publish:
+    name: Publish
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    # Protection rules (required reviewers, allowed tags) can be attached to
+    # this environment in the repository settings.
+    #
+    environment:
+      name: release
+      url: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: assets-${{ needs.build.outputs.version }}
+          path: release
+
+      # Create the release as a draft, attach everything, and only then make
+      # it public. Nobody sees a release with missing files, and a failed
+      # run can simply be re-run: an existing draft is picked up again.
+      #
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ needs.build.outputs.version }}
+          PRERELEASE: ${{ needs.build.outputs.prerelease }}
+        run: |
+          if draft="$(gh release view "$TAG" --json isDraft --jq .isDraft 2>/dev/null)"; then
+            if [ "$draft" != "true" ]; then
+              echo "::error::release $TAG is already published; not replacing its files"
+              exit 1
+            fi
+
+            echo "resuming draft release $TAG"
+            gh release edit "$TAG" --notes-file release/release-notes.md
+          else
+            flags=(--draft --verify-tag
+                   --title "assets $VERSION"
+                   --notes-file release/release-notes.md)
+
+            if [ "$PRERELEASE" = "true" ]; then
+              flags+=(--prerelease)
+            fi
+
+            gh release create "$TAG" "${flags[@]}"
+          fi
+
+          gh release upload "$TAG" --clobber release/assets/*
+
+          flags=(--draft=false)
+          if [ "$PRERELEASE" != "true" ]; then
+            flags+=(--latest)
+          fi
+
+          gh release edit "$TAG" "${flags[@]}"

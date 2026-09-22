@@ -412,6 +412,61 @@ If OAT eventually exposes complete dependency information, this is the part of
 the build that can become more precise without changing how projects are laid
 out.
 
+## Releasing
+
+A release is published by pushing its tag. The release workflow
+(`.github/workflows/release.yml`) then builds every fastfile, reads each one
+back through the Unlinker, and attaches the result to a GitHub release:
+
+```text
+assets-<version>.zip              the installed game data, zone/iw4x/x64/...
+assets-<version>.tar.gz           the source distribution, from b dist
+*.sha256                          a checksum for each of the above
+```
+
+The tag has to be `v` followed by the manifest version. This is what
+`bdep release` produces, so the normal sequence is:
+
+```sh
+bdep release --push
+```
+
+That changes, say, `0.1.0-a.1.z` to `0.1.0-a.1`, commits, tags
+`v0.1.0-a.1`, opens the next snapshot (`0.1.0-a.2.z`), and pushes it all.
+
+The workflow checks the tag before building anything. A tag that doesn't match
+the manifest is rejected, and so is a tag on a snapshot (`.z`) version.
+
+A pre-release version (`-a.N`, `-b.N`) becomes a GitHub pre-release. A final
+version is marked as the latest release.
+
+### Trying a release first
+
+Running the workflow by hand from the Actions tab never publishes. On a branch
+it builds a snapshot, named after the commit the same way `b dist` names it:
+
+```text
+assets-0.1.0-a.2.20260825183016.0123456789ab.zip
+```
+
+It keeps the result as a workflow artifact. The same script also runs locally:
+
+```sh
+.github/scripts/package.sh --linker /path/to/Linker --output /tmp/release
+```
+
+It refuses a tree with uncommitted changes. Without a commit id there's no way
+to tell one such package from another.
+
+### The Linker used for a release
+
+oat only publishes x86 builds, and those can't write IW4MS zones. The workflow
+therefore builds an x64 Linker from the open-asset-tools commit named by
+`OAT_COMMIT` in the workflow, and caches it by that commit.
+
+This is a full commit id, not a branch. A release tag then always builds with
+the same Linker, whatever has happened to oat since.
+
 ## Documentation
 
 [doc/localization.md](doc/localization.md) describes how a language-specific
