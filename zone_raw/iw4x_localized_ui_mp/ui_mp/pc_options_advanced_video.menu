@@ -7,8 +7,10 @@
     fadeClamp                   1
     fadeCycle                   1
     fadeAmount                  0.1
+    blurWorld                   7
     onOpen
     {
+      setLocalVarBool ui_optionRowShow 0;
       ExecNow "profile_menuDvarsSetup; resetViewport";
       setLocalVarBool ui_hideBack 1;
     }
@@ -23,23 +25,37 @@
     onESC
     {
       close self;
+      if (localvarbool("ui_optionsFromVideo"))
+      {
+        setLocalVarBool ui_optionsFromVideo 0;
+        open pc_options_video;
+      }
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(FUNC_29() && (dvarstring(gameMode) == "mp" || (dvarstring(gameMode) == "so" && !dvarbool(solo_play))));
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "white"
     }
     itemDef
     {
       rect                        0 0 640 480 4 4
       style                       3
       decoration
-      visible                     when(1);
+      visible                     when(!FUNC_29());
       textscale                   0.55
-      forecolor                   0 0 0 1
-      background                  "black"
+      background                  "mw2_main_background"
     }
     itemDef
     {
       rect                        0 0 1708 480 0 0
       style                       3
       decoration
-      visible                     when(1);
+      visible                     when(!FUNC_29());
       textscale                   0.55
       forecolor                   1 1 1 0.5
       background                  "mw2_main_cloud_overlay"
@@ -50,7 +66,7 @@
       rect                        0 0 -1708 -480 0 0
       style                       3
       decoration
-      visible                     when(1);
+      visible                     when(!FUNC_29());
       textscale                   0.55
       forecolor                   1 1 1 0.5
       background                  "mw2_main_cloud_overlay"
@@ -61,7 +77,7 @@
       rect                        -427 -240 854 480 2 2
       style                       3
       decoration
-      visible                     when(dvarstring(gameMode) == "sp");
+      visible                     when(dvarstring(gameMode) == "sp" && !FUNC_29());
       textscale                   0.55
       background                  "mw2_main_sp_image"
     }
@@ -70,7 +86,7 @@
       rect                        -427 -240 854 480 2 2
       style                       3
       decoration
-      visible                     when(dvarstring(gameMode) == "so");
+      visible                     when(dvarstring(gameMode) == "so" && !FUNC_29());
       textscale                   0.55
       background                  "mw2_main_co_image"
     }
@@ -79,7 +95,7 @@
       rect                        -427 -240 854 480 2 2
       style                       3
       decoration
-      visible                     when(dvarstring(gameMode) == "mp");
+      visible                     when(dvarstring(gameMode) == "mp" && !FUNC_29());
       textscale                   0.55
       background                  "mw2_main_mp_image"
     }
@@ -88,7 +104,7 @@
       rect                        0 0 640 480 4 4
       style                       3
       decoration
-      visible                     when(!FUNC_29());
+      visible                     1
       textscale                   0.55
       forecolor                   1 1 1 0
       background                  "mockup_bg_glow"
@@ -99,7 +115,7 @@
       rect                        0 0 640 480 4 4
       style                       3
       decoration
-      visible                     when(!FUNC_29());
+      visible                     1
       textscale                   0.55
       forecolor                   1 1 1 0
       background                  "mockup_bg_glow"
@@ -107,34 +123,76 @@
     }
     itemDef
     {
+      rect                        -64 0 280 480 1 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   1 1 1 0.1
+      background                  "gradient_fadein_fadebottom"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   0.25 0.25 0.25 0.75
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   0.25 0.25 0.25 0.75
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
       text                        "@MENU_ADVANCED_VIDEO"
-      rect                        232 0 344 28 1 1
+      rect                        0 0 272 28 1 1
       decoration
       visible                     1
-      textalign                   5
+      textalign                   6
+      textalignx                  -60
       textscale                   0.5
       textfont                    9
     }
     itemDef
     {
-      rect                        232 28 344 20 1 1
-      style                       1
+      rect                        -64 0 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(localvarbool("ui_optionRowShow"));
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "popup_button_selection_bar"
+      exp rect y                  localvarfloat("ui_optionRowY");
+    }
+    itemDef
+    {
+      rect                        -64 28 384 20 1 1
       type                        12
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 28;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -147,36 +205,36 @@
     itemDef
     {
       text                        "@MENU_ASPECT_RATIO"
-      rect                        232 28 344 20 1 1
+      rect                        -64 28 336 20 1 1
       decoration
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
     }
     itemDef
     {
-      rect                        232 48 344 20 1 1
-      style                       1
+      rect                        -64 48 384 20 1 1
       type                        12
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 48;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -189,36 +247,36 @@
     itemDef
     {
       text                        "@MENU_ANTIALIASING"
-      rect                        232 48 344 20 1 1
+      rect                        -64 48 336 20 1 1
       decoration
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
     }
     itemDef
     {
-      rect                        232 68 344 20 1 1
-      style                       1
+      rect                        -64 68 384 20 1 1
       type                        13
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 68;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -231,36 +289,36 @@
     itemDef
     {
       text                        "@MENU_SCREEN_REFRESH_RATE"
-      rect                        232 68 344 20 1 1
+      rect                        -64 68 336 20 1 1
       decoration
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
     }
     itemDef
     {
-      rect                        232 88 344 20 1 1
-      style                       1
+      rect                        -64 88 384 20 1 1
       type                        11
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 88;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -272,19 +330,19 @@
     itemDef
     {
       text                        "@MENU_SYNC_EVERY_FRAME"
-      rect                        232 88 344 20 1 1
+      rect                        -64 88 336 20 1 1
       decoration
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
     }
     itemDef
     {
-      rect                        216 108 -292 1 1 1
+      rect                        0 108 216 1 1 1
       style                       3
       decoration
       visible                     when(1);
@@ -294,22 +352,22 @@
     }
     itemDef
     {
-      rect                        232 108 344 20 1 1
-      style                       1
+      rect                        -64 108 384 20 1 1
       type                        11
       visible                     when(1);
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 108;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -320,32 +378,32 @@
     itemDef
     {
       text                        "@MENU_SHADOWS"
-      rect                        232 108 344 20 1 1
+      rect                        -64 108 336 20 1 1
       decoration
       visible                     when(1);
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
     }
     itemDef
     {
-      rect                        232 128 344 20 1 1
-      style                       1
+      rect                        -64 128 384 20 1 1
       type                        11
       visible                     when(1);
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 128;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -356,32 +414,32 @@
     itemDef
     {
       text                        "@MENU_SPECULAR_MAP"
-      rect                        232 128 344 20 1 1
+      rect                        -64 128 336 20 1 1
       decoration
       visible                     when(1);
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
     }
     itemDef
     {
-      rect                        232 148 344 20 1 1
-      style                       1
+      rect                        -64 148 384 20 1 1
       type                        11
       visible                     when(1);
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 148;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -392,17 +450,17 @@
     itemDef
     {
       text                        "@MENU_DOF"
-      rect                        232 148 344 20 1 1
+      rect                        -64 148 336 20 1 1
       decoration
       visible                     when(1);
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
     }
     itemDef
     {
-      rect                        216 168 -292 1 1 1
+      rect                        0 168 216 1 1 1
       style                       3
       decoration
       visible                     when(1);
@@ -412,22 +470,22 @@
     }
     itemDef
     {
-      rect                        232 168 344 20 1 1
-      style                       1
+      rect                        -64 168 384 20 1 1
       type                        11
       visible                     when(1);
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 168;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -438,32 +496,32 @@
     itemDef
     {
       text                        "@MENU_ZFEATHER_SMOKE"
-      rect                        232 168 344 20 1 1
+      rect                        -64 168 336 20 1 1
       decoration
       visible                     when(1);
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
     }
     itemDef
     {
-      rect                        232 188 344 20 1 1
-      style                       1
+      rect                        -64 188 384 20 1 1
       type                        11
       visible                     when(1);
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 188;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -474,32 +532,32 @@
     itemDef
     {
       text                        "@MENU_RAGDOLL"
-      rect                        232 188 344 20 1 1
+      rect                        -64 188 336 20 1 1
       decoration
       visible                     when(1);
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
     }
     itemDef
     {
-      rect                        232 208 344 20 1 1
-      style                       1
+      rect                        -64 208 384 20 1 1
       type                        11
       visible                     when(1);
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 208;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -510,17 +568,17 @@
     itemDef
     {
       text                        "@MENU_BULLET_IMPACTS"
-      rect                        232 208 344 20 1 1
+      rect                        -64 208 336 20 1 1
       decoration
       visible                     when(1);
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
     }
     itemDef
     {
-      rect                        216 228 -292 1 1 1
+      rect                        0 228 216 1 1 1
       style                       3
       decoration
       visible                     when(1);
@@ -530,24 +588,24 @@
     }
     itemDef
     {
-      rect                        232 228 344 20 1 1
-      style                       1
+      rect                        -64 228 384 20 1 1
       type                        12
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 228;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -560,36 +618,36 @@
     itemDef
     {
       text                        "@MENU_TEXTURE_QUALITY"
-      rect                        232 228 344 20 1 1
+      rect                        -64 228 336 20 1 1
       decoration
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
     }
     itemDef
     {
-      rect                        232 248 344 20 1 1
-      style                       1
+      rect                        -64 248 384 20 1 1
       type                        12
       visible                     when(dvarint(ui_r_picmip_manual));
       disabled                    when(FUNC_31());
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 248;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -602,36 +660,36 @@
     itemDef
     {
       text                        "@MENU_TEXTURE_RESOLUTION"
-      rect                        232 248 344 20 1 1
+      rect                        -64 248 336 20 1 1
       decoration
       visible                     when(dvarint(ui_r_picmip_manual));
       disabled                    when(FUNC_31());
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
     }
     itemDef
     {
-      rect                        232 268 344 20 1 1
-      style                       1
+      rect                        -64 268 384 20 1 1
       type                        12
       visible                     when(dvarint(ui_r_picmip_manual));
       disabled                    when(FUNC_31());
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 268;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -644,36 +702,36 @@
     itemDef
     {
       text                        "@MENU_NORMAL_MAP_RESOLUTION"
-      rect                        232 268 344 20 1 1
+      rect                        -64 268 336 20 1 1
       decoration
       visible                     when(dvarint(ui_r_picmip_manual));
       disabled                    when(FUNC_31());
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
     }
     itemDef
     {
-      rect                        232 288 344 20 1 1
-      style                       1
+      rect                        -64 288 384 20 1 1
       type                        12
       visible                     when(dvarint(ui_r_picmip_manual));
       disabled                    when(FUNC_31());
       textalign                   4
-      textalignx                  180
+      textalignx                  288
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_setting_selection_bar"
       onFocus
       {
-        setItemColor self backcolor 0 0 0 1 play mouse_over;
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 288;
+        setLocalVarBool ui_optionRowShow 1;
       }
       leaveFocus
       {
-        setItemColor self backcolor 0 0 0 0;
+        setLocalVarBool ui_optionRowShow 0;
       }
       action
       {
@@ -686,12 +744,12 @@
     itemDef
     {
       text                        "@MENU_SPECULAR_MAP_RESOLUTION"
-      rect                        232 288 344 20 1 1
+      rect                        -64 288 336 20 1 1
       decoration
       visible                     when(dvarint(ui_r_picmip_manual));
       disabled                    when(FUNC_31());
       textalign                   6
-      textalignx                  -180
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
@@ -700,16 +758,16 @@
     {
       text                        "@PLATFORM_BACK_CAPS"
       group                       "mw2_button"
-      rect                        -64 -20 336 20 1 3
+      rect                        -64 -4 280 20 1 3
       style                       1
       type                        1
       visible                     when("@PLATFORM_BACK_CAPS" == "@PLATFORM_BACK_CAPS");
       textalign                   6
-      textalignx                  -60
+      textalignx                  -4
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_button_selection_bar"
+      background                  "popup_button_selection_bar"
       onFocus
       {
         play mouse_over;
@@ -719,6 +777,7 @@
         }
         setItemColor self backcolor 0 0 0 1;
         setLocalVarBool ui_menuAButton 1;
+        setLocalVarBool ui_optionRowShow 0;
       }
       leaveFocus
       {
@@ -737,16 +796,16 @@
     {
       text                        "@PLATFORM_BACK_CAPS"
       group                       "mw2_button"
-      rect                        -64 -20 336 20 1 3
+      rect                        -64 -4 280 20 1 3
       style                       1
       type                        1
       visible                     when("@PLATFORM_BACK_CAPS" == "@PLATFORM_GAME_SUMMARY_CAPS");
       textalign                   6
-      textalignx                  -60
+      textalignx                  -4
       textscale                   0.375
       textfont                    3
       disablecolor                0.6 0.55 0.55 1
-      background                  "menu_button_selection_bar"
+      background                  "popup_button_selection_bar"
       onFocus
       {
         play mouse_over;
@@ -756,6 +815,7 @@
         }
         setItemColor self backcolor 0 0 0 1;
         setLocalVarBool ui_menuAButton 1;
+        setLocalVarBool ui_optionRowShow 0;
       }
       leaveFocus
       {

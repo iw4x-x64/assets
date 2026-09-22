@@ -249,7 +249,7 @@
       action
       {
         play mouse_click;
-        open pc_options_video;
+        open main_options;
       }
     }
     itemDef

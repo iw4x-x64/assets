@@ -16,6 +16,26 @@
       fadeout fadebox;
       setdvar g_reloading 0;
       ExecNow "profile_menuDvarsSetup; resetViewport";
+      if (localvarint("ui_optionsSection") == 1)
+      {
+        setFocus buttonVideo;
+      }
+      if (localvarint("ui_optionsSection") == 2)
+      {
+        setFocus buttonAudio;
+      }
+      if (localvarint("ui_optionsSection") == 3)
+      {
+        setFocus buttonControls;
+      }
+      if (localvarint("ui_optionsSection") == 4)
+      {
+        setFocus buttonVoice;
+      }
+      if (localvarint("ui_optionsSection") == 5)
+      {
+        setFocus buttonChat;
+      }
     }
     onClose
     {
@@ -24,6 +44,10 @@
     onESC
     {
       close self;
+      if (dvarbool("cl_ingame"))
+      {
+        open class;
+      }
       if (!(menuisopen("pc_options_advanced_video") || menuisopen("pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("pc_options_controls") || menuisopen("pc_options_voice") || menuisopen("pc_options_chat")) && localvarbool("ui_showPicApply") && !localvarbool("ui_showApply") && !localvarbool("ui_showAudioApply"))
       {
         execnow "setfromdvar r_picmip ui_r_picmip";
@@ -33,7 +57,7 @@
         exec "wait; wait; r_applyPicmip";
         setLocalVarBool ui_showPicApply 0;
       }
-      if (!(menuisopen("pc_options_advanced_video") || menuisopen("pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("pc_options_controls") || menuisopen("pc_options_voice") || menuisopen("pc_options_chat")) && localvarbool("ui_showApply") || localvarbool("ui_showAudioApply"))
+      if (!(menuisopen("pc_options_advanced_video") || menuisopen("pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("pc_options_controls") || menuisopen("pc_options_voice") || menuisopen("pc_options_chat")) && (localvarbool("ui_showApply") || localvarbool("ui_showAudioApply")))
       {
         open all_restart_popmenu;
       }
@@ -112,7 +136,7 @@
       rect                        0 0 640 480 4 4
       style                       3
       decoration
-      visible                     when(!FUNC_29());
+      visible                     1
       textscale                   0.55
       forecolor                   1 1 1 0
       background                  "mockup_bg_glow"
@@ -123,7 +147,7 @@
       rect                        0 0 640 480 4 4
       style                       3
       decoration
-      visible                     when(!FUNC_29());
+      visible                     1
       textscale                   0.55
       forecolor                   1 1 1 0
       background                  "mockup_bg_glow"
@@ -172,6 +196,7 @@
     }
     itemDef
     {
+      name                        "buttonVideo"
       text                        "@MENU_VIDEO"
       group                       "mw2_button"
       rect                        -64 28 336 20 1 1
@@ -240,6 +265,7 @@
     }
     itemDef
     {
+      name                        "buttonAudio"
       text                        "@MENU_AUDIO"
       group                       "mw2_button"
       rect                        -64 48 336 20 1 1
@@ -307,6 +333,7 @@
     }
     itemDef
     {
+      name                        "buttonControls"
       text                        "@MENU_CONTROLS"
       group                       "mw2_button"
       rect                        -64 68 336 20 1 1
@@ -374,6 +401,7 @@
     }
     itemDef
     {
+      name                        "buttonVoice"
       text                        "@MENU_VOICE"
       group                       "mw2_button"
       rect                        -64 88 336 20 1 1
@@ -442,6 +470,7 @@
     }
     itemDef
     {
+      name                        "buttonChat"
       text                        "@MENU_CHAT"
       group                       "mw2_button"
       rect                        -64 108 336 20 1 1

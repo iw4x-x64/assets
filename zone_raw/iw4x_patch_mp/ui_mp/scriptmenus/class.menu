@@ -57,7 +57,7 @@
     }
     itemDef
     {
-      text                        "@MENU_OPTIONS_UPPER_CASE"
+      text                        "@MENU_IW4X_CAPS"
       rect                        0 0 272 28 1 1
       decoration
       visible                     1
@@ -458,7 +458,7 @@
       {
         play mouse_click;
         close self;
-        open pc_options_video;
+        open main_options;
         execnow "set ui_allow_graphic_change 0";
       }
     }
