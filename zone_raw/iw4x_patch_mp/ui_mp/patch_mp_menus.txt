@@ -193,4 +193,18 @@
     loadMenu { "ui_mp/popup_friend_add.menu" }
     loadMenu { "ui_mp/popup_friend_picker.menu" }
     loadMenu { "ui_mp/popup_friend_invited.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_main_options.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_controls_multi.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_video.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_advanced_video.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_audio.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_controls.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_voice.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_chat.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_movement.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_actions.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_look.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_multi.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_gamepad.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_gamepad_advanced.menu" }
 }

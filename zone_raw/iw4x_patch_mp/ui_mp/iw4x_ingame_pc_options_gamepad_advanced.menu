@@ -1,0 +1,635 @@
+{
+  menuDef
+  {
+    name                        "iw4x_ingame_pc_options_gamepad_advanced"
+    rect                        0 0 640 480 0 0
+    focuscolor                  1 1 1 1
+    fadeClamp                   1
+    fadeCycle                   1
+    fadeAmount                  0.1
+    blurWorld                   7
+    onOpen
+    {
+      setLocalVarBool ui_optionRowShow 0;
+      setLocalVarBool ui_hideBack 1;
+      setLocalVarString ui_hint_text "@NULL_EMPTY";
+      ExecNow "profile_menuDvarsSetup; resetViewport";
+    }
+    onClose
+    {
+      setLocalVarBool ui_hideBack 0;
+      setLocalVarString ui_hint_text "@NULL_EMPTY";
+    }
+    onESC
+    {
+      close self;
+      open iw4x_ingame_pc_options_gamepad;
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(FUNC_29() && (dvarstring(gameMode) == "mp" || (dvarstring(gameMode) == "so" && !dvarbool(solo_play))));
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "white"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      background                  "mw2_main_background"
+    }
+    itemDef
+    {
+      rect                        0 0 1708 480 0 0
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   1 1 1 0.5
+      background                  "mw2_main_cloud_overlay"
+      exp rect x                  (0 - 107) - ((float(milliseconds() % 60000) / 60000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 -1708 -480 0 0
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   1 1 1 0.5
+      background                  "mw2_main_cloud_overlay"
+      exp rect x                  (- 107 + 854) + ((float(milliseconds() % 50000) / 50000) * (854));
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(dvarstring(gameMode) == "sp" && !FUNC_29());
+      textscale                   0.55
+      background                  "mw2_main_sp_image"
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(dvarstring(gameMode) == "so" && !FUNC_29());
+      textscale                   0.55
+      background                  "mw2_main_co_image"
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(dvarstring(gameMode) == "mp" && !FUNC_29());
+      textscale                   0.55
+      background                  "mw2_main_mp_image"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0
+      background                  "mockup_bg_glow"
+      exp forecolor a             ((sin(milliseconds() / 1500) + 1) * 0.25) + 0.25;
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0
+      background                  "mockup_bg_glow"
+      exp forecolor a             ((sin(milliseconds() / 480) + 1) * 0.25) + 0.25;
+    }
+    itemDef
+    {
+      rect                        -64 0 280 480 1 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   1 1 1 0.1
+      background                  "gradient_fadein_fadebottom"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   0.25 0.25 0.25 0.75
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   0.25 0.25 0.25 0.75
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_ADVANCED"
+      rect                        0 0 272 28 1 1
+      decoration
+      visible                     1
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.5
+      textfont                    9
+    }
+    itemDef
+    {
+      rect                        -64 0 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(localvarbool("ui_optionRowShow"));
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "popup_button_selection_bar"
+      exp rect y                  localvarfloat("ui_optionRowY");
+    }
+    itemDef
+    {
+      rect                        224 31 344 20 1 1
+      type                        10
+      visible                     when(1);
+      textscale                   0.55
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 28;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_INNER_DEADZONE";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+      }
+      dvarFloat                   "gpad_stick_deadzone_min" 0.2 0 0.9
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_INNER_DEADZONE"
+      rect                        -64 28 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        224 51 344 20 1 1
+      type                        10
+      visible                     when(1);
+      textscale                   0.55
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 48;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_OUTER_DEADZONE";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+      }
+      dvarFloat                   "gpad_stick_deadzone_max" 0.01 0 0.5
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_OUTER_DEADZONE"
+      rect                        -64 48 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        224 71 344 20 1 1
+      type                        10
+      visible                     when(1);
+      textscale                   0.55
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 68;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_TRIGGER_DEADZONE";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+      }
+      dvarFloat                   "gpad_button_deadzone" 0.13 0 0.9
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_TRIGGER_DEADZONE"
+      rect                        -64 68 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        0 88 216 1 1 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   1 1 1 0.65
+      background                  "line_horizontal"
+    }
+    itemDef
+    {
+      rect                        -64 88 384 20 1 1
+      type                        11
+      visible                     when(1);
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 88;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_HAPTICS";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+      }
+      dvar                        "gpad_haptics"
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_HAPTICS"
+      rect                        -64 88 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        224 111 344 20 1 1
+      type                        10
+      visible                     when(1);
+      textscale                   0.55
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 108;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_HAPTIC_STRENGTH";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+      }
+      dvarFloat                   "gpad_haptic_intensity" 1 0 1
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_HAPTIC_STRENGTH"
+      rect                        -64 108 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        -64 128 384 20 1 1
+      type                        11
+      visible                     when(1);
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 128;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_ADAPTIVE_TRIGGERS";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+      }
+      dvar                        "gpad_adaptive_triggers"
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_ADAPTIVE_TRIGGERS"
+      rect                        -64 128 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        224 151 344 20 1 1
+      type                        10
+      visible                     when(1);
+      textscale                   0.55
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 148;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_TRIGGER_RESISTANCE";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+      }
+      dvarFloat                   "gpad_adaptive_trigger_strength" 1 0 1
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_TRIGGER_RESISTANCE"
+      rect                        -64 148 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        0 168 216 1 1 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   1 1 1 0.65
+      background                  "line_horizontal"
+    }
+    itemDef
+    {
+      rect                        -64 168 384 20 1 1
+      type                        11
+      visible                     when(1);
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 168;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_LIGHT_BAR";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+      }
+      dvar                        "gpad_light_bar"
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_LIGHT_BAR"
+      rect                        -64 168 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        224 191 344 20 1 1
+      type                        10
+      visible                     when(1);
+      textscale                   0.55
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 188;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_LIGHT_BAR_BRIGHTNESS";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+      }
+      dvarFloat                   "gpad_light_bar_brightness" 1 0 1
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_LIGHT_BAR_BRIGHTNESS"
+      rect                        -64 188 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        0 208 216 1 1 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   1 1 1 0.65
+      background                  "line_horizontal"
+    }
+    itemDef
+    {
+      text                        "@MENU_SET_DEFAULT_CONTROLS"
+      rect                        -64 208 336 20 1 1
+      type                        1
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 208;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_RESTORE";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+        exec "reset gpad_stick_deadzone_min; reset gpad_stick_deadzone_max; reset gpad_button_deadzone; reset gpad_haptics; reset gpad_haptic_intensity; reset gpad_adaptive_triggers; reset gpad_adaptive_trigger_strength; reset gpad_light_bar; reset gpad_light_bar_brightness";
+      }
+    }
+    itemDef
+    {
+      rect                        0 236 212 18 1 1
+      decoration
+      autowrapped
+      visible                     1
+      textalign                   6
+      textscale                   0.375
+      textfont                    3
+      forecolor                   1 1 1 0.65
+      exp text                    localvarstring("ui_hint_text");
+    }
+    itemDef
+    {
+      text                        "@PLATFORM_BACK_CAPS"
+      group                       "mw2_button"
+      rect                        -64 -4 280 20 1 3
+      style                       1
+      type                        1
+      visible                     when("@PLATFORM_BACK_CAPS" == "@PLATFORM_BACK_CAPS");
+      textalign                   6
+      textalignx                  -4
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_menuAButton 1;
+        setLocalVarBool ui_optionRowShow 0;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 0 0 0 "0.0";
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+        setLocalVarBool ui_menuAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        play mouse_click;
+        escape self;
+      }
+    }
+    itemDef
+    {
+      text                        "@PLATFORM_BACK_CAPS"
+      group                       "mw2_button"
+      rect                        -64 -4 280 20 1 3
+      style                       1
+      type                        1
+      visible                     when("@PLATFORM_BACK_CAPS" == "@PLATFORM_GAME_SUMMARY_CAPS");
+      textalign                   6
+      textalignx                  -4
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_menuAButton 1;
+        setLocalVarBool ui_optionRowShow 0;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 0 0 0 "0.0";
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+        setLocalVarBool ui_menuAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        play mouse_click;
+        open popup_summary;
+      }
+    }
+  }
+}

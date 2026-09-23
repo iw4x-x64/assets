@@ -1,0 +1,146 @@
+VERSION             "1"
+CONFIG              "C:/trees/cod3/cod3/bin/StringEd.cfg"
+FILENOTES           ""
+
+REFERENCE           MENU_IW4X_CAPS
+LANG_ENGLISH        "IW4X"
+
+REFERENCE           MENU_IW4X_CONTROLLER
+LANG_ENGLISH        "Controller"
+
+REFERENCE           MENU_IW4X_ADVANCED
+LANG_ENGLISH        "Advanced"
+
+REFERENCE           MENU_IW4X_USE_CONTROLLER
+LANG_ENGLISH        "Use Controller"
+
+REFERENCE           MENU_IW4X_AIM_SLOWDOWN
+LANG_ENGLISH        "Aim Slowdown"
+
+REFERENCE           MENU_IW4X_AIM_LOCKON
+LANG_ENGLISH        "Aim Lock-On"
+
+REFERENCE           MENU_IW4X_RUMBLE
+LANG_ENGLISH        "Rumble"
+
+REFERENCE           MENU_IW4X_RUMBLE_STRENGTH
+LANG_ENGLISH        "Rumble Strength"
+
+REFERENCE           MENU_IW4X_BUTTON_GLYPHS
+LANG_ENGLISH        "Button Glyphs"
+
+REFERENCE           MENU_IW4X_LIGHT_GLYPHS
+LANG_ENGLISH        "Light Glyphs"
+
+REFERENCE           MENU_IW4X_GLYPHS_XBOX
+LANG_ENGLISH        "Xbox"
+
+REFERENCE           MENU_IW4X_GLYPHS_PS3
+LANG_ENGLISH        "PlayStation 3"
+
+REFERENCE           MENU_IW4X_GLYPHS_PS4
+LANG_ENGLISH        "PlayStation 4"
+
+REFERENCE           MENU_IW4X_GLYPHS_PS5
+LANG_ENGLISH        "PlayStation 5"
+
+REFERENCE           MENU_IW4X_GLYPHS_EDGE
+LANG_ENGLISH        "DualSense Edge"
+
+REFERENCE           MENU_IW4X_INNER_DEADZONE
+LANG_ENGLISH        "Inner Deadzone"
+
+REFERENCE           MENU_IW4X_OUTER_DEADZONE
+LANG_ENGLISH        "Outer Deadzone"
+
+REFERENCE           MENU_IW4X_TRIGGER_DEADZONE
+LANG_ENGLISH        "Trigger Deadzone"
+
+REFERENCE           MENU_IW4X_HAPTICS
+LANG_ENGLISH        "Haptic Feedback"
+
+REFERENCE           MENU_IW4X_HAPTIC_STRENGTH
+LANG_ENGLISH        "Haptic Strength"
+
+REFERENCE           MENU_IW4X_ADAPTIVE_TRIGGERS
+LANG_ENGLISH        "Adaptive Triggers"
+
+REFERENCE           MENU_IW4X_TRIGGER_RESISTANCE
+LANG_ENGLISH        "Trigger Resistance"
+
+REFERENCE           MENU_IW4X_LIGHT_BAR
+LANG_ENGLISH        "Light Bar"
+
+REFERENCE           MENU_IW4X_LIGHT_BAR_BRIGHTNESS
+LANG_ENGLISH        "Light Bar Brightness"
+
+REFERENCE           MENU_IW4X_DESC_PLAYER_NAME
+LANG_ENGLISH        "The name other players see. Press Enter to apply it."
+
+REFERENCE           MENU_IW4X_DESC_USE_CONTROLLER
+LANG_ENGLISH        "Play with a connected controller."
+
+REFERENCE           MENU_IW4X_DESC_SENSITIVITY
+LANG_ENGLISH        "How fast the right stick turns the view."
+
+REFERENCE           MENU_IW4X_DESC_LOOK_INVERSION
+LANG_ENGLISH        "Push the stick up to look down."
+
+REFERENCE           MENU_IW4X_DESC_BUTTON_LAYOUT
+LANG_ENGLISH        "Which action each button performs."
+
+REFERENCE           MENU_IW4X_DESC_STICK_LAYOUT
+LANG_ENGLISH        "Which stick moves and which one looks."
+
+REFERENCE           MENU_IW4X_DESC_AIM_SLOWDOWN
+LANG_ENGLISH        "Slow the view down while it passes over a target."
+
+REFERENCE           MENU_IW4X_DESC_AIM_LOCKON
+LANG_ENGLISH        "Help the view follow a target while aiming down sights."
+
+REFERENCE           MENU_IW4X_DESC_RUMBLE
+LANG_ENGLISH        "Let the controller vibrate."
+
+REFERENCE           MENU_IW4X_DESC_RUMBLE_STRENGTH
+LANG_ENGLISH        "How strongly the controller vibrates."
+
+REFERENCE           MENU_IW4X_DESC_BUTTON_GLYPHS
+LANG_ENGLISH        "The button icons shown in prompts. Auto follows the connected controller."
+
+REFERENCE           MENU_IW4X_DESC_LIGHT_GLYPHS
+LANG_ENGLISH        "Show PlayStation 5 and DualSense Edge button icons light, with dark symbols."
+
+REFERENCE           MENU_IW4X_DESC_ADVANCED
+LANG_ENGLISH        "Deadzones, haptics, triggers and the light bar."
+
+REFERENCE           MENU_IW4X_DESC_INNER_DEADZONE
+LANG_ENGLISH        "How far a stick must move before it registers."
+
+REFERENCE           MENU_IW4X_DESC_OUTER_DEADZONE
+LANG_ENGLISH        "How close to its edge a stick counts as fully pushed."
+
+REFERENCE           MENU_IW4X_DESC_TRIGGER_DEADZONE
+LANG_ENGLISH        "How far a trigger must be pulled before it registers."
+
+REFERENCE           MENU_IW4X_DESC_HAPTICS
+LANG_ENGLISH        "On a DualSense, play vibration through its haptic actuators."
+
+REFERENCE           MENU_IW4X_DESC_HAPTIC_STRENGTH
+LANG_ENGLISH        "How strong the haptic effects are."
+
+REFERENCE           MENU_IW4X_DESC_ADAPTIVE_TRIGGERS
+LANG_ENGLISH        "On a DualSense, give the triggers resistance that follows the weapon held."
+
+REFERENCE           MENU_IW4X_DESC_TRIGGER_RESISTANCE
+LANG_ENGLISH        "How much the adaptive triggers resist."
+
+REFERENCE           MENU_IW4X_DESC_LIGHT_BAR
+LANG_ENGLISH        "Light the PlayStation controller's light bar."
+
+REFERENCE           MENU_IW4X_DESC_LIGHT_BAR_BRIGHTNESS
+LANG_ENGLISH        "How bright the light bar is."
+
+REFERENCE           MENU_IW4X_DESC_RESTORE
+LANG_ENGLISH        "Restore these settings to their defaults."
+
+ENDMARKER

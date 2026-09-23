@@ -130,6 +130,9 @@ menu,pc_options_chat
 menu,pc_options_movement
 menu,pc_options_actions
 menu,pc_options_look
+menu,pc_options_multi
+menu,pc_options_gamepad
+menu,pc_options_gamepad_advanced
 menu,options_graphics
 menu,options_graphics_texture
 menu,options_control_defaults

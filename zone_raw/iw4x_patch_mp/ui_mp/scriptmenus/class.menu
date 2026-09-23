@@ -458,7 +458,7 @@
       {
         play mouse_click;
         close self;
-        open main_options;
+        open iw4x_ingame_main_options;
         execnow "set ui_allow_graphic_change 0";
       }
     }

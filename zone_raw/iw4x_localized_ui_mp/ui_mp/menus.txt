@@ -303,6 +303,9 @@
     loadMenu { "ui_mp/pc_options_movement.menu" }
     loadMenu { "ui_mp/pc_options_actions.menu" }
     loadMenu { "ui_mp/pc_options_look.menu" }
+    loadMenu { "ui_mp/pc_options_multi.menu" }
+    loadMenu { "ui_mp/pc_options_gamepad.menu" }
+    loadMenu { "ui_mp/pc_options_gamepad_advanced.menu" }
     loadMenu { "ui_mp/options_graphics.menu" }
     loadMenu { "ui_mp/options_graphics_texture.menu" }
     loadMenu { "ui_mp/options_control_defaults.menu" }

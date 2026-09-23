@@ -1,7 +1,7 @@
 {
   menuDef
   {
-    name                        "main_options"
+    name                        "iw4x_ingame_main_options"
     rect                        0 0 640 480 0 0
     focuscolor                  1 1 1 1
     fadeClamp                   1
@@ -48,7 +48,7 @@
       {
         open class;
       }
-      if (!(menuisopen("pc_options_advanced_video") || menuisopen("pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("pc_options_controls") || menuisopen("pc_options_voice") || menuisopen("pc_options_chat")) && localvarbool("ui_showPicApply") && !localvarbool("ui_showApply") && !localvarbool("ui_showAudioApply"))
+      if (!(menuisopen("iw4x_ingame_pc_options_advanced_video") || menuisopen("iw4x_ingame_pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("iw4x_ingame_pc_options_controls") || menuisopen("iw4x_ingame_pc_options_voice") || menuisopen("iw4x_ingame_pc_options_chat")) && localvarbool("ui_showPicApply") && !localvarbool("ui_showApply") && !localvarbool("ui_showAudioApply"))
       {
         execnow "setfromdvar r_picmip ui_r_picmip";
         execnow "setfromdvar r_picmip_bump ui_r_picmip_bump";
@@ -57,7 +57,7 @@
         exec "wait; wait; r_applyPicmip";
         setLocalVarBool ui_showPicApply 0;
       }
-      if (!(menuisopen("pc_options_advanced_video") || menuisopen("pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("pc_options_controls") || menuisopen("pc_options_voice") || menuisopen("pc_options_chat")) && (localvarbool("ui_showApply") || localvarbool("ui_showAudioApply")))
+      if (!(menuisopen("iw4x_ingame_pc_options_advanced_video") || menuisopen("iw4x_ingame_pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("iw4x_ingame_pc_options_controls") || menuisopen("iw4x_ingame_pc_options_voice") || menuisopen("iw4x_ingame_pc_options_chat")) && (localvarbool("ui_showApply") || localvarbool("ui_showAudioApply")))
       {
         open all_restart_popmenu;
       }
@@ -230,13 +230,13 @@
       action
       {
         play mouse_click;
-        close pc_options_video;
-        close pc_options_voice;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_voice;
         close pc_options_adanced_video;
         close options_texture_quality;
-        close pc_options_audio;
-        close pc_options_movement;
-        close pc_options_controls;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_movement;
+        close iw4x_ingame_pc_options_controls;
         close options_look;
         close options_move;
         close options_shoot;
@@ -254,13 +254,13 @@
         close options_control_defaults;
         close options_voice;
         close options_multi;
-        close controls_multi;
-        close main_options;
-        close pc_options_audio;
-        close pc_options_video;
-        close pc_options_chat;
+        close iw4x_ingame_controls_multi;
+        close iw4x_ingame_main_options;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_chat;
         close main_controls;
-        open pc_options_video;
+        open iw4x_ingame_pc_options_video;
       }
     }
     itemDef
@@ -298,13 +298,13 @@
       action
       {
         play mouse_click;
-        close pc_options_video;
-        close pc_options_voice;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_voice;
         close pc_options_adanced_video;
         close options_texture_quality;
-        close pc_options_audio;
-        close pc_options_movement;
-        close pc_options_controls;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_movement;
+        close iw4x_ingame_pc_options_controls;
         close options_look;
         close options_move;
         close options_shoot;
@@ -322,13 +322,13 @@
         close options_control_defaults;
         close options_voice;
         close options_multi;
-        close controls_multi;
-        close main_options;
-        close pc_options_audio;
-        close pc_options_video;
-        close pc_options_chat;
+        close iw4x_ingame_controls_multi;
+        close iw4x_ingame_main_options;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_chat;
         close main_controls;
-        open pc_options_audio;
+        open iw4x_ingame_pc_options_audio;
       }
     }
     itemDef
@@ -366,13 +366,13 @@
       action
       {
         play mouse_click;
-        close pc_options_video;
-        close pc_options_voice;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_voice;
         close pc_options_adanced_video;
         close options_texture_quality;
-        close pc_options_audio;
-        close pc_options_movement;
-        close pc_options_controls;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_movement;
+        close iw4x_ingame_pc_options_controls;
         close options_look;
         close options_move;
         close options_shoot;
@@ -390,13 +390,13 @@
         close options_control_defaults;
         close options_voice;
         close options_multi;
-        close controls_multi;
-        close main_options;
-        close pc_options_audio;
-        close pc_options_video;
-        close pc_options_chat;
+        close iw4x_ingame_controls_multi;
+        close iw4x_ingame_main_options;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_chat;
         close main_controls;
-        open pc_options_controls;
+        open iw4x_ingame_pc_options_controls;
       }
     }
     itemDef
@@ -435,13 +435,13 @@
       action
       {
         play mouse_click;
-        close pc_options_video;
-        close pc_options_voice;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_voice;
         close pc_options_adanced_video;
         close options_texture_quality;
-        close pc_options_audio;
-        close pc_options_movement;
-        close pc_options_controls;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_movement;
+        close iw4x_ingame_pc_options_controls;
         close options_look;
         close options_move;
         close options_shoot;
@@ -459,13 +459,13 @@
         close options_control_defaults;
         close options_voice;
         close options_multi;
-        close controls_multi;
-        close main_options;
-        close pc_options_audio;
-        close pc_options_video;
-        close pc_options_chat;
+        close iw4x_ingame_controls_multi;
+        close iw4x_ingame_main_options;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_chat;
         close main_controls;
-        open pc_options_voice;
+        open iw4x_ingame_pc_options_voice;
       }
     }
     itemDef
@@ -504,13 +504,13 @@
       action
       {
         play mouse_click;
-        close pc_options_video;
-        close pc_options_voice;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_voice;
         close pc_options_adanced_video;
         close options_texture_quality;
-        close pc_options_audio;
-        close pc_options_movement;
-        close pc_options_controls;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_movement;
+        close iw4x_ingame_pc_options_controls;
         close options_look;
         close options_move;
         close options_shoot;
@@ -528,13 +528,13 @@
         close options_control_defaults;
         close options_voice;
         close options_multi;
-        close controls_multi;
-        close main_options;
-        close pc_options_audio;
-        close pc_options_video;
-        close pc_options_chat;
+        close iw4x_ingame_controls_multi;
+        close iw4x_ingame_main_options;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_chat;
         close main_controls;
-        open pc_options_chat;
+        open iw4x_ingame_pc_options_chat;
       }
     }
     itemDef
@@ -573,13 +573,13 @@
       action
       {
         play mouse_click;
-        close pc_options_video;
-        close pc_options_voice;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_voice;
         close pc_options_adanced_video;
         close options_texture_quality;
-        close pc_options_audio;
-        close pc_options_movement;
-        close pc_options_controls;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_movement;
+        close iw4x_ingame_pc_options_controls;
         close options_look;
         close options_move;
         close options_shoot;
@@ -597,13 +597,13 @@
         close options_control_defaults;
         close options_voice;
         close options_multi;
-        close controls_multi;
-        close main_options;
-        close pc_options_audio;
-        close pc_options_video;
-        close pc_options_chat;
+        close iw4x_ingame_controls_multi;
+        close iw4x_ingame_main_options;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_chat;
         close main_controls;
-        open pc_options_multi;
+        open iw4x_ingame_pc_options_multi;
       }
     }
     itemDef
@@ -642,13 +642,13 @@
       action
       {
         play mouse_click;
-        close pc_options_video;
-        close pc_options_voice;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_voice;
         close pc_options_adanced_video;
         close options_texture_quality;
-        close pc_options_audio;
-        close pc_options_movement;
-        close pc_options_controls;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_movement;
+        close iw4x_ingame_pc_options_controls;
         close options_look;
         close options_move;
         close options_shoot;
@@ -666,13 +666,13 @@
         close options_control_defaults;
         close options_voice;
         close options_multi;
-        close controls_multi;
-        close main_options;
-        close pc_options_audio;
-        close pc_options_video;
-        close pc_options_chat;
+        close iw4x_ingame_controls_multi;
+        close iw4x_ingame_main_options;
+        close iw4x_ingame_pc_options_audio;
+        close iw4x_ingame_pc_options_video;
+        close iw4x_ingame_pc_options_chat;
         close main_controls;
-        open pc_options_gamepad;
+        open iw4x_ingame_pc_options_gamepad;
       }
     }
     itemDef
@@ -758,7 +758,7 @@
         play mouse_click;
         play mouse_click;
         escape self;
-        if (!(menuisopen("pc_options_advanced_video") || menuisopen("pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("pc_options_controls") || menuisopen("pc_options_voice") || menuisopen("pc_options_chat")))
+        if (!(menuisopen("iw4x_ingame_pc_options_advanced_video") || menuisopen("iw4x_ingame_pc_options_video") || menuisopen("pc_options_Audio") || menuisopen("iw4x_ingame_pc_options_controls") || menuisopen("iw4x_ingame_pc_options_voice") || menuisopen("iw4x_ingame_pc_options_chat")))
         {
           if (localvarbool("ui_showPicApply") && !localvarbool("ui_showApply"))
           {

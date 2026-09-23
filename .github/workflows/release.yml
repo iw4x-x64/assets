@@ -60,7 +60,7 @@ env:
   # commit.
   #
   OAT_REPOSITORY: iw4x-x64/oat
-  OAT_COMMIT: 7cb985823b6989a844e45373b7c1679a527abf0e
+  OAT_COMMIT: df203f9fe5820ea8f63e50d524fb437861f8e427
   OAT_GCC: "14"
 
 jobs:

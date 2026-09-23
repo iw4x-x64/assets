@@ -1,5 +1,7 @@
 >game,IW4MS
 
+localize,iw4x_patch_mp
+
 // Order matters here.
 //
 // The menu lists come first, and among them those carrying functionDef
@@ -26,6 +28,7 @@ material,,gradient_fadein
 material,,gradient_fadein_fadebottom
 material,,gradient_inset_rect
 material,,gradient_slow_fadein
+material,,line_horizontal
 material,,logo_cod2
 material,,menu_button_selection_bar
 material,,menu_rules_selection_bar
@@ -85,6 +88,20 @@ menu,main_text
 menu,single_popmenu
 menu,options_multi
 menu,options_voice
+menu,iw4x_ingame_main_options
+menu,iw4x_ingame_controls_multi
+menu,iw4x_ingame_pc_options_video
+menu,iw4x_ingame_pc_options_advanced_video
+menu,iw4x_ingame_pc_options_audio
+menu,iw4x_ingame_pc_options_controls
+menu,iw4x_ingame_pc_options_voice
+menu,iw4x_ingame_pc_options_chat
+menu,iw4x_ingame_pc_options_movement
+menu,iw4x_ingame_pc_options_actions
+menu,iw4x_ingame_pc_options_look
+menu,iw4x_ingame_pc_options_multi
+menu,iw4x_ingame_pc_options_gamepad
+menu,iw4x_ingame_pc_options_gamepad_advanced
 menu,settings_quick_dm_@mpui_rules_time_limit
 menu,settings_quick_dm_@mpui_rules_score_limit
 menu,settings_quick_dm
