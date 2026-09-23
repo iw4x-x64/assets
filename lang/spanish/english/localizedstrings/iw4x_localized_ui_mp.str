@@ -17,7 +17,4 @@ LANG_ENGLISH        "Conectándose a la Red IW4x"
 REFERENCE           PLATFORM_POPUP_CONNECTION_GDK
 LANG_ENGLISH        "Conectándose a la Red IW4x"
 
-REFERENCE           MENU_IW4X_CAPS
-LANG_ENGLISH        "IW4X"
-
 ENDMARKER
