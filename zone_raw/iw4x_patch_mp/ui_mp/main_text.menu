@@ -114,55 +114,6 @@
     }
     itemDef
     {
-      name                        "button_download_content"
-      text                        "@PATCH_DOWNLOAD_CONTENT_CAPS"
-      group                       "mw2_button"
-      rect                        -64 28 336 20 1 1
-      style                       1
-      type                        1
-      visible                     when(anynewmappacks());
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-      disablecolor                0.6 0.55 0.55 1
-      background                  "menu_button_selection_bar"
-      onFocus
-      {
-        play mouse_over;
-        if (dvarstring(gameMode) != "mp")
-        {
-          setItemColor mw2_button backcolor 0 0 0 0;
-        }
-        setItemColor self backcolor 0 0 0 1;
-        setLocalVarBool ui_menuAButton 1;
-        setLocalVarFloat ui_popupYPos getfocuseditemy();
-      }
-      leaveFocus
-      {
-        setItemColor self backcolor 0 0 0 "0.0";
-        setLocalVarString ui_hint_text "@NULL_EMPTY";
-        setLocalVarBool ui_menuAButton 0;
-      }
-      action
-      {
-        play mouse_click;
-        execnow nosplitscreen;
-        exec xshowmarketplace;
-        exec splitscreencontrols;
-      }
-    }
-    itemDef
-    {
-      rect                        232 28 40 20 1 1
-      style                       3
-      decoration
-      visible                     when(anynewmappacks());
-      textscale                   0.55
-      background                  "specialty_new"
-    }
-    itemDef
-    {
       name                        "button_xboxlive"
       text                        "@PLATFORM_PLAY_ONLINE_CAPS"
       group                       "mw2_button"
