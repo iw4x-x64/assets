@@ -1,6 +1,6 @@
 : 1
 name: assets
-version: 0.1.0-a.4
+version: 0.1.0-a.4.z
 type: other
 summary: IW4 x64 fastfile assets for IW4x
 license: GPL-3.0-or-later ; GNU General Public License v3.0 or later.
