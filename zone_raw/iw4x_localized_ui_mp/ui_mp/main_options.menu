@@ -10,7 +10,6 @@
     blurWorld                   7
     onOpen
     {
-      setLocalVarBool ui_showApply 0;
       setLocalVarBool ui_hideBack 1;
       setitemcolor fadebox backcolor 0 0 0 1;
       fadeout fadebox;
@@ -539,8 +538,8 @@
     }
     itemDef
     {
-      name                        "buttonMultiplayer"
-      text                        "@MENU_MULTIPLAYER"
+      name                        "buttonController"
+      text                        "@MENU_IW4X_CONTROLLER"
       group                       "mw2_button"
       rect                        -64 128 336 20 1 1
       style                       1
@@ -603,13 +602,13 @@
         close pc_options_video;
         close pc_options_chat;
         close main_controls;
-        open pc_options_multi;
+        open pc_options_gamepad;
       }
     }
     itemDef
     {
-      name                        "buttonController"
-      text                        "@MENU_IW4X_CONTROLLER"
+      name                        "buttonMultiplayer"
+      text                        "@MENU_MULTIPLAYER"
       group                       "mw2_button"
       rect                        -64 148 336 20 1 1
       style                       1
@@ -672,7 +671,7 @@
         close pc_options_video;
         close pc_options_chat;
         close main_controls;
-        open pc_options_gamepad;
+        open pc_options_multi;
       }
     }
     itemDef

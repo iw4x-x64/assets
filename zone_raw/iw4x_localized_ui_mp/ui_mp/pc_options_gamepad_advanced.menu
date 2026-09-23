@@ -10,13 +10,13 @@
     blurWorld                   7
     onOpen
     {
-      setLocalVarBool ui_optionRowShow 0;
       setLocalVarBool ui_hideBack 1;
       setLocalVarString ui_hint_text "@NULL_EMPTY";
       ExecNow "profile_menuDvarsSetup; resetViewport";
     }
     onClose
     {
+      setLocalVarBool ui_optionRowShow 0;
       setLocalVarBool ui_hideBack 0;
       setLocalVarString ui_hint_text "@NULL_EMPTY";
     }

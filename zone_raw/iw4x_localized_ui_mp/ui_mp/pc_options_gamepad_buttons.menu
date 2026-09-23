@@ -1,7 +1,7 @@
 {
   menuDef
   {
-    name                        "pc_options_look"
+    name                        "pc_options_gamepad_buttons"
     rect                        0 0 640 480 0 0
     focuscolor                  1 1 1 1
     fadeClamp                   1
@@ -11,20 +11,18 @@
     onOpen
     {
       setLocalVarBool ui_hideBack 1;
+      setLocalVarString ui_hint_text "@NULL_EMPTY";
     }
     onClose
     {
       setLocalVarBool ui_optionRowShow 0;
       setLocalVarBool ui_hideBack 0;
+      setLocalVarString ui_hint_text "@NULL_EMPTY";
     }
     onESC
     {
       close self;
-      if (localvarbool("ui_optionsFromControls"))
-      {
-        setLocalVarBool ui_optionsFromControls 0;
-        open pc_options_controls;
-      }
+      open pc_options_gamepad;
     }
     itemDef
     {
@@ -148,7 +146,7 @@
     }
     itemDef
     {
-      text                        "@MENU_LOOK"
+      text                        "@MENU_BUTTON_LAYOUT"
       rect                        0 0 272 28 1 1
       decoration
       visible                     1
@@ -156,6 +154,46 @@
       textalignx                  -60
       textscale                   0.5
       textfont                    9
+    }
+    itemDef
+    {
+      rect                        -64 28 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(dvarstring(gpad_buttonConfig) == "buttons_default");
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 48 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(dvarstring(gpad_buttonConfig) == "buttons_tactical");
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 68 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(dvarstring(gpad_buttonConfig) == "buttons_lefty");
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 88 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(dvarstring(gpad_buttonConfig) == "buttons_nomad");
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
     }
     itemDef
     {
@@ -170,43 +208,41 @@
     }
     itemDef
     {
-      rect                        224 31 344 20 1 1
-      type                        10
-      visible                     when(1);
-      textscale                   0.55
-      onFocus
-      {
-        setLocalVarFloat ui_optionRowY 28;
-        setLocalVarBool ui_optionRowShow 1;
-        play mouse_over;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-      }
-      action
-      {
-      }
-      dvarFloat                   "sensitivity" 5 1 30
-    }
-    itemDef
-    {
-      text                        "@MENU_MOUSE_SENSITIVITY"
+      text                        "@MENU_DEFAULT"
       rect                        -64 28 336 20 1 1
-      decoration
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
       textscale                   0.375
       textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 28;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_BUTTON_LAYOUT";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+        setLocalVarString ui_gpad_layout "buttons_default";
+        open options_gpad_button_layout;
+      }
     }
     itemDef
     {
-      rect                        -64 48 384 20 1 1
-      type                        11
+      text                        "@MENU_TACTICAL"
+      rect                        -64 48 336 20 1 1
+      type                        1
       visible                     when(1);
-      textalign                   4
-      textalignx                  288
+      textalign                   6
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       onFocus
@@ -214,46 +250,57 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 48;
         setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_BUTTON_LAYOUT";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
-        uiScript update ui_mousePitch;
+        setLocalVarString ui_gpad_layout "buttons_tactical";
+        open options_gpad_button_layout;
       }
-      dvar                        "ui_mousePitch"
     }
     itemDef
     {
-      text                        "@MENU_INVERT_MOUSE"
-      rect                        -64 48 336 20 1 1
-      decoration
+      text                        "@MENU_LEFTY"
+      rect                        -64 68 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
       textscale                   0.375
       textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 68;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_BUTTON_LAYOUT";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+        setLocalVarString ui_gpad_layout "buttons_lefty";
+        open options_gpad_button_layout;
+      }
     }
     itemDef
     {
-      rect                        0 88 216 1 1 1
-      style                       3
-      decoration
+      text                        "@MENU_NOMAD"
+      rect                        -64 88 336 20 1 1
+      type                        1
       visible                     when(1);
-      textscale                   0.55
-      forecolor                   1 1 1 0.65
-      background                  "line_horizontal"
-    }
-    itemDef
-    {
-      rect                        -64 88 384 20 1 1
-      type                        11
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
+      textalign                   6
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       onFocus
@@ -261,215 +308,31 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 88;
         setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_BUTTON_LAYOUT";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setLocalVarString ui_gpad_layout "buttons_nomad";
+        open options_gpad_button_layout;
       }
-      dvar                        "m_filter"
     }
     itemDef
     {
-      text                        "@MENU_SMOOTH_MOUSE"
-      rect                        -64 88 336 20 1 1
+      rect                        0 116 212 18 1 1
       decoration
-      visible                     when(1);
+      autowrapped
+      visible                     1
       textalign                   6
-      textalignx                  -60
       textscale                   0.375
       textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 108 384 20 1 1
-      type                        11
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
-      textscale                   0.375
-      textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 108;
-        setLocalVarBool ui_optionRowShow 1;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "cl_freelook"
-    }
-    itemDef
-    {
-      text                        "@MENU_FREE_LOOK"
-      rect                        -64 108 336 20 1 1
-      decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 128 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
-      textscale                   0.375
-      textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 128;
-        setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "+lookup"
-    }
-    itemDef
-    {
-      text                        "@MENU_LOOK_UP"
-      rect                        -64 128 336 20 1 1
-      decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 148 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
-      textscale                   0.375
-      textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 148;
-        setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "+lookdown"
-    }
-    itemDef
-    {
-      text                        "@MENU_LOOK_DOWN"
-      rect                        -64 148 336 20 1 1
-      decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 168 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
-      textscale                   0.375
-      textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 168;
-        setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "+mlook"
-    }
-    itemDef
-    {
-      text                        "@MENU_HOLD_MOUSE_LOOK"
-      rect                        -64 168 336 20 1 1
-      decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 188 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
-      textscale                   0.375
-      textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 188;
-        setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "centerview"
-    }
-    itemDef
-    {
-      text                        "@MENU_CENTER_VIEW"
-      rect                        -64 188 336 20 1 1
-      decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
+      forecolor                   1 1 1 0.65
+      exp text                    localvarstring("ui_hint_text");
     }
     itemDef
     {
@@ -546,19 +409,6 @@
         play mouse_click;
         open popup_summary;
       }
-    }
-    itemDef
-    {
-      name                        "keyBindStatus"
-      rect                        10 20 500 240 2 3
-      style                       1
-      decoration
-      autowrapped
-      type                        8
-      ownerdraw                   250
-      textalign                   1
-      textscale                   0.375
-      forecolor                   0.65 0.65 0.65 1
     }
   }
 }

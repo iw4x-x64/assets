@@ -11,7 +11,6 @@
     onOpen
     {
       setLocalVarInt ui_optionsSection 1;
-      setLocalVarBool ui_optionRowShow 0;
       ExecNow "profile_menuDvarsSetup; resetViewport";
       setLocalVarBool ui_hideBack 1;
       if (!localvarint("ui_showApply") && !localvarint("ui_showPicApply"))
@@ -19,13 +18,20 @@
         exec "exec options_graphics.cfg";
       }
       ExecNow "profile_menuDvarsSetup; resetViewport";
+      execOnDvarIntValue r_displayMode 0 "set ui_r_displayMode 0";
+      execOnDvarIntValue r_displayMode 1 "set ui_r_displayMode 1";
+      execOnDvarIntValue r_displayMode 2 "set ui_r_displayMode 2";
     }
     onClose
     {
+      setLocalVarBool ui_optionRowShow 0;
       ExecNow "profile_menuDvarsFinish; resetViewport";
       setLocalVarBool ui_hideBack 0;
       execondvarintvalue r_lodScaleRigid 2 "set r_lodScaleSkinned 4; set r_lodBiasSkinned -200; set r_lodBiasRigid -100";
       execondvarintvalue r_lodScaleRigid 1 "set r_lodScaleSkinned 1; set r_lodBiasSkinned 0; set r_lodBiasRigid 0";
+      execOnDvarIntValue ui_r_displayMode 0 "seta r_displayMode 0";
+      execOnDvarIntValue ui_r_displayMode 1 "seta r_displayMode 1";
+      execOnDvarIntValue ui_r_displayMode 2 "seta r_displayMode 2";
     }
     onESC
     {
@@ -247,7 +253,7 @@
       rect                        -64 28 384 20 1 1
       type                        13
       visible                     when(1);
-      disabled                    when(dvarbool(r_borderlesswindow) || FUNC_31());
+      disabled                    when(dvarint(ui_r_displayMode) == 2 || FUNC_31());
       textalign                   4
       textalignx                  288
       textscale                   0.375
@@ -277,7 +283,7 @@
       rect                        -64 28 336 20 1 1
       decoration
       visible                     when(1);
-      disabled                    when(dvarbool(r_borderlesswindow) || FUNC_31());
+      disabled                    when(dvarint(ui_r_displayMode) == 2 || FUNC_31());
       textalign                   6
       textalignx                  -60
       textscale                   0.375
@@ -310,7 +316,7 @@
     itemDef
     {
       rect                        -64 48 384 20 1 1
-      type                        11
+      type                        12
       visible                     when(cantogglefullscreen());
       disabled                    when(FUNC_31());
       textalign                   4
@@ -333,11 +339,12 @@
         play mouse_click;
         setLocalVarBool ui_showApply 1;
       }
-      dvar                        "ui_r_borderlesswindow"
+      dvar                        "ui_r_displayMode"
+      dvarFloatList               { "@MENU_IW4X_WINDOWED" 0 "@MENU_FULLSCREEN" 1 "@MENU_IW4X_WINDOWED_FULLSCREEN" 2 }
     }
     itemDef
     {
-      text                        "@MENU_FULLSCREEN"
+      text                        "@MENU_IW4X_DISPLAY_MODE"
       rect                        -64 48 336 20 1 1
       decoration
       visible                     when(cantogglefullscreen());

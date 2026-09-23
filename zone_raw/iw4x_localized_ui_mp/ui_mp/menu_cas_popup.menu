@@ -5075,7 +5075,7 @@
       rect                        -272 0 0 18 3 1
       style                       1
       decoration
-      visible                     1
+      visible                     when(!dvarint(xblive_privatematch) && inlobby());
       textalign                   4
       textalignx                  20
       textscale                   0.375

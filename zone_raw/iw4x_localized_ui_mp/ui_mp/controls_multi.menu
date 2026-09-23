@@ -10,12 +10,12 @@
     blurWorld                   7
     onOpen
     {
-      setLocalVarBool ui_optionRowShow 0;
       exec "setfromdvar ui_name name";
       setLocalVarBool ui_hideBack 1;
     }
     onClose
     {
+      setLocalVarBool ui_optionRowShow 0;
       setLocalVarBool ui_hideBack 0;
     }
     onESC

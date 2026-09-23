@@ -1,7 +1,7 @@
 {
   menuDef
   {
-    name                        "pc_options_actions"
+    name                        "pc_options_gamepad_sensitivity_custom"
     rect                        0 0 640 480 0 0
     focuscolor                  1 1 1 1
     fadeClamp                   1
@@ -11,20 +11,18 @@
     onOpen
     {
       setLocalVarBool ui_hideBack 1;
+      setLocalVarString ui_hint_text "@NULL_EMPTY";
     }
     onClose
     {
       setLocalVarBool ui_optionRowShow 0;
       setLocalVarBool ui_hideBack 0;
+      setLocalVarString ui_hint_text "@NULL_EMPTY";
     }
     onESC
     {
       close self;
-      if (localvarbool("ui_optionsFromControls"))
-      {
-        setLocalVarBool ui_optionsFromControls 0;
-        open pc_options_controls;
-      }
+      open pc_options_gamepad_sensitivity;
     }
     itemDef
     {
@@ -148,7 +146,7 @@
     }
     itemDef
     {
-      text                        "@MENU_ACTIONS"
+      text                        "@MENU_IW4X_CUSTOM_SENSITIVITY"
       rect                        0 0 272 28 1 1
       decoration
       visible                     1
@@ -156,6 +154,106 @@
       textalignx                  -60
       textscale                   0.5
       textfont                    9
+    }
+    itemDef
+    {
+      rect                        -64 28 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 1);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 48 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 2);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 68 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 3);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 88 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 4);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 108 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 5);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 128 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 6);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 148 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 7);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 168 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 8);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 188 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 9);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
+    }
+    itemDef
+    {
+      rect                        -64 208 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(int(dvarfloat(input_viewSensitivity) * 5 + 0.5) == 10);
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "popup_button_selection_bar"
     }
     itemDef
     {
@@ -170,11 +268,12 @@
     }
     itemDef
     {
-      rect                        -64 28 384 20 1 1
-      type                        14
+      text                        "1"
+      rect                        -64 28 336 20 1 1
+      type                        1
       visible                     when(1);
-      textalign                   4
-      textalignx                  288
+      textalign                   6
+      textalignx                  -60
       textscale                   0.375
       textfont                    3
       onFocus
@@ -182,37 +281,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 28;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 0.2;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+attack"
     }
     itemDef
     {
-      text                        "@MENU_FIRE_WEAPON"
-      rect                        -64 28 336 20 1 1
-      decoration
+      text                        "2"
+      rect                        -64 48 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 48 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -220,37 +311,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 48;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 0.4;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+toggleads_throw"
     }
     itemDef
     {
-      text                        "@MENU_AIM_DOWN_THE_SIGHT"
-      rect                        -64 48 336 20 1 1
-      decoration
+      text                        "3"
+      rect                        -64 68 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 68 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -258,37 +341,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 68;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 0.6;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+speed_throw"
     }
     itemDef
     {
-      text                        "@MENU_HOLD_AIM_DOWN_SIGHT"
-      rect                        -64 68 336 20 1 1
-      decoration
+      text                        "4"
+      rect                        -64 88 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 88 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -296,37 +371,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 88;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 0.8;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+reload"
     }
     itemDef
     {
-      text                        "@MENU_RELOAD_WEAPON"
-      rect                        -64 88 336 20 1 1
-      decoration
+      text                        "5"
+      rect                        -64 108 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 108 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -334,37 +401,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 108;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 1;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "weapnext"
     }
     itemDef
     {
-      text                        "@MENU_SWITCH_WEAPON"
-      rect                        -64 108 336 20 1 1
-      decoration
+      text                        "6"
+      rect                        -64 128 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 128 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -372,37 +431,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 128;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 1.2;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+melee"
     }
     itemDef
     {
-      text                        "@MENU_MELEE_ATTACK"
-      rect                        -64 128 336 20 1 1
-      decoration
+      text                        "7"
+      rect                        -64 148 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 148 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -410,37 +461,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 148;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 1.4;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+activate"
     }
     itemDef
     {
-      text                        "@MENU_USE"
-      rect                        -64 148 336 20 1 1
-      decoration
+      text                        "8"
+      rect                        -64 168 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 168 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -448,37 +491,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 168;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 1.6;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+frag"
     }
     itemDef
     {
-      text                        "@MENU_FRAG_EQUIPMENT"
-      rect                        -64 168 336 20 1 1
-      decoration
+      text                        "9"
+      rect                        -64 188 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 188 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -486,37 +521,29 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 188;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 1.8;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+smoke"
     }
     itemDef
     {
-      text                        "@MENU_THROW_SPECIAL_GRENADE"
-      rect                        -64 188 336 20 1 1
-      decoration
+      text                        "10"
+      rect                        -64 208 336 20 1 1
+      type                        1
       visible                     when(1);
       textalign                   6
       textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 208 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
       textscale                   0.375
       textfont                    3
       onFocus
@@ -524,191 +551,87 @@
         play mouse_over;
         setLocalVarFloat ui_optionRowY 208;
         setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_SENSITIVITY";
       }
       leaveFocus
       {
         setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
       }
       action
       {
         play mouse_click;
+        setdvar input_viewSensitivity 2;
+        close self;
+        open pc_options_gamepad;
       }
-      dvar                        "+actionslot 3"
     }
     itemDef
     {
-      text                        "@MENU_WEAPON_ATTACHMENT"
-      rect                        -64 208 336 20 1 1
+      text                        "@MENU_LOW"
+      rect                        -64 28 384 20 1 1
       decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 228 384 20 1 1
-      type                        14
       visible                     when(1);
       textalign                   4
       textalignx                  288
       textscale                   0.375
       textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 228;
-        setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "+actionslot 4"
     }
     itemDef
     {
-      text                        "@MENU_INVENTORY_KILLSTREAK"
-      rect                        -64 228 336 20 1 1
+      text                        "@MENU_MEDIUM"
+      rect                        -64 48 384 20 1 1
       decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 248 384 20 1 1
-      type                        14
       visible                     when(1);
       textalign                   4
       textalignx                  288
       textscale                   0.375
       textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 248;
-        setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "+actionslot 2"
     }
     itemDef
     {
-      text                        "@MENU_SECONDARY_INVENTORY"
-      rect                        -64 248 336 20 1 1
+      text                        "@MENU_HIGH"
+      rect                        -64 88 384 20 1 1
       decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
-    }
-    itemDef
-    {
-      rect                        -64 268 384 20 1 1
-      type                        14
       visible                     when(1);
       textalign                   4
       textalignx                  288
       textscale                   0.375
       textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 268;
-        setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "+actionslot 1"
     }
     itemDef
     {
-      text                        "@MENU_NVG_WATCH"
-      rect                        -64 268 336 20 1 1
+      text                        "@MENU_IW4X_VERY_HIGH"
+      rect                        -64 148 384 20 1 1
       decoration
       visible                     when(1);
-      textalign                   6
-      textalignx                  -60
+      textalign                   4
+      textalignx                  288
       textscale                   0.375
       textfont                    3
     }
     itemDef
     {
-      rect                        0 308 216 1 1 1
-      style                       3
+      text                        "@MENU_INSANE"
+      rect                        -64 208 384 20 1 1
       decoration
       visible                     when(1);
-      textscale                   0.55
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        0 236 212 18 1 1
+      decoration
+      autowrapped
+      visible                     1
+      textalign                   6
+      textscale                   0.375
+      textfont                    3
       forecolor                   1 1 1 0.65
-      background                  "line_horizontal"
-    }
-    itemDef
-    {
-      rect                        -64 308 384 20 1 1
-      type                        14
-      visible                     when(1);
-      textalign                   4
-      textalignx                  288
-      textscale                   0.375
-      textfont                    3
-      onFocus
-      {
-        play mouse_over;
-        setLocalVarFloat ui_optionRowY 308;
-        setLocalVarBool ui_optionRowShow 1;
-        show keyBindStatus;
-      }
-      leaveFocus
-      {
-        setLocalVarBool ui_optionRowShow 0;
-        hide keyBindStatus;
-      }
-      action
-      {
-        play mouse_click;
-      }
-      dvar                        "+scores"
-    }
-    itemDef
-    {
-      text                        "@MENU_SHOW_OBJECTIVES_SCORES"
-      rect                        -64 308 336 20 1 1
-      decoration
-      visible                     when(1);
-      textalign                   6
-      textalignx                  -60
-      textscale                   0.375
-      textfont                    3
+      exp text                    localvarstring("ui_hint_text");
     }
     itemDef
     {
@@ -785,19 +708,6 @@
         play mouse_click;
         open popup_summary;
       }
-    }
-    itemDef
-    {
-      name                        "keyBindStatus"
-      rect                        10 20 500 240 2 3
-      style                       1
-      decoration
-      autowrapped
-      type                        8
-      ownerdraw                   250
-      textalign                   1
-      textscale                   0.375
-      forecolor                   0.65 0.65 0.65 1
     }
   }
 }

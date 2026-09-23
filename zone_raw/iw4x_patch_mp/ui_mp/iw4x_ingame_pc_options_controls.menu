@@ -11,12 +11,12 @@
     onOpen
     {
       setLocalVarInt ui_optionsSection 3;
-      setLocalVarBool ui_optionRowShow 0;
       setLocalVarBool ui_hideBack 1;
       ExecNow "profile_menuDvarsSetup; resetViewport";
     }
     onClose
     {
+      setLocalVarBool ui_optionRowShow 0;
       setLocalVarBool ui_hideBack 0;
     }
     onESC

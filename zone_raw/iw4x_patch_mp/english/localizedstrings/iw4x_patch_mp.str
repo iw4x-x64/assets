@@ -143,4 +143,31 @@ LANG_ENGLISH        "How bright the light bar is."
 REFERENCE           MENU_IW4X_DESC_RESTORE
 LANG_ENGLISH        "Restore these settings to their defaults."
 
+REFERENCE           MENU_IW4X_CUSTOM
+LANG_ENGLISH        "Custom"
+
+REFERENCE           MENU_IW4X_VERY_HIGH
+LANG_ENGLISH        "Very High"
+
+REFERENCE           MENU_IW4X_CUSTOM_SENSITIVITY
+LANG_ENGLISH        "Custom Sensitivity"
+
+REFERENCE           MENU_IW4X_CHANGE_BUTTON_LAYOUT
+LANG_ENGLISH        "Change Button Layout"
+
+REFERENCE           MENU_IW4X_BUTTON_LAYOUT_WARNING
+LANG_ENGLISH        "Switching layouts replaces all of your controller bindings with the ones of the chosen layout."
+
+REFERENCE           MENU_IW4X_DESC_SENSITIVITY_CUSTOM
+LANG_ENGLISH        "Pick any of the ten sensitivity levels."
+
+REFERENCE           MENU_IW4X_DISPLAY_MODE
+LANG_ENGLISH        "Display Mode"
+
+REFERENCE           MENU_IW4X_WINDOWED
+LANG_ENGLISH        "Windowed"
+
+REFERENCE           MENU_IW4X_WINDOWED_FULLSCREEN
+LANG_ENGLISH        "Windowed Fullscreen"
+
 ENDMARKER

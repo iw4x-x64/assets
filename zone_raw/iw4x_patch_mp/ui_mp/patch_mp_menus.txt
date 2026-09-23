@@ -207,4 +207,9 @@
     loadMenu { "ui_mp/iw4x_ingame_pc_options_multi.menu" }
     loadMenu { "ui_mp/iw4x_ingame_pc_options_gamepad.menu" }
     loadMenu { "ui_mp/iw4x_ingame_pc_options_gamepad_advanced.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_gamepad_sensitivity.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_gamepad_sensitivity_custom.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_gamepad_buttons.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_gamepad_sticks.menu" }
+    loadMenu { "ui_mp/options_gpad_button_layout.menu" }
 }

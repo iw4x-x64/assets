@@ -10,12 +10,12 @@
     blurWorld                   7
     onOpen
     {
-      setLocalVarBool ui_optionRowShow 0;
       ExecNow "profile_menuDvarsSetup; resetViewport";
       setLocalVarBool ui_hideBack 1;
     }
     onClose
     {
+      setLocalVarBool ui_optionRowShow 0;
       ExecNow "profile_menuDvarsFinish; resetViewport";
       setLocalVarBool ui_hideBack 0;
       execondvarintvalue r_lodScaleRigid 2 "set r_lodScaleSkinned 4; set r_lodBiasSkinned -200; set r_lodBiasRigid -100";
