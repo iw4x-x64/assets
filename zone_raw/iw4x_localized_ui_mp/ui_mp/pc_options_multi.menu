@@ -171,6 +171,11 @@
     }
     itemDef
     {
+      // An edit field with no text of its own paints its dvar's value as
+      // its text (Item_Text_Paint) and then the value again after it, so
+      // the name showed twice. The one space is what the retail menus
+      // give their edit fields: a text that paints nothing.
+      //
       text                        " "
       rect                        -64 28 384 20 1 1
       type                        4
