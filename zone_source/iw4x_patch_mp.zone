@@ -245,6 +245,11 @@ menu,popup_friend_add
 menu,popup_friend_picker
 menu,popup_friend_invited
 
+// The bots' objective publisher. Scr_LoadScript ("iw4x/bots/objectives")
+// asks for the rawfile by this name, extension included.
+
+rawfile,iw4x/bots/objectives.gsc
+
 // Rumbles.
 //
 // Copied from iw4x-rawfiles (iw4x_00/rumble/).

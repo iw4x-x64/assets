@@ -170,4 +170,64 @@ LANG_ENGLISH        "Windowed"
 REFERENCE           MENU_IW4X_WINDOWED_FULLSCREEN
 LANG_ENGLISH        "Windowed Fullscreen"
 
+REFERENCE           MENU_IW4X_BOTS
+LANG_ENGLISH        "Bots"
+
+REFERENCE           MENU_IW4X_BOT_DIFFICULTY
+LANG_ENGLISH        "Bot Difficulty"
+
+REFERENCE           MENU_IW4X_BOTS_PER_LOBBY
+LANG_ENGLISH        "Bots per Lobby"
+
+REFERENCE           MENU_IW4X_BOT_DELAY
+LANG_ENGLISH        "Bot Delay"
+
+REFERENCE           MENU_IW4X_RECRUIT
+LANG_ENGLISH        "Recruit"
+
+REFERENCE           MENU_IW4X_REGULAR
+LANG_ENGLISH        "Regular"
+
+REFERENCE           MENU_IW4X_HARDENED
+LANG_ENGLISH        "Hardened"
+
+REFERENCE           MENU_IW4X_VETERAN
+LANG_ENGLISH        "Veteran"
+
+REFERENCE           MENU_IW4X_MIXED
+LANG_ENGLISH        "Mixed"
+
+REFERENCE           MENU_IW4X_NONE
+LANG_ENGLISH        "None"
+
+REFERENCE           MENU_IW4X_FILL
+LANG_ENGLISH        "Fill"
+
+REFERENCE           MENU_IW4X_SECONDS_15
+LANG_ENGLISH        "15 s"
+
+REFERENCE           MENU_IW4X_SECONDS_30
+LANG_ENGLISH        "30 s"
+
+REFERENCE           MENU_IW4X_MINUTES_1
+LANG_ENGLISH        "1 min"
+
+REFERENCE           MENU_IW4X_MINUTES_2
+LANG_ENGLISH        "2 min"
+
+REFERENCE           MENU_IW4X_MINUTES_5
+LANG_ENGLISH        "5 min"
+
+REFERENCE           MENU_IW4X_DESC_BOTS
+LANG_ENGLISH        "Fill matchmaking lobbies you host with bots. Bots play Team Deathmatch and Free-for-All only."
+
+REFERENCE           MENU_IW4X_DESC_BOT_DIFFICULTY
+LANG_ENGLISH        "How well the bots play. Mixed deals each bot a skill of its own."
+
+REFERENCE           MENU_IW4X_DESC_BOTS_PER_LOBBY
+LANG_ENGLISH        "How many bots at most join a lobby that has not found enough players."
+
+REFERENCE           MENU_IW4X_DESC_BOT_DELAY
+LANG_ENGLISH        "How long a lobby keeps looking for players before bots fill it."
+
 ENDMARKER

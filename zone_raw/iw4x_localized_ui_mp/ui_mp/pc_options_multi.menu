@@ -215,7 +215,172 @@
     }
     itemDef
     {
-      rect                        0 56 212 18 1 1
+      rect                        0 48 216 1 1 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   1 1 1 0.65
+      background                  "line_horizontal"
+    }
+    itemDef
+    {
+      rect                        -64 48 384 20 1 1
+      type                        11
+      visible                     when(1);
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 48;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_BOTS";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+      }
+      dvar                        "bot_enable"
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_BOTS"
+      rect                        -64 48 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        -64 68 384 20 1 1
+      type                        12
+      visible                     when(1);
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 68;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_BOT_DIFFICULTY";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+      }
+      dvar                        "bot_difficulty"
+      dvarFloatList               { "@MENU_IW4X_RECRUIT" 0 "@MENU_IW4X_REGULAR" 1 "@MENU_IW4X_HARDENED" 2 "@MENU_IW4X_VETERAN" 3 "@MENU_IW4X_MIXED" 4 }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_BOT_DIFFICULTY"
+      rect                        -64 68 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        -64 88 384 20 1 1
+      type                        12
+      visible                     when(1);
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 88;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_BOTS_PER_LOBBY";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+      }
+      dvar                        "bot_matchmaking_fill"
+      dvarFloatList               { "@MENU_IW4X_NONE" 0 "2" 2 "4" 4 "6" 6 "8" 8 "10" 10 "12" 12 "14" 14 "@MENU_IW4X_FILL" 17 }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_BOTS_PER_LOBBY"
+      rect                        -64 88 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        -64 108 384 20 1 1
+      type                        12
+      visible                     when(1);
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 108;
+        setLocalVarBool ui_optionRowShow 1;
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_BOT_DELAY";
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+      }
+      action
+      {
+        play mouse_click;
+      }
+      dvar                        "bot_matchmaking_delay"
+      dvarFloatList               { "@MENU_IW4X_NONE" 0 "@MENU_IW4X_SECONDS_15" 15 "@MENU_IW4X_SECONDS_30" 30 "@MENU_IW4X_MINUTES_1" 60 "@MENU_IW4X_MINUTES_2" 120 "@MENU_IW4X_MINUTES_5" 300 }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_BOT_DELAY"
+      rect                        -64 108 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      rect                        0 136 212 18 1 1
       decoration
       autowrapped
       visible                     1
