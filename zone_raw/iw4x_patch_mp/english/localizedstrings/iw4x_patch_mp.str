@@ -230,4 +230,13 @@ LANG_ENGLISH        "How many bots at most join a lobby that has not found enoug
 REFERENCE           MENU_IW4X_DESC_BOT_DELAY
 LANG_ENGLISH        "How long a lobby keeps looking for players before bots fill it."
 
+REFERENCE           MENU_IW4X_VOICE_CHAT_MODE
+LANG_ENGLISH        "Voice Chat Mode"
+
+REFERENCE           MENU_IW4X_OPEN_MIC
+LANG_ENGLISH        "Open Mic"
+
+REFERENCE           MENU_IW4X_PUSH_TO_TALK
+LANG_ENGLISH        "Push to Talk"
+
 ENDMARKER
