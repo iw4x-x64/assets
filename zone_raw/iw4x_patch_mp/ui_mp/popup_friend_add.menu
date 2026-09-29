@@ -330,7 +330,7 @@
       columns                     3
                                   8 170 28 0
                                   186 110 20 0
-                                  304 144 20 0
+                                  304 126 20 0
       doubleclick
       {
         play mouse_click;

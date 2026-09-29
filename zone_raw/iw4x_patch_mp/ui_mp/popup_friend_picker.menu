@@ -241,7 +241,7 @@
       feeder                      101
       columns                     2
                                   8 300 32 0
-                                  316 130 24 0
+                                  316 114 24 0
       doubleclick
       {
         play mouse_click;
