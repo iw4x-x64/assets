@@ -2,7 +2,7 @@
   menuDef
   {
     name                        "popup_friend_invite_accept_gdk"
-    rect                        -150 -104 300 104 2 2
+    rect                        -150 -108 300 108 2 2
     style                       1
     backcolor                   1 1 1 1
     focuscolor                  1 1 1 1
@@ -45,7 +45,7 @@
     }
     itemDef
     {
-      rect                        0 0 300 104 0 0
+      rect                        0 0 300 108 0 0
       style                       1
       decoration
       visible                     1
@@ -83,7 +83,7 @@
       visible                     1
       textscale                   0.55
       background                  "mockup_popup_bg_stencilfill"
-      exp rect h                  (24 + 4 * 20);
+      exp rect h                  (24 + 4 * 20 + 4);
     }
     itemDef
     {
@@ -116,7 +116,7 @@
       textscale                   0.55
       forecolor                   1 1 1 0
       background                  "small_box_lightfx"
-      exp rect h                  (24 + 4 * 20);
+      exp rect h                  (24 + 4 * 20 + 4);
     }
     itemDef
     {
@@ -157,7 +157,7 @@
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_r"
-      exp rect h                  (24 + 4 * 20);
+      exp rect h                  (24 + 4 * 20 + 4);
     }
     itemDef
     {
@@ -168,7 +168,7 @@
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_br"
-      exp rect y                  (0 - 0) + ((24 + 4 * 20));
+      exp rect y                  (0 - 0) + ((24 + 4 * 20 + 4));
     }
     itemDef
     {
@@ -179,7 +179,7 @@
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_b"
-      exp rect y                  (0 - 0) + ((24 + 4 * 20));
+      exp rect y                  (0 - 0) + ((24 + 4 * 20 + 4));
     }
     itemDef
     {
@@ -190,7 +190,7 @@
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_bl"
-      exp rect y                  (0 - 0) + ((24 + 4 * 20));
+      exp rect y                  (0 - 0) + ((24 + 4 * 20 + 4));
     }
     itemDef
     {
@@ -201,7 +201,7 @@
       textscale                   0.55
       forecolor                   0 0 0 1
       background                  "drop_shadow_l"
-      exp rect h                  (24 + 4 * 20);
+      exp rect h                  (24 + 4 * 20 + 4);
     }
     itemDef
     {
@@ -218,7 +218,7 @@
     }
     itemDef
     {
-      rect                        4 20 292 42 0 0
+      rect                        4 28 292 34 0 0
       style                       1
       decoration
       autowrapped

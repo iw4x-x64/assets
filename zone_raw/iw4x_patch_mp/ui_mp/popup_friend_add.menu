@@ -2,7 +2,7 @@
   menuDef
   {
     name                        "popup_friend_add"
-    rect                        -230 -176 460 352 2 2
+    rect                        -230 -174 460 348 2 2
     style                       1
     backcolor                   1 1 1 1
     focuscolor                  1 1 1 1
@@ -46,7 +46,7 @@
     }
     itemDef
     {
-      rect                        0 0 460 352 0 0
+      rect                        0 0 460 348 0 0
       style                       1
       decoration
       visible                     1
@@ -78,7 +78,7 @@
     }
     itemDef
     {
-      rect                        0 0 460 352 0 0
+      rect                        0 0 460 348 0 0
       style                       3
       decoration
       visible                     1
@@ -109,7 +109,7 @@
     }
     itemDef
     {
-      rect                        0 0 460 352 1 1
+      rect                        0 0 460 348 1 1
       style                       3
       decoration
       visible                     1
@@ -149,7 +149,7 @@
     }
     itemDef
     {
-      rect                        460 0 64 352 0 0
+      rect                        460 0 64 348 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -159,7 +159,7 @@
     }
     itemDef
     {
-      rect                        460 352 64 64 0 0
+      rect                        460 348 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -169,7 +169,7 @@
     }
     itemDef
     {
-      rect                        0 352 460 64 0 0
+      rect                        0 348 460 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -179,7 +179,7 @@
     }
     itemDef
     {
-      rect                        -64 352 64 64 0 0
+      rect                        -64 348 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -189,7 +189,7 @@
     }
     itemDef
     {
-      rect                        -64 0 64 352 0 0
+      rect                        -64 0 64 348 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -213,12 +213,13 @@
     itemDef
     {
       text                        "Type a name to search for, or paste the ID a friend sent you."
-      rect                        4 24 452 16 0 0
+      rect                        4 26 452 16 0 0
       style                       1
       decoration
       visible                     1
-      textalign                   2
-      textalignx                  -4
+      textalign                   9
+      textaligny                  -2
+      textalignx                  0
       textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.5
@@ -284,12 +285,12 @@
     itemDef
     {
       text                        "FILTER"
-      rect                        4 68 48 18 0 0
+      rect                        4 68 44 18 0 0
       style                       1
       decoration
-      textaligny                  -3
+      textaligny                  -2
       visible                     when(dvarbool(ui_friend_asked));
-      textalign                   2
+      textalign                   10
       textalignx                  0
       textscale                   0.25
       textfont                    3
@@ -339,11 +340,12 @@
     itemDef
     {
       text                        "Searching..."
-      rect                        4 170 452 20 0 0
+      rect                        4 177 452 16 0 0
       style                       1
       decoration
       visible                     when(dvarbool(ui_friend_searching));
-      textalign                   1
+      textalign                   9
+      textaligny                  -1
       textalignx                  0
       textscale                   0.3
       textfont                    3
@@ -352,11 +354,12 @@
     itemDef
     {
       text                        "Nobody by that name has played on IW4x."
-      rect                        4 170 452 20 0 0
+      rect                        4 177 452 16 0 0
       style                       1
       decoration
       visible                     when(dvarbool(ui_friend_asked) && !dvarbool(ui_friend_searching) && (dvarint(ui_friend_found) == 0) && (dvarstring(ui_friend_filter) == ""));
-      textalign                   1
+      textalign                   9
+      textaligny                  -1
       textalignx                  0
       textscale                   0.3
       textfont                    3
@@ -365,11 +368,12 @@
     itemDef
     {
       text                        "Nothing here matches that filter."
-      rect                        4 170 452 20 0 0
+      rect                        4 177 452 16 0 0
       style                       1
       decoration
       visible                     when(dvarbool(ui_friend_asked) && !dvarbool(ui_friend_searching) && (dvarint(ui_friend_found) == 0) && (dvarstring(ui_friend_filter) != ""));
-      textalign                   1
+      textalign                   9
+      textaligny                  -1
       textalignx                  0
       textscale                   0.3
       textfont                    3
@@ -382,7 +386,8 @@
       style                       1
       decoration
       visible                     when(dvarbool(ui_friend_asked) && !dvarbool(ui_friend_searching) && dvarint(ui_friend_found) > 0 && dvarstring(ui_friends_note) == "");
-      textalign                   1
+      textalign                   9
+      textaligny                  -2
       textalignx                  0
       textscale                   0.25
       textfont                    3
@@ -394,7 +399,8 @@
       style                       1
       decoration
       visible                     when(dvarstring(ui_friends_note) != "");
-      textalign                   1
+      textalign                   9
+      textaligny                  -2
       textalignx                  0
       textscale                   0.25
       textfont                    3
@@ -479,7 +485,7 @@
       name                        "friend_add_back"
       text                        "@MENU_BACK"
       group                       "mw2_popup_button"
-      rect                        4 326 452 20 0 0
+      rect                        4 324 452 20 0 0
       style                       1
       type                        1
       visible                     1

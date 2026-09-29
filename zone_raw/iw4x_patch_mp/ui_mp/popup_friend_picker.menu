@@ -214,12 +214,13 @@
     itemDef
     {
       text                        "Double-click a friend to tick them, then choose Invite."
-      rect                        4 24 452 16 0 0
+      rect                        4 26 452 16 0 0
       style                       1
       decoration
       visible                     1
-      textalign                   2
-      textalignx                  -4
+      textalign                   9
+      textaligny                  -2
+      textalignx                  0
       textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.5

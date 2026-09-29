@@ -2,7 +2,7 @@
   menuDef
   {
     name                        "popup_friend_options"
-    rect                        -150 -62 300 124 2 2
+    rect                        -150 -66 300 132 2 2
     style                       1
     backcolor                   1 1 1 1
     focuscolor                  1 1 1 1
@@ -49,7 +49,7 @@
     }
     itemDef
     {
-      rect                        0 0 300 124 0 0
+      rect                        0 0 300 132 0 0
       style                       1
       decoration
       visible                     1
@@ -81,7 +81,7 @@
     }
     itemDef
     {
-      rect                        0 0 300 124 0 0
+      rect                        0 0 300 132 0 0
       style                       3
       decoration
       visible                     1
@@ -112,7 +112,7 @@
     }
     itemDef
     {
-      rect                        0 0 300 124 1 1
+      rect                        0 0 300 132 1 1
       style                       3
       decoration
       visible                     1
@@ -152,7 +152,7 @@
     }
     itemDef
     {
-      rect                        300 0 64 124 0 0
+      rect                        300 0 64 132 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -162,7 +162,7 @@
     }
     itemDef
     {
-      rect                        300 124 64 64 0 0
+      rect                        300 132 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -172,7 +172,7 @@
     }
     itemDef
     {
-      rect                        0 124 300 64 0 0
+      rect                        0 132 300 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -182,7 +182,7 @@
     }
     itemDef
     {
-      rect                        -64 124 64 64 0 0
+      rect                        -64 132 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -192,7 +192,7 @@
     }
     itemDef
     {
-      rect                        -64 0 64 124 0 0
+      rect                        -64 0 64 132 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -215,12 +215,13 @@
     }
     itemDef
     {
-      rect                        4 24 292 18 0 0
+      rect                        4 28 292 16 0 0
       style                       1
       decoration
       visible                     1
-      textalign                   1
+      textalign                   9
       textalignx                  0
+      textaligny                  -1
       textscale                   0.3
       textfont                    3
       forecolor                   1 1 1 0.75
@@ -230,7 +231,7 @@
     {
       name                        "friend_primary"
       group                       "mw2_popup_button"
-      rect                        4 44 292 20 0 0
+      rect                        4 48 292 20 0 0
       style                       1
       type                        1
       visible                     1
@@ -269,7 +270,7 @@
       name                        "friend_invite"
       text                        "Invite To Game"
       group                       "mw2_popup_button"
-      rect                        4 64 292 20 0 0
+      rect                        4 68 292 20 0 0
       style                       1
       type                        1
       visible                     1
@@ -306,7 +307,7 @@
     {
       name                        "friend_secondary"
       group                       "mw2_popup_button"
-      rect                        4 84 292 20 0 0
+      rect                        4 88 292 20 0 0
       style                       1
       type                        1
       visible                     1
@@ -345,7 +346,7 @@
       name                        "friend_back"
       text                        "@MENU_BACK"
       group                       "mw2_popup_button"
-      rect                        4 104 292 20 0 0
+      rect                        4 108 292 20 0 0
       style                       1
       type                        1
       visible                     1
