@@ -364,6 +364,47 @@
     }
     itemDef
     {
+      rect                        -64 88 384 20 1 1
+      type                        12
+      visible                     when(1);
+      disabled                    when(dvarstring(gameMode) == "sp");
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 88;
+        setLocalVarBool ui_optionRowShow 1;
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+      }
+      action
+      {
+        play mouse_click;
+      }
+      dvar                        "cl_pushToTalk"
+      dvarFloatList               { "@MENU_IW4X_OPEN_MIC" 0 "@MENU_IW4X_PUSH_TO_TALK" 1 }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_VOICE_CHAT_MODE"
+      rect                        -64 88 336 20 1 1
+      decoration
+      visible                     when(1);
+      disabled                    when(dvarstring(gameMode) == "sp");
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+    }
+    itemDef
+    {
       name                        "voicechat_level_indicator"
       rect                        44 74 96 10 1 1
       decoration
