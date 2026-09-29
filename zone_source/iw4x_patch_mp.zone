@@ -244,6 +244,7 @@ menu,popup_friend_options
 menu,popup_friend_add
 menu,popup_friend_picker
 menu,popup_friend_invited
+menu,popup_discord_friend
 
 // The bots' objective publisher. Scr_LoadScript ("iw4x/bots/objectives")
 // asks for the rawfile by this name, extension included.

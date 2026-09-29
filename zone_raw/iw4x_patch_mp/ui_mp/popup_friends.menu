@@ -2,7 +2,7 @@
   menuDef
   {
     name                        "popup_friends"
-    rect                        -230 -207 460 414 2 2
+    rect                        -230 -212 460 424 2 2
     style                       1
     backcolor                   1 1 1 1
     focuscolor                  1 1 1 1
@@ -15,7 +15,11 @@
       setLocalVarInt ui_centerPopup 1;
       exec "friends_open";
       setFocus friendslist;
-      if (dvarint(ui_friends_waiting) > 0)
+      if (dvarint(ui_friends_tab) == 1)
+      {
+        setFocus discordlist;
+      }
+      if (dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) > 0)
       {
         setFocus pendinglist;
       }
@@ -50,7 +54,7 @@
     }
     itemDef
     {
-      rect                        0 0 460 414 0 0
+      rect                        0 0 460 424 0 0
       style                       1
       decoration
       visible                     1
@@ -82,7 +86,7 @@
     }
     itemDef
     {
-      rect                        0 0 460 414 0 0
+      rect                        0 0 460 424 0 0
       style                       3
       decoration
       visible                     1
@@ -113,7 +117,7 @@
     }
     itemDef
     {
-      rect                        0 0 460 414 1 1
+      rect                        0 0 460 424 1 1
       style                       3
       decoration
       visible                     1
@@ -153,7 +157,7 @@
     }
     itemDef
     {
-      rect                        460 0 64 414 0 0
+      rect                        460 0 64 424 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -163,7 +167,7 @@
     }
     itemDef
     {
-      rect                        460 414 64 64 0 0
+      rect                        460 424 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -173,7 +177,7 @@
     }
     itemDef
     {
-      rect                        0 414 460 64 0 0
+      rect                        0 424 460 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -183,7 +187,7 @@
     }
     itemDef
     {
-      rect                        -64 414 64 64 0 0
+      rect                        -64 424 64 64 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -193,7 +197,7 @@
     }
     itemDef
     {
-      rect                        -64 0 64 414 0 0
+      rect                        -64 0 64 424 0 0
       style                       3
       decoration
       visible                     when(1);
@@ -216,12 +220,13 @@
     }
     itemDef
     {
-      rect                        4 26 226 16 0 0
+      rect                        4 28 226 16 0 0
       style                       1
       decoration
-      visible                     1
-      textalign                   0
-      textalignx                  4
+      visible                     when(dvarint(ui_friends_tab) == 0);
+      textalign                   8
+      textalignx                  6
+      textaligny                  -1
       textscale                   0.3
       textfont                    3
       forecolor                   1 1 1 0.85
@@ -229,12 +234,13 @@
     }
     itemDef
     {
-      rect                        230 26 226 16 0 0
+      rect                        230 28 226 16 0 0
       style                       1
       decoration
-      visible                     1
-      textalign                   2
-      textalignx                  -4
+      visible                     when(dvarint(ui_friends_tab) == 0);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
       textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.5
@@ -242,13 +248,132 @@
     }
     itemDef
     {
-      text                        "FRIENDS"
-      rect                        4 46 452 16 0 0
+      rect                        4 28 226 16 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_waiting) == 0);
-      textalign                   2
-      textalignx                  -4
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 4);
+      textalign                   8
+      textalignx                  6
+      textaligny                  -1
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.85
+      exp text                    dvarstring(ui_discord_me);
+    }
+    itemDef
+    {
+      text                        "SIGNED IN TO DISCORD"
+      rect                        230 28 226 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 4);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      name                        "tab_iw4x"
+      text                        "IW4X FRIENDS"
+      group                       "mw2_popup_button"
+      rect                        4 48 224 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   9
+      textalignx                  0
+      textaligny                  -1
+      textscale                   0.3
+      textfont                    3
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "friends_tab 0";
+        setFocus friendslist;
+      }
+      exp forecolor a             (dvarint(ui_friends_tab) == 0) * 0.55 + 0.45;
+    }
+    itemDef
+    {
+      name                        "tab_discord"
+      text                        "DISCORD"
+      group                       "mw2_popup_button"
+      rect                        232 48 224 20 0 0
+      style                       1
+      type                        1
+      visible                     1
+      textalign                   9
+      textalignx                  0
+      textaligny                  -1
+      textscale                   0.3
+      textfont                    3
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "friends_tab 1";
+        setFocus discordlist;
+      }
+      exp forecolor a             (dvarint(ui_friends_tab) == 1) * 0.55 + 0.45;
+    }
+    itemDef
+    {
+      rect                        4 66 224 2 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 0);
+      backcolor                   1 1 1 0.8
+      background                  "white"
+    }
+    itemDef
+    {
+      rect                        232 66 224 2 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1);
+      backcolor                   0.55 0.6 1 1
+      background                  "white"
+    }
+    itemDef
+    {
+      text                        "FRIENDS"
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) == 0);
+      textalign                   8
+      textalignx                  6
+      textaligny                  -2
       textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.65
@@ -256,10 +381,38 @@
     }
     itemDef
     {
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) == 0 && dvarint(ui_friends_state) == 1 && dvarint(ui_friends_count) > 0);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   0.5 1 0.5 0.85
+      exp text                    dvarint(ui_friends_online) + " ONLINE";
+    }
+    itemDef
+    {
+      text                        "RECONNECTING..."
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) == 0 && dvarint(ui_friends_state) == 2);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 0.7 0.3 1
+    }
+    itemDef
+    {
       name                        "friendslist"
-      rect                        4 64 452 240 0 0
+      rect                        4 92 452 220 0 0
       type                        6
-      visible                     when(dvarint(ui_friends_waiting) == 0);
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) == 0);
       textaligny                  -2
       textscale                   0.375
       textfont                    3
@@ -270,7 +423,7 @@
       feeder                      100
       columns                     2
                                   8 250 24 0
-                                  270 176 24 0
+                                  262 168 24 2
       doubleclick
       {
         play mouse_click;
@@ -279,12 +432,13 @@
     }
     itemDef
     {
-      rect                        4 46 452 16 0 0
+      rect                        4 72 452 18 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_waiting) > 0);
-      textalign                   2
-      textalignx                  -4
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) > 0);
+      textalign                   8
+      textalignx                  6
+      textaligny                  -2
       textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.65
@@ -294,9 +448,9 @@
     itemDef
     {
       name                        "pendinglist"
-      rect                        4 64 452 80 0 0
+      rect                        4 92 452 60 0 0
       type                        6
-      visible                     when(dvarint(ui_friends_waiting) > 0);
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) > 0);
       textaligny                  -2
       textscale                   0.375
       textfont                    3
@@ -307,7 +461,7 @@
       feeder                      102
       columns                     2
                                   8 250 24 0
-                                  270 176 24 0
+                                  262 168 24 2
       doubleclick
       {
         play mouse_click;
@@ -317,12 +471,13 @@
     itemDef
     {
       text                        "FRIENDS"
-      rect                        4 148 452 16 0 0
+      rect                        4 156 452 18 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_waiting) > 0);
-      textalign                   2
-      textalignx                  -4
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) > 0);
+      textalign                   8
+      textalignx                  6
+      textaligny                  -2
       textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.65
@@ -330,10 +485,38 @@
     }
     itemDef
     {
+      rect                        4 156 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_state) == 1 && dvarint(ui_friends_count) > 0);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   0.5 1 0.5 0.85
+      exp text                    dvarint(ui_friends_online) + " ONLINE";
+    }
+    itemDef
+    {
+      text                        "RECONNECTING..."
+      rect                        4 156 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_state) == 2);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 0.7 0.3 1
+    }
+    itemDef
+    {
       name                        "friendslist_split"
-      rect                        4 166 452 138 0 0
+      rect                        4 176 452 140 0 0
       type                        6
-      visible                     when(dvarint(ui_friends_waiting) > 0);
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) > 0);
       textaligny                  -2
       textscale                   0.375
       textfont                    3
@@ -344,7 +527,7 @@
       feeder                      100
       columns                     2
                                   8 250 24 0
-                                  270 176 24 0
+                                  262 168 24 2
       doubleclick
       {
         play mouse_click;
@@ -353,65 +536,14 @@
     }
     itemDef
     {
-      rect                        4 46 452 16 0 0
-      style                       1
-      decoration
-      visible                     when(dvarint(ui_friends_waiting) == 0 && dvarint(ui_friends_state) == 1 && dvarint(ui_friends_count) > 0);
-      textalign                   0
-      textalignx                  4
-      textscale                   0.25
-      textfont                    3
-      forecolor                   0.5 1 0.5 0.85
-      exp text                    dvarint(ui_friends_online) + " ONLINE";
-    }
-    itemDef
-    {
-      rect                        4 148 452 16 0 0
-      style                       1
-      decoration
-      visible                     when(dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_state) == 1 && dvarint(ui_friends_count) > 0);
-      textalign                   0
-      textalignx                  4
-      textscale                   0.25
-      textfont                    3
-      forecolor                   0.5 1 0.5 0.85
-      exp text                    dvarint(ui_friends_online) + " ONLINE";
-    }
-    itemDef
-    {
-      text                        "RECONNECTING..."
-      rect                        4 46 452 16 0 0
-      style                       1
-      decoration
-      visible                     when(dvarint(ui_friends_waiting) == 0 && dvarint(ui_friends_state) == 2);
-      textalign                   0
-      textalignx                  4
-      textscale                   0.25
-      textfont                    3
-      forecolor                   1 0.7 0.3 1
-    }
-    itemDef
-    {
-      text                        "RECONNECTING..."
-      rect                        4 148 452 16 0 0
-      style                       1
-      decoration
-      visible                     when(dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_state) == 2);
-      textalign                   0
-      textalignx                  4
-      textscale                   0.25
-      textfont                    3
-      forecolor                   1 0.7 0.3 1
-    }
-    itemDef
-    {
       text                        "Connecting to the IW4x platform..."
-      rect                        4 164 452 20 0 0
+      rect                        4 185 452 16 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_state) == 0);
-      textalign                   1
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_state) == 0);
+      textalign                   9
       textalignx                  0
+      textaligny                  -1
       textscale                   0.3
       textfont                    3
       forecolor                   1 1 1 0.5
@@ -419,12 +551,13 @@
     itemDef
     {
       text                        "Couldn't reach the IW4x platform."
-      rect                        4 156 452 20 0 0
+      rect                        4 185 452 16 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_state) == 3);
-      textalign                   1
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_state) == 3);
+      textalign                   9
       textalignx                  0
+      textaligny                  -1
       textscale                   0.3
       textfont                    3
       forecolor                   1 0.7 0.3 1
@@ -432,12 +565,13 @@
     itemDef
     {
       text                        "Retrying in the background."
-      rect                        4 174 452 20 0 0
+      rect                        4 203 452 16 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_state) == 3);
-      textalign                   1
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_state) == 3);
+      textalign                   9
       textalignx                  0
+      textaligny                  -2
       textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.4
@@ -445,12 +579,13 @@
     itemDef
     {
       text                        "No friends yet."
-      rect                        4 156 452 20 0 0
+      rect                        4 185 452 16 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_waiting) == 0 && dvarbool(ui_friends_empty) && (dvarint(ui_friends_state) == 1 || dvarint(ui_friends_state) == 2));
-      textalign                   1
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) == 0 && dvarbool(ui_friends_empty) && (dvarint(ui_friends_state) == 1 || dvarint(ui_friends_state) == 2));
+      textalign                   9
       textalignx                  0
+      textaligny                  -1
       textscale                   0.3
       textfont                    3
       forecolor                   1 1 1 0.5
@@ -458,12 +593,13 @@
     itemDef
     {
       text                        "Add someone by name, or send them your ID."
-      rect                        4 174 452 20 0 0
+      rect                        4 203 452 16 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_waiting) == 0 && dvarbool(ui_friends_empty) && (dvarint(ui_friends_state) == 1 || dvarint(ui_friends_state) == 2));
-      textalign                   1
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) == 0 && dvarbool(ui_friends_empty) && (dvarint(ui_friends_state) == 1 || dvarint(ui_friends_state) == 2));
+      textalign                   9
       textalignx                  0
+      textaligny                  -2
       textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.4
@@ -471,24 +607,246 @@
     itemDef
     {
       text                        "No friends yet."
-      rect                        4 222 452 20 0 0
+      rect                        4 229 452 16 0 0
       style                       1
       decoration
-      visible                     when(dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_count) == 0);
-      textalign                   1
+      visible                     when(dvarint(ui_friends_tab) == 0 && dvarint(ui_friends_waiting) > 0 && dvarint(ui_friends_count) == 0);
+      textalign                   9
       textalignx                  0
+      textaligny                  -1
       textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "DISCORD FRIENDS"
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1);
+      textalign                   8
+      textalignx                  6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.65
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      text                        "CONNECTING..."
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 3);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 0.7 0.3 1
+    }
+    itemDef
+    {
+      text                        "CHECK YOUR BROWSER"
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 2);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 0.7 0.3 1
+    }
+    itemDef
+    {
+      text                        "NOT LINKED"
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 1);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "UNAVAILABLE"
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 0);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      rect                        4 72 452 18 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 4 && dvarint(ui_discord_count) > 0);
+      textalign                   10
+      textalignx                  -6
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   0.5 1 0.5 0.85
+      exp text                    dvarint(ui_discord_online) + " ONLINE";
+    }
+    itemDef
+    {
+      name                        "discordlist"
+      rect                        4 92 452 220 0 0
+      type                        6
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 4);
+      textaligny                  -2
+      textscale                   0.375
+      textfont                    3
+      forecolor                   1 1 1 1
+      outlinecolor                0.9 0.9 0.95 0.175
+      elementwidth                452
+      elementheight               20
+      feeder                      104
+      columns                     2
+                                  8 250 24 0
+                                  262 168 24 2
+      doubleclick
+      {
+        play mouse_click;
+        open popup_discord_friend;
+      }
+    }
+    itemDef
+    {
+      text                        "Discord isn't available."
+      rect                        4 185 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 0);
+      textalign                   9
+      textalignx                  0
+      textaligny                  -1
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "The Discord component is missing from this installation."
+      rect                        4 203 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 0);
+      textalign                   9
+      textalignx                  0
+      textaligny                  -2
+      textscale                   0.25
       textfont                    3
       forecolor                   1 1 1 0.4
     }
     itemDef
     {
-      rect                        4 308 452 16 0 0
+      text                        "Link Discord to see your Discord friends here."
+      rect                        4 185 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 1);
+      textalign                   9
+      textalignx                  0
+      textaligny                  -1
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "Invite them into your game, and join theirs from Discord."
+      rect                        4 203 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 1);
+      textalign                   9
+      textalignx                  0
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.4
+    }
+    itemDef
+    {
+      text                        "Waiting for you in your browser..."
+      rect                        4 185 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 2);
+      textalign                   9
+      textalignx                  0
+      textaligny                  -1
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "Approve IW4x on Discord's page to finish linking."
+      rect                        4 203 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 2);
+      textalign                   9
+      textalignx                  0
+      textaligny                  -2
+      textscale                   0.25
+      textfont                    3
+      forecolor                   1 1 1 0.4
+    }
+    itemDef
+    {
+      text                        "Connecting to Discord..."
+      rect                        4 185 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 3);
+      textalign                   9
+      textalignx                  0
+      textaligny                  -1
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      text                        "No Discord friends yet."
+      rect                        4 185 452 16 0 0
+      style                       1
+      decoration
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) == 4 && dvarint(ui_discord_count) == 0);
+      textalign                   9
+      textalignx                  0
+      textaligny                  -1
+      textscale                   0.3
+      textfont                    3
+      forecolor                   1 1 1 0.5
+    }
+    itemDef
+    {
+      rect                        4 320 452 16 0 0
       style                       1
       decoration
       visible                     when(dvarstring(ui_friends_note) != "");
-      textalign                   1
+      textalign                   9
       textalignx                  0
+      textaligny                  -2
       textscale                   0.25
       textfont                    3
       forecolor                   1 0.8 0.35 1
@@ -499,10 +857,10 @@
       name                        "friends_add"
       text                        "Add A Friend"
       group                       "mw2_popup_button"
-      rect                        4 330 452 20 0 0
+      rect                        4 340 452 20 0 0
       style                       1
       type                        1
-      visible                     1
+      visible                     when(dvarint(ui_friends_tab) == 0);
       textalign                   6
       textalignx                  -24
       textscale                   0.375
@@ -535,10 +893,10 @@
       name                        "friends_invite"
       text                        "Invite To Game"
       group                       "mw2_popup_button"
-      rect                        4 350 452 20 0 0
+      rect                        4 360 452 20 0 0
       style                       1
       type                        1
-      visible                     1
+      visible                     when(dvarint(ui_friends_tab) == 0);
       textalign                   6
       textalignx                  -24
       textscale                   0.375
@@ -571,10 +929,10 @@
       name                        "friends_copy_id"
       text                        "Copy My ID"
       group                       "mw2_popup_button"
-      rect                        4 370 452 20 0 0
+      rect                        4 380 452 20 0 0
       style                       1
       type                        1
-      visible                     1
+      visible                     when(dvarint(ui_friends_tab) == 0);
       textalign                   6
       textalignx                  -24
       textscale                   0.375
@@ -604,10 +962,83 @@
     }
     itemDef
     {
+      name                        "discord_link"
+      text                        "Link Discord"
+      group                       "mw2_popup_button"
+      rect                        4 380 452 20 0 0
+      style                       1
+      type                        1
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) <= 1);
+      disabled                    when(dvarint(ui_discord_state) == 0);
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "discord_link";
+      }
+    }
+    itemDef
+    {
+      name                        "discord_unlink"
+      text                        "Unlink Discord"
+      group                       "mw2_popup_button"
+      rect                        4 380 452 20 0 0
+      style                       1
+      type                        1
+      visible                     when(dvarint(ui_friends_tab) == 1 && dvarint(ui_discord_state) >= 2);
+      textalign                   6
+      textalignx                  -24
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "popup_button_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_popup_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_popupAButton 1;
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 1 1 1 0;
+        setLocalVarBool ui_popupAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "discord_unlink";
+      }
+    }
+    itemDef
+    {
       name                        "friends_back"
       text                        "@MENU_BACK"
       group                       "mw2_popup_button"
-      rect                        4 390 452 20 0 0
+      rect                        4 400 452 20 0 0
       style                       1
       type                        1
       visible                     1

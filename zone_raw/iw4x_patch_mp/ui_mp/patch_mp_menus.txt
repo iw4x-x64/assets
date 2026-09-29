@@ -193,6 +193,7 @@
     loadMenu { "ui_mp/popup_friend_add.menu" }
     loadMenu { "ui_mp/popup_friend_picker.menu" }
     loadMenu { "ui_mp/popup_friend_invited.menu" }
+    loadMenu { "ui_mp/popup_discord_friend.menu" }
     loadMenu { "ui_mp/iw4x_ingame_main_options.menu" }
     loadMenu { "ui_mp/iw4x_ingame_controls_multi.menu" }
     loadMenu { "ui_mp/iw4x_ingame_pc_options_video.menu" }
