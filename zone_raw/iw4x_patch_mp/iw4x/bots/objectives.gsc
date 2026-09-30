@@ -10,8 +10,13 @@
 // by standing in its trigger and plants a bomb by holding use, and the
 // gametype decides whether that succeeds.
 //
+// The care packages on the ground are published with the objectives
+// through a fourth builtin (bots_crate): a crate is script state as much
+// as a flag is, and a bot opens one by holding use at it like anybody
+// else.
+//
 // The same thread watches every player's grenades and reports a smoke's
-// detonation through a fourth builtin (bots_smoke): the cloud is a client
+// detonation through a fifth builtin (bots_smoke): the cloud is a client
 // effect the engine keeps no volume for, and the grenade's own "explode"
 // notify is the one place its position is told.
 //
@@ -443,6 +448,27 @@ bots_publish_vip()
 	bots_objective( 4, zone.trigger getEntityNumber(), origin, owner, 0, progress, bots_interact_number( zone ), -1, false, use, false, 0, vip, 0, 0 );
 }
 
+// The care packages on the ground. _airdrop.gsc's createAirDropCrate names
+// every crate "care_package" (its targetname) and keeps who called it in
+// and for which side on crate.owner and crate.team; crateSetupForUse sets
+// crate.mode once the crate has landed and been made usable, so a crate
+// without a mode is still falling. The nuke's crate ("nukeDrop") is not
+// opened by use and is left out.
+//
+bots_publish_crates()
+{
+	crates = getEntArray( "care_package", "targetname" );
+
+	for ( i = 0; i < crates.size; i++ )
+	{
+		crate = crates[ i ];
+		if ( !isDefined( crate ) || !isDefined( crate.mode ) || crate.mode == "nukeDrop" )
+			continue;
+
+		bots_crate( crate getEntityNumber(), crate.origin, bots_entity_number( crate.owner ), bots_team_number( crate.team ) );
+	}
+}
+
 // How long a smoke grenade's cloud stands once the grenade goes off,
 // in seconds: the life of the effect the weapon names
 // (props/american_smoke_grenade_mp), which fills its spot and thins out
@@ -580,6 +606,8 @@ bots_publish()
 		bots_publish_arena();
 	else if ( gt == "vip" )
 		bots_publish_vip();
+
+	bots_publish_crates();
 
 	bots_end();
 }
