@@ -225,13 +225,22 @@ case "${version#+*-}" in
   *)   kind="release"     ;;
 esac
 
+# Say what the archive holds by what was installed rather than by what
+# we expect: a release made before any heatmap is checked in has none.
+#
+contents="\`zone/iw4x/x64/\`"
+
+if [ -d "$stage/main/iw4x/x64/heatmaps" ]; then
+  contents="$contents and the bots' heatmaps in \`main/iw4x/x64/heatmaps/\`"
+fi
+
 {
   echo "IW4 x64 fastfiles for IW4x, $kind $version."
   echo
   echo "## Installing"
   echo
   echo "Extract \`$zip\` into the game directory. It contains only"
-  echo "\`zone/iw4x/x64/\`, laid out exactly as \`b install\` would install it."
+  echo "$contents, laid out exactly as \`b install\` would install it."
   echo
   echo "\`$tarball\` is the source distribution of the same version."
   echo

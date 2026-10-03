@@ -170,7 +170,8 @@ and build2. It isn't decoration around a path that happens to contain spaces.
 
 ### What gets installed
 
-An installation contains fastfiles only.
+An installation contains fastfiles, and the bots' heatmaps, which the client
+reads as plain files (see [doc/heatmaps.md](doc/heatmaps.md)). Nothing else.
 
 The installation root here is the game directory. It isn't a package prefix
 owned by this project. Copying `README.md`, the licence, or the package manifest
@@ -215,6 +216,9 @@ source_data/                   GDT files
 zone/buildfile                 declares the fastfiles and their groups
 
 templates/fastfile/            skeleton for a new fastfile project
+
+heatmaps/                      the bots' heatmaps, installed as they are
+                               see doc/heatmaps.md
 ```
 
 There is no extra mapping layer between these directories and the Linker.
