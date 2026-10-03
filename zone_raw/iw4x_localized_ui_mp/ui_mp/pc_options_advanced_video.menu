@@ -176,7 +176,7 @@
     itemDef
     {
       rect                        -64 28 384 20 1 1
-      type                        12
+      type                        1
       visible                     when(1);
       disabled                    when(FUNC_31());
       textalign                   4
@@ -197,10 +197,86 @@
       action
       {
         play mouse_click;
-        setLocalVarBool ui_showApply 1;
+        open pc_options_aspect_ratio;
       }
-      dvar                        "ui_r_aspectratio"
-      dvarStrList                 { "@MENU_AUTO" "auto" "@MENU_STANDARD_4_3" "standard" "@MENU_WIDE_16_10" "wide 16:10" "@MENU_WIDE_16_9" "wide 16:9" }
+    }
+    itemDef
+    {
+      text                        "@MENU_AUTO"
+      rect                        -64 28 384 20 1 1
+      decoration
+      visible                     when(dvarstring(ui_r_aspectratio) == "auto");
+      disabled                    when(FUNC_31());
+      textalign                   4
+      textalignx                  288
+      disablecolor                0.6 0.55 0.55 1
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      text                        "@MENU_STANDARD_4_3"
+      rect                        -64 28 384 20 1 1
+      decoration
+      visible                     when(dvarstring(ui_r_aspectratio) == "standard");
+      disabled                    when(FUNC_31());
+      textalign                   4
+      textalignx                  288
+      disablecolor                0.6 0.55 0.55 1
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      text                        "@MENU_WIDE_16_10"
+      rect                        -64 28 384 20 1 1
+      decoration
+      visible                     when(dvarstring(ui_r_aspectratio) == "wide 16:10");
+      disabled                    when(FUNC_31());
+      textalign                   4
+      textalignx                  288
+      disablecolor                0.6 0.55 0.55 1
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      text                        "@MENU_WIDE_16_9"
+      rect                        -64 28 384 20 1 1
+      decoration
+      visible                     when(dvarstring(ui_r_aspectratio) == "wide 16:9");
+      disabled                    when(FUNC_31());
+      textalign                   4
+      textalignx                  288
+      disablecolor                0.6 0.55 0.55 1
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_WIDE_21_9"
+      rect                        -64 28 384 20 1 1
+      decoration
+      visible                     when(dvarstring(ui_r_aspectratio) == "wide 21:9");
+      disabled                    when(FUNC_31());
+      textalign                   4
+      textalignx                  288
+      disablecolor                0.6 0.55 0.55 1
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_CUSTOM"
+      rect                        -64 28 384 20 1 1
+      decoration
+      visible                     when(dvarstring(ui_r_aspectratio) == "custom");
+      disabled                    when(FUNC_31());
+      textalign                   4
+      textalignx                  288
+      disablecolor                0.6 0.55 0.55 1
+      textscale                   0.375
+      textfont                    3
     }
     itemDef
     {

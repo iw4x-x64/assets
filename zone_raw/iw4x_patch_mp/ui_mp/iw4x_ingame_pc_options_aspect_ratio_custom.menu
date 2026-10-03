@@ -1,0 +1,237 @@
+{
+  menuDef
+  {
+    name                        "iw4x_ingame_pc_options_aspect_ratio_custom"
+    rect                        0 0 640 480 0 0
+    focuscolor                  1 1 1 1
+    fadeClamp                   1
+    fadeCycle                   1
+    fadeAmount                  0.1
+    blurWorld                   7
+    onOpen
+    {
+      ExecNow "setfromdvar ui_r_customAspectRatio r_customAspectRatio";
+      setLocalVarBool ui_hideBack 1;
+    }
+    onClose
+    {
+      ExecNow "setfromdvar r_customAspectRatio ui_r_customAspectRatio";
+      setLocalVarBool ui_optionRowShow 0;
+      setLocalVarBool ui_hideBack 0;
+    }
+    onESC
+    {
+      close self;
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(FUNC_29() && (dvarstring(gameMode) == "mp" || (dvarstring(gameMode) == "so" && !dvarbool(solo_play))));
+      textscale                   0.55
+      forecolor                   0 0 0 0.4
+      background                  "white"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      background                  "mw2_main_background"
+    }
+    itemDef
+    {
+      rect                        0 0 1708 480 0 0
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   1 1 1 0.5
+      background                  "mw2_main_cloud_overlay"
+      exp rect x                  (0 - 107) - ((float(milliseconds() % 60000) / 60000) * (854));
+    }
+    itemDef
+    {
+      rect                        0 0 -1708 -480 0 0
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   1 1 1 0.5
+      background                  "mw2_main_cloud_overlay"
+      exp rect x                  (- 107 + 854) + ((float(milliseconds() % 50000) / 50000) * (854));
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(dvarstring(gameMode) == "sp" && !FUNC_29());
+      textscale                   0.55
+      background                  "mw2_main_sp_image"
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(dvarstring(gameMode) == "so" && !FUNC_29());
+      textscale                   0.55
+      background                  "mw2_main_co_image"
+    }
+    itemDef
+    {
+      rect                        -427 -240 854 480 2 2
+      style                       3
+      decoration
+      visible                     when(dvarstring(gameMode) == "mp" && !FUNC_29());
+      textscale                   0.55
+      background                  "mw2_main_mp_image"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0
+      background                  "mockup_bg_glow"
+      exp forecolor a             ((sin(milliseconds() / 1500) + 1) * 0.25) + 0.25;
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   1 1 1 0
+      background                  "mockup_bg_glow"
+      exp forecolor a             ((sin(milliseconds() / 480) + 1) * 0.25) + 0.25;
+    }
+    itemDef
+    {
+      rect                        -64 0 280 480 1 0
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   1 1 1 0.1
+      background                  "gradient_fadein_fadebottom"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   0.25 0.25 0.25 0.75
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      rect                        0 0 640 480 4 4
+      style                       3
+      decoration
+      visible                     when(!FUNC_29());
+      textscale                   0.55
+      forecolor                   0.25 0.25 0.25 0.75
+      background                  "gradient_fadein"
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_CUSTOM_ASPECT_RATIO"
+      rect                        0 0 272 28 1 1
+      decoration
+      visible                     1
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.5
+      textfont                    9
+    }
+    itemDef
+    {
+      rect                        -64 0 280 20 1 1
+      style                       3
+      decoration
+      visible                     when(localvarbool("ui_optionRowShow"));
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "popup_button_selection_bar"
+      exp rect y                  localvarfloat("ui_optionRowY");
+    }
+    itemDef
+    {
+      text                        " "
+      rect                        -64 28 384 20 1 1
+      type                        4
+      visible                     when(1);
+      textalign                   4
+      textalignx                  288
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 28;
+        setLocalVarBool ui_optionRowShow 1;
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+        setLocalVarBool ui_showApply 1;
+      }
+      action
+      {
+        play mouse_click;
+        setLocalVarBool ui_showApply 1;
+      }
+      dvar                        "ui_r_customAspectRatio"
+      maxChars                    8
+      maxPaintChars               8
+    }
+    itemDef
+    {
+      text                        "@MENU_ASPECT_RATIO"
+      rect                        -64 28 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_DONE"
+      rect                        -64 48 336 20 1 1
+      type                        1
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+      onFocus
+      {
+        play mouse_over;
+        setLocalVarFloat ui_optionRowY 48;
+        setLocalVarBool ui_optionRowShow 1;
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+      }
+      action
+      {
+        play mouse_click;
+        setLocalVarBool ui_showApply 1;
+        close self;
+      }
+    }
+  }
+}

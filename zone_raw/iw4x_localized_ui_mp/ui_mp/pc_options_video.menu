@@ -366,6 +366,44 @@
       textscale                   0.375
       textfont                    3
     }
+    // Field of view, in the row left over above the advanced button. The
+    // angle applies as the slider moves and nothing here latches, so the
+    // setting is as good in a match as it is in the frontend. The label
+    // carries the number because the bar alone does not say which angle
+    // the player has reached. See mod/fov.hxx.
+    //
+    itemDef
+    {
+      rect                        224 91 344 20 1 1
+      type                        10
+      visible                     when(1);
+      textscale                   0.55
+      onFocus
+      {
+        setLocalVarFloat ui_optionRowY 88;
+        setLocalVarBool ui_optionRowShow 1;
+        play mouse_over;
+      }
+      leaveFocus
+      {
+        setLocalVarBool ui_optionRowShow 0;
+      }
+      action
+      {
+      }
+      dvarFloat                   "cg_fov" 65 65 120
+    }
+    itemDef
+    {
+      rect                        -64 88 336 20 1 1
+      decoration
+      visible                     when(1);
+      textalign                   6
+      textalignx                  -60
+      textscale                   0.375
+      textfont                    3
+      exp text                    ("Field of view: " + int(dvarfloat(cg_fov)));
+    }
     itemDef
     {
       text                        "@MENU_ADVANCED_VIDEO"

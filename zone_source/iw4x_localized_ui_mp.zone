@@ -122,6 +122,8 @@ menu,vid_restart_popmenu_dead
 menu,snd_restart_popmenu
 menu,pc_options_video
 menu,pc_options_advanced_video
+menu,pc_options_aspect_ratio
+menu,pc_options_aspect_ratio_custom
 menu,apply_picmip_popmenu
 menu,pc_options_audio
 menu,pc_options_controls

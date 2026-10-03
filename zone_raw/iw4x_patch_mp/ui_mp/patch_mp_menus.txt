@@ -198,6 +198,8 @@
     loadMenu { "ui_mp/iw4x_ingame_controls_multi.menu" }
     loadMenu { "ui_mp/iw4x_ingame_pc_options_video.menu" }
     loadMenu { "ui_mp/iw4x_ingame_pc_options_advanced_video.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_aspect_ratio.menu" }
+    loadMenu { "ui_mp/iw4x_ingame_pc_options_aspect_ratio_custom.menu" }
     loadMenu { "ui_mp/iw4x_ingame_pc_options_audio.menu" }
     loadMenu { "ui_mp/iw4x_ingame_pc_options_controls.menu" }
     loadMenu { "ui_mp/iw4x_ingame_pc_options_voice.menu" }
