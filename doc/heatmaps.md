@@ -72,11 +72,27 @@ platform holds `.iw4rec.zst` files. Decompress them first:
 zstd -d --output-dir-flat recordings/ uploads/*.iw4rec.zst
 ```
 
-Then give the tool an output directory and the recordings:
+Leave out the recordings of a developer's own host. They are uploaded like
+anybody's, but they are test sessions rather than play. Then give the tool
+the options we ship with, an output directory and the recordings:
 
 ```
-recording-heatmap out/ recordings/*.iw4rec
+recording-heatmap --humans --min-minutes 30 out/ recordings/*.iw4rec
 ```
+
+`--humans` folds in only the humans' play. A hosted match is mostly bots,
+often ten of them to one human, so a heatmap of everybody's play would
+mostly record the bots' own habits, and bots leaning on it would only
+play more of them. What a bot should learn from a heatmap is where human
+players go, die, kill and show up.
+
+`--min-minutes` leaves out a heatmap of fewer minutes of matches than
+that. The mode then falls back to the map's heatmap of every mode, or the
+map has none at all. Half an hour of matches is a judgment call. Even
+with every match of a map, the humans' play is noisy: split the humans'
+matches of a map in two, and the halves disagree almost as much as the
+humans and the bots do. A heatmap of much less play says little more than
+which matches happened to be recorded.
 
 For every map it writes the heatmap of each mode it saw and the one of
 every mode, together with a picture of each layer seen from above
@@ -93,3 +109,12 @@ Note that the client reads only format versions it knows about. A
 heatmap written by a newer tool than the IW4x release it ships with is
 refused with a line in the log, and its map plays as if it had none. So
 build them with the tool from the release they are meant for.
+
+## The current set
+
+The heatmaps checked in were built from the 214 recordings uploaded up to
+30 September 2026, less the 30 of a developer's host: 184 matches by 27 hosts,
+almost all Team Deathmatch with one human and ten or eleven bots. With the
+options above that gives sixteen maps a heatmap of every mode, thirteen of
+them a Team Deathmatch one, and mp_highrise a Free-for-All one as well.
+mp_complex and mp_crash had under ten minutes each and have none.
