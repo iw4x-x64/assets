@@ -219,7 +219,7 @@ REFERENCE           MENU_IW4X_MINUTES_5
 LANG_ENGLISH        "5 min"
 
 REFERENCE           MENU_IW4X_DESC_BOTS
-LANG_ENGLISH        "Fill matchmaking lobbies you host with bots. Bots play Team Deathmatch and Free-for-All only."
+LANG_ENGLISH        "Fill matchmaking lobbies you host with bots. Bots play Team Deathmatch, Free-for-All, Domination and Headquarters."
 
 REFERENCE           MENU_IW4X_DESC_BOT_DIFFICULTY
 LANG_ENGLISH        "How well the bots play. Mixed deals each bot a skill of its own."
