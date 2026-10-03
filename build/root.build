@@ -32,6 +32,15 @@ ff{*}: extension = ff
 #
 ff{*}: install = false
 
+# The bots' heatmaps are not built at all. The client reads them as plain
+# files, so they are installed as they are checked in. They get a type of
+# their own for the same reason as ff{}: like a fastfile, a heatmap has a
+# place in the game directory that an arbitrary file does not, and
+# heatmaps/buildfile is where that place is spelled out.
+#
+define heatmap: file
+heatmap{*}: extension = iw4heat
+
 # There is another small wrinkle with installation. The install root for
 # this project is the game directory rather than the usual software
 # installation prefix. That is, only things that the game is expected to

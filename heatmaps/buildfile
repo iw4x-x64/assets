@@ -1,0 +1,21 @@
+# The bots' heatmaps: where the fights are on a map, learned from the
+# matches players uploaded. A bot glances at where enemies usually show up
+# and leans its roaming toward where the fights are. See doc/heatmaps.md.
+#
+# Note that these are inputs we check in rather than outputs of this build.
+# They come out of the recording-heatmap tool that IW4x's client package
+# carries, and whoever regenerates them commits the result here, the same
+# way a changed menu or image is committed under zone_raw/.
+#
+./: heatmap{*}
+
+# Installed beside IW4x's other loose files, in main/iw4x/x64, which is
+# where the client looks for them once it has found none of its own in the
+# player's storage directory.
+#
+# A fastfile would be the more usual home for game data shipped here, but
+# the client reads a heatmap directly from disk on the server thread as a
+# map loads and never through the engine's asset database. A zone would
+# only add a step between the file and its single reader.
+#
+heatmap{*}: install = root/main/iw4x/x64/heatmaps/
