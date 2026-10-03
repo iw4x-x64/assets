@@ -274,6 +274,7 @@ menu,settings_quick_war_@mpui_rules_respawn_delay
 menu,settings_quick_war_@mpui_rules_max_health
 menu,settings_quick_war_@mpui_rules_health_regen
 menu,settings_quick_war_@mpui_rules_diehard
+menu,settings_quick_privatematch_bots
 menu,settings_quick_sd_@mpui_rules_round_length
 menu,settings_quick_sd_@mpui_rules_bomb_timer
 menu,settings_quick_sd_@mpui_rules_plant_time

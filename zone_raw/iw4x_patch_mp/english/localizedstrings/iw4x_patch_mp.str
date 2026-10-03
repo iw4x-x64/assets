@@ -182,6 +182,12 @@ LANG_ENGLISH        "Bots per Lobby"
 REFERENCE           MENU_IW4X_BOT_DELAY
 LANG_ENGLISH        "Bot Delay"
 
+REFERENCE           MENU_IW4X_RULES_BOTS
+LANG_ENGLISH        "Bots:"
+
+REFERENCE           MENU_IW4X_RULES_BOT_DIFFICULTY
+LANG_ENGLISH        "Bot Difficulty:"
+
 REFERENCE           MENU_IW4X_RECRUIT
 LANG_ENGLISH        "Recruit"
 
@@ -203,6 +209,18 @@ LANG_ENGLISH        "None"
 REFERENCE           MENU_IW4X_FILL
 LANG_ENGLISH        "Fill"
 
+REFERENCE           MENU_IW4X_BOTS_1
+LANG_ENGLISH        "1 Bot"
+
+REFERENCE           MENU_IW4X_BOTS_2
+LANG_ENGLISH        "2 Bots"
+
+REFERENCE           MENU_IW4X_BOTS_4
+LANG_ENGLISH        "4 Bots"
+
+REFERENCE           MENU_IW4X_BOTS_8
+LANG_ENGLISH        "8 Bots"
+
 REFERENCE           MENU_IW4X_SECONDS_15
 LANG_ENGLISH        "15 s"
 
@@ -219,16 +237,22 @@ REFERENCE           MENU_IW4X_MINUTES_5
 LANG_ENGLISH        "5 min"
 
 REFERENCE           MENU_IW4X_DESC_BOTS
-LANG_ENGLISH        "Fill matchmaking lobbies you host with bots. Bots play Team Deathmatch, Free-for-All, Domination and Headquarters."
+LANG_ENGLISH        "Fill matchmaking lobbies and private matches you host with bots. Bots play Team Deathmatch, Free-for-All, Domination and Headquarters. A private match's bots are set up in its game rules."
 
 REFERENCE           MENU_IW4X_DESC_BOT_DIFFICULTY
-LANG_ENGLISH        "How well the bots play. Mixed deals each bot a skill of its own."
+LANG_ENGLISH        "How well the bots in matchmaking lobbies play. Mixed deals each bot a skill of its own."
 
 REFERENCE           MENU_IW4X_DESC_BOTS_PER_LOBBY
 LANG_ENGLISH        "How many bots at most join a lobby that has not found enough players."
 
 REFERENCE           MENU_IW4X_DESC_BOT_DELAY
 LANG_ENGLISH        "How long a lobby keeps looking for players before bots fill it."
+
+REFERENCE           MENU_IW4X_DESC_PRIVATE_BOTS
+LANG_ENGLISH        "How many bots at most join this private match. Invited players still take a bot's place."
+
+REFERENCE           MENU_IW4X_DESC_PRIVATE_BOT_DIFFICULTY
+LANG_ENGLISH        "How well the bots in private matches play. Mixed deals each bot a skill of its own."
 
 REFERENCE           MENU_IW4X_VOICE_CHAT_MODE
 LANG_ENGLISH        "Voice Chat Mode"

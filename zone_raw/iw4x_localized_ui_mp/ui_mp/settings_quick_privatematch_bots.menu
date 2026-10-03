@@ -1,0 +1,255 @@
+{
+  menuDef
+  {
+    name                        "settings_quick_privatematch_bots"
+    rect                        -272 316 272 18 2 1
+    style                       1
+    focuscolor                  1 1 1 1
+    popup
+    visible                     1
+    exp rect Y                  localvarint("ui_popupYPos");
+    onOpen
+    {
+      focusFirst;
+      setfocusbydvar bot_privatematch_fill;
+      setLocalVarBool ui_hideSelectButton 1;
+    }
+    onClose
+    {
+      setLocalVarBool ui_hideSelectButton 0;
+    }
+    onESC
+    {
+      play mouse_click;
+      close self;
+    }
+    itemDef
+    {
+      rect                        -600 -800 2000 2000 0 0
+      type                        1
+      visible                     1
+      textscale                   0.55
+      textfont                    1
+      action
+      {
+        close self;
+      }
+    }
+    itemDef
+    {
+      rect                        144 0 110 100 0 0
+      style                       3
+      decoration
+      visible                     1
+      textscale                   0.55
+      forecolor                   0.35 0.35 0.35 1
+      exp material                "white";
+    }
+    itemDef
+    {
+      rect                        128 -16 16 16 2 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_tl"
+    }
+    itemDef
+    {
+      rect                        144 -16 110 16 2 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_t"
+    }
+    itemDef
+    {
+      rect                        254 -16 16 16 2 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_tr"
+    }
+    itemDef
+    {
+      rect                        254 0 16 100 2 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_r"
+    }
+    itemDef
+    {
+      rect                        254 100 16 16 2 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_br"
+    }
+    itemDef
+    {
+      rect                        144 100 110 16 2 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_b"
+    }
+    itemDef
+    {
+      rect                        128 100 16 16 2 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_bl"
+    }
+    itemDef
+    {
+      rect                        128 0 16 100 2 1
+      style                       3
+      decoration
+      visible                     when(1);
+      textscale                   0.55
+      forecolor                   0 0 0 1
+      background                  "drop_shadow_l"
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_NONE"
+      rect                        144 0 128 15 0 0
+      visible                     1
+      textalign                   8
+      textalignx                  12
+      textscale                   0.375
+      forecolor                   0.65 0.65 0.65 1
+      leaveFocus
+      {
+        play mouse_submenu_over;
+      }
+      action
+      {
+        setdvar bot_privatematch_fill 0 play mouse_click;
+        close self;
+      }
+      dvarTest                    "bot_privatematch_fill"
+      focusDvar                   { "0" }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_BOTS_1"
+      rect                        144 15 128 15 0 0
+      visible                     1
+      textalign                   8
+      textalignx                  12
+      textscale                   0.375
+      forecolor                   0.65 0.65 0.65 1
+      leaveFocus
+      {
+        play mouse_submenu_over;
+      }
+      action
+      {
+        setdvar bot_privatematch_fill 1 play mouse_click;
+        close self;
+      }
+      dvarTest                    "bot_privatematch_fill"
+      focusDvar                   { "1" }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_BOTS_2"
+      rect                        144 30 128 15 0 0
+      visible                     1
+      textalign                   8
+      textalignx                  12
+      textscale                   0.375
+      forecolor                   0.65 0.65 0.65 1
+      leaveFocus
+      {
+        play mouse_submenu_over;
+      }
+      action
+      {
+        setdvar bot_privatematch_fill 2 play mouse_click;
+        close self;
+      }
+      dvarTest                    "bot_privatematch_fill"
+      focusDvar                   { "2" }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_BOTS_4"
+      rect                        144 45 128 15 0 0
+      visible                     1
+      textalign                   8
+      textalignx                  12
+      textscale                   0.375
+      forecolor                   0.65 0.65 0.65 1
+      leaveFocus
+      {
+        play mouse_submenu_over;
+      }
+      action
+      {
+        setdvar bot_privatematch_fill 4 play mouse_click;
+        close self;
+      }
+      dvarTest                    "bot_privatematch_fill"
+      focusDvar                   { "4" }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_BOTS_8"
+      rect                        144 60 128 15 0 0
+      visible                     1
+      textalign                   8
+      textalignx                  12
+      textscale                   0.375
+      forecolor                   0.65 0.65 0.65 1
+      leaveFocus
+      {
+        play mouse_submenu_over;
+      }
+      action
+      {
+        setdvar bot_privatematch_fill 8 play mouse_click;
+        close self;
+      }
+      dvarTest                    "bot_privatematch_fill"
+      focusDvar                   { "8" }
+    }
+    itemDef
+    {
+      text                        "@MENU_IW4X_FILL"
+      rect                        144 75 128 15 0 0
+      visible                     1
+      textalign                   8
+      textalignx                  12
+      textscale                   0.375
+      forecolor                   0.65 0.65 0.65 1
+      leaveFocus
+      {
+        play mouse_submenu_over;
+      }
+      action
+      {
+        setdvar bot_privatematch_fill 17 play mouse_click;
+        close self;
+      }
+      dvarTest                    "bot_privatematch_fill"
+      focusDvar                   { "17" }
+    }
+  }
+}

@@ -460,6 +460,7 @@
     loadMenu { "ui_mp/settings_quick_war_@mpui_rules_max_health.menu" }
     loadMenu { "ui_mp/settings_quick_war_@mpui_rules_health_regen.menu" }
     loadMenu { "ui_mp/settings_quick_war_@mpui_rules_diehard.menu" }
+    loadMenu { "ui_mp/settings_quick_privatematch_bots.menu" }
     loadMenu { "ui_mp/settings_quick_sd_@mpui_rules_round_length.menu" }
     loadMenu { "ui_mp/settings_quick_sd_@mpui_rules_bomb_timer.menu" }
     loadMenu { "ui_mp/settings_quick_sd_@mpui_rules_plant_time.menu" }

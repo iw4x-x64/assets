@@ -1565,5 +1565,121 @@
         open popup_summary;
       }
     }
+    itemDef
+    {
+      name                        "sidenav_button_bots"
+      text                        "@MENU_IW4X_RULES_BOTS"
+      group                       "mw2_button"
+      rect                        -272 316 260 18 2 1
+      style                       1
+      type                        1
+      visible                     when(dvarbool(xblive_privatematch));
+      textalign                   4
+      textaligny                  -2
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "menu_rules_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_menuAButton 1;
+        setLocalVarFloat ui_popupYPos getfocuseditemy();
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_PRIVATE_BOTS";
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 0 0 0 "0.0";
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+        setLocalVarBool ui_menuAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        open settings_quick_privatematch_bots;
+        play mouse_click;
+      }
+    }
+    itemDef
+    {
+      rect                        -272 316 272 18 2 1
+      style                       1
+      decoration
+      type                        12
+      visible                     when(dvarbool(xblive_privatematch));
+      textalign                   4
+      textalignx                  160
+      textaligny                  -2
+      textscale                   0.375
+      textfont                    3
+      backcolor                   1 1 1 0
+      forecolor                   1 1 1 0.65
+      background                  "white"
+      dvar                        "bot_privatematch_fill"
+      dvarStrList                 { "@MENU_IW4X_NONE" "0" "@MENU_IW4X_BOTS_1" "1" "@MENU_IW4X_BOTS_2" "2" "@MENU_IW4X_BOTS_4" "4" "@MENU_IW4X_BOTS_8" "8" "@MENU_IW4X_FILL" "17" }
+    }
+    itemDef
+    {
+      name                        "sidenav_button_bot_difficulty"
+      text                        "@MENU_IW4X_RULES_BOT_DIFFICULTY"
+      group                       "mw2_button"
+      rect                        -272 334 260 18 2 1
+      style                       1
+      type                        1
+      visible                     when(dvarbool(xblive_privatematch));
+      textalign                   4
+      textaligny                  -2
+      textscale                   0.375
+      textfont                    3
+      disablecolor                0.6 0.55 0.55 1
+      background                  "menu_rules_selection_bar"
+      onFocus
+      {
+        play mouse_over;
+        if (dvarstring(gameMode) != "mp")
+        {
+          setItemColor mw2_button backcolor 0 0 0 0;
+        }
+        setItemColor self backcolor 0 0 0 1;
+        setLocalVarBool ui_menuAButton 1;
+        setLocalVarFloat ui_popupYPos getfocuseditemy();
+        setLocalVarString ui_hint_text "@MENU_IW4X_DESC_PRIVATE_BOT_DIFFICULTY";
+      }
+      leaveFocus
+      {
+        setItemColor self backcolor 0 0 0 "0.0";
+        setLocalVarString ui_hint_text "@NULL_EMPTY";
+        setLocalVarBool ui_menuAButton 0;
+      }
+      action
+      {
+        play mouse_click;
+        exec "toggle bot_privatematch_difficulty 0 1 2 3 4";
+        play mouse_click;
+      }
+    }
+    itemDef
+    {
+      rect                        -272 334 272 18 2 1
+      style                       1
+      decoration
+      type                        12
+      visible                     when(dvarbool(xblive_privatematch));
+      textalign                   4
+      textalignx                  160
+      textaligny                  -2
+      textscale                   0.375
+      textfont                    3
+      backcolor                   1 1 1 0
+      forecolor                   1 1 1 0.65
+      background                  "white"
+      dvar                        "bot_privatematch_difficulty"
+      dvarStrList                 { "@MENU_IW4X_RECRUIT" "0" "@MENU_IW4X_REGULAR" "1" "@MENU_IW4X_HARDENED" "2" "@MENU_IW4X_VETERAN" "3" "@MENU_IW4X_MIXED" "4" }
+    }
   }
 }
