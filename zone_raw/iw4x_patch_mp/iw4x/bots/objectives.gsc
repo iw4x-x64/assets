@@ -142,13 +142,17 @@ bots_progress( obj )
 }
 
 // A use object as the gametypes build them (_gameobjects::createUseObject):
-// its trigger, owner, the team working on it and how far along they are.
-// Whether the use key has to be held is the trigger's kind (triggerType,
-// "use" for a trigger_use_touch, "proximity" for a trigger_radius). The
-// trailing arguments are what only some modes have: a destroyed site, the
-// one player who alone may use it, and each side's meter.
+// its trigger, owner, the team working on it and how far along they are,
+// and the player whose use is under way (the worker: claimPlayer, set by
+// useObjectThink for the earliest player holding the key and cleared when
+// it is let go or the use completes, unless the caller names one; the bots
+// cover a teammate's plant or defuse rather than crowd it). Whether the use
+// key has to be held is the trigger's kind (triggerType, "use" for a
+// trigger_use_touch, "proximity" for a trigger_radius). The trailing
+// arguments are what only some modes have: a destroyed site, the one
+// player who alone may use it, and each side's meter.
 //
-bots_publish_use_object( kind, obj, origin, planted, trigger, destroyed, soleUser, meterAxis, meterAllies )
+bots_publish_use_object( kind, obj, origin, planted, trigger, destroyed, soleUser, meterAxis, meterAllies, worker )
 {
 	if ( !isDefined( obj ) )
 		return;
@@ -192,7 +196,27 @@ bots_publish_use_object( kind, obj, origin, planted, trigger, destroyed, soleUse
 	if ( !isDefined( meterAllies ) )
 		meterAllies = 0;
 
-	bots_objective( kind, ent, origin, owner, claimant, bots_progress( obj ), bots_interact_number( obj ), -1, planted, use, destroyed, bots_label_number( obj ), soleUser, meterAxis, meterAllies );
+	if ( !isDefined( worker ) )
+		worker = obj.claimPlayer;
+
+	bots_objective( kind, ent, origin, owner, claimant, bots_progress( obj ), bots_interact_number( obj ), -1, planted, use, destroyed, bots_label_number( obj ), soleUser, meterAxis, meterAllies, bots_entity_number( worker ) );
+}
+
+// The player defusing Search and Destroy's bomb, or nothing. sd.gsc
+// bombPlanted() builds the defuse a use object of its own (a fresh
+// createUseObject on the site's bombDefuseTrig, kept in a local), so its
+// claimPlayer is out of reach; its onBeginUse sets player.isDefusing and
+// onEndUse clears it, and there is one bomb.
+//
+bots_sd_defuser()
+{
+	players = level.players;
+	for ( i = 0; i < players.size; i++ )
+	{
+		if ( isDefined( players[ i ].isDefusing ) && players[ i ].isDefusing && isAlive( players[ i ] ) )
+			return players[ i ];
+	}
+	return undefined;
 }
 
 // A carry object (_gameobjects::createCarryObject): where it is and who
@@ -271,7 +295,7 @@ bots_publish_bombs( gt, planted )
 			if ( gt == "sd" )
 			{
 				if ( isDefined( plantedAt ) && distanceSquared( plantedAt, site.curOrigin ) < 512 * 512 )
-					bots_publish_use_object( 2, site, plantedAt, true, site.bombDefuseTrig, destroyed );
+					bots_publish_use_object( 2, site, plantedAt, true, site.bombDefuseTrig, destroyed, undefined, undefined, undefined, bots_sd_defuser() );
 				else
 					bots_publish_use_object( 2, site, site.curOrigin, false, undefined, destroyed );
 			}
