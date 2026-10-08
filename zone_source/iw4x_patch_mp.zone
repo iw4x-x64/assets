@@ -253,6 +253,32 @@ menu,popup_discord_friend
 
 rawfile,iw4x/bots/objectives.gsc
 
+// Stock scripts, copied unchanged from the game data Steam and the
+// Microsoft store ship today (zones built 2026-09-03). Game data from
+// before Steam's x64 update carries older versions of these, and a host
+// migration between two clients that compiled different scripts cannot
+// continue the match. The script compiler takes "iw4x/<name>" over the
+// stock "<name>" (zone/engine/override.cxx in libiw4x), so every client
+// compiles these. See doc/stock-scripts.md.
+
+rawfile,iw4x/common_scripts/_fx.gsc
+rawfile,iw4x/common_scripts/utility.gsc
+rawfile,iw4x/maps/mp/_animatedmodels.gsc
+rawfile,iw4x/maps/mp/_utility.gsc
+rawfile,iw4x/maps/mp/gametypes/_class.gsc
+rawfile,iw4x/maps/mp/gametypes/_damage.gsc
+rawfile,iw4x/maps/mp/gametypes/_globallogic.gsc
+rawfile,iw4x/maps/mp/gametypes/_missions.gsc
+rawfile,iw4x/maps/mp/gametypes/_rank.gsc
+rawfile,iw4x/maps/mp/gametypes/dd.gsc
+rawfile,iw4x/maps/mp/killstreaks/_airdrop.gsc
+rawfile,iw4x/maps/mp/killstreaks/_helicopter.gsc
+rawfile,iw4x/maps/mp/killstreaks/_killstreaks.gsc
+rawfile,iw4x/maps/mp/perks/_perkfunctions.gsc
+rawfile,iw4x/maps/mp/mp_afghan.gsc
+rawfile,iw4x/maps/mp/mp_derail.gsc
+rawfile,iw4x/maps/mp/mp_rust.gsc
+
 // Rumbles.
 //
 // Copied from iw4x-rawfiles (iw4x_00/rumble/).
