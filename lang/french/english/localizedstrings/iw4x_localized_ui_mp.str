@@ -17,4 +17,7 @@ LANG_ENGLISH        "Connexion au réseau IW4x"
 REFERENCE           PLATFORM_POPUP_CONNECTION_GDK
 LANG_ENGLISH        "Connexion au réseau IW4x"
 
+REFERENCE           IW4X_HOST_MIGRATION_DIFFERENT_VERSION
+LANG_ENGLISH        "L'hôte a quitté la partie, mais votre jeu n'a pas pu prendre le relais car votre version d'IW4x est différente. Vérifiez qu'IW4x est à jour."
+
 ENDMARKER
