@@ -11,7 +11,7 @@
 # of zones they contain, so those are built once under the group named
 # here.
 #
-localized   = example iw4x_localized_ui_mp
+localized   = example iw4x_localized_code_post_gfx_mp iw4x_localized_ui_mp
 patch       = iw4x_code_post_gfx_mp iw4x_patch_mp
 dlc         =
 zonebuilder =

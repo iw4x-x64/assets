@@ -1,0 +1,8 @@
+VERSION             "1"
+CONFIG              "C:/trees/cod3/cod3/bin/StringEd.cfg"
+FILENOTES           ""
+
+REFERENCE           IW4X_HOST_MIGRATION_DIFFERENT_VERSION
+LANG_ENGLISH        "L'host ha lasciato la partita, ma il tuo gioco non ha potuto subentrare perché la tua versione di IW4x è diversa. Assicurati che IW4x sia aggiornato."
+
+ENDMARKER

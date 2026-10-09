@@ -1,0 +1,8 @@
+VERSION             "1"
+CONFIG              "C:/trees/cod3/cod3/bin/StringEd.cfg"
+FILENOTES           ""
+
+REFERENCE           IW4X_HOST_MIGRATION_DIFFERENT_VERSION
+LANG_ENGLISH        "El anfitrión abandonó la partida, pero tu juego no pudo tomar el relevo porque tu versión de IW4x es diferente. Asegúrate de que IW4x esté actualizado."
+
+ENDMARKER

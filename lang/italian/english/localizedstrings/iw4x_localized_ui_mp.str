@@ -17,7 +17,4 @@ LANG_ENGLISH        "Connessione alla Rete IW4x"
 REFERENCE           PLATFORM_POPUP_CONNECTION_GDK
 LANG_ENGLISH        "Connessione alla Rete IW4x"
 
-REFERENCE           IW4X_HOST_MIGRATION_DIFFERENT_VERSION
-LANG_ENGLISH        "L'host ha lasciato la partita, ma il tuo gioco non ha potuto subentrare perché la tua versione di IW4x è diversa. Assicurati che IW4x sia aggiornato."
-
 ENDMARKER

@@ -17,7 +17,4 @@ LANG_ENGLISH        "Connecting to IW4x network"
 REFERENCE           PLATFORM_POPUP_CONNECTION_GDK
 LANG_ENGLISH        "Connecting to IW4x network"
 
-REFERENCE           IW4X_HOST_MIGRATION_DIFFERENT_VERSION
-LANG_ENGLISH        "The host left the match, but your game could not take over because your IW4x version is different. Make sure IW4x is up to date."
-
 ENDMARKER

@@ -1,0 +1,10 @@
+// The strings the engine itself may show at any time, with retail's
+// localized_code_post_gfx_mp, which is never unloaded (libiw4x's
+// zone/engine/patch-zones.cxx loads this zone with it). Error messages
+// belong here: the UI zones are freed while a map loads and plays, and an
+// error raised then is localized at once, so a key only the UI zones carry
+// shows as the key.
+//
+>game,IW4MS
+
+localize,iw4x_localized_code_post_gfx_mp
