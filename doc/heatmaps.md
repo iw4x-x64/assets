@@ -112,9 +112,17 @@ build them with the tool from the release they are meant for.
 
 ## The current set
 
-The heatmaps checked in were built from the 214 recordings uploaded up to
-30 September 2026, less the 30 of a developer's host: 184 matches by 27 hosts,
-almost all Team Deathmatch with one human and ten or eleven bots. With the
-options above that gives sixteen maps a heatmap of every mode, thirteen of
-them a Team Deathmatch one, and mp_highrise a Free-for-All one as well.
-mp_complex and mp_crash had under ten minutes each and have none.
+The heatmaps checked in were built from the 2263 recordings uploaded between
+10 and 14 October 2026 (the client's format version 3, with the standing
+gaze and the contact bearings the bots' watch reads), less three
+byte-identical duplicates and none of a developer's host: 290 hosts, most
+matches with one human and ten or eleven bots. With the options above
+that gives sixteen maps a heatmap of every mode and of Team Deathmatch,
+fifteen one of Domination, twelve of Free-for-All, six of Demolition,
+three each of Headquarters and Sabotage. Search and Destroy and Capture
+the Flag had under half an hour on every map and have none of their own;
+mp_complex and mp_crash have none at all.
+
+A version 3 heatmap is refused by a client older than the one that reads
+it, which then plays the map without one: this set ships with the client
+release that carries the bots' watch, not before.
